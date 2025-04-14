@@ -42,6 +42,12 @@ kotlin {
         // Optional properties
         // Configure the Pod name here instead of changing the Gradle project name
         name = "MyCocoaPod"
+        ios.deploymentTarget = "16.0"
+
+        pod("GoogleMLKit/DigitalInkRecognition") {
+            moduleName = "MLKitDigitalInkRecognition"
+            version = "8.0.0"
+        }
 
         framework {
             // Required properties
