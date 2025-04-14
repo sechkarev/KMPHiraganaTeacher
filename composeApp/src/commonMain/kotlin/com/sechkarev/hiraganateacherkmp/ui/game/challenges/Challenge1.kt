@@ -29,7 +29,7 @@ fun Challenge1(
     Column(
         modifier = Modifier.padding(horizontal = 16.dp).then(modifier),
     ) {
-        Spacer(Modifier.height(48.dp))
+        Spacer(Modifier.height(24.dp))
         Text(
             text = stringResource(Res.string.challenge1_welcome_message),
             style = MaterialTheme.typography.headlineMedium,
