@@ -7,6 +7,7 @@ import com.sechkarev.hiraganateacherkmp.domain.GameRepository
 import com.sechkarev.hiraganateacherkmp.model.GameProgress
 import com.sechkarev.hiraganateacherkmp.model.Point
 import com.sechkarev.hiraganateacherkmp.model.Stroke
+import com.sechkarev.hiraganateacherkmp.textrecognition.TextRecognizer
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -33,7 +34,7 @@ sealed interface ChallengeCompletionError {
 
 class GameViewModel(
     private val gameRepository: GameRepository,
-    // private val textRecognizer: TextRecognizer,
+    private val textRecognizer: TextRecognizer,
 ) : ViewModel() {
     data class GameUiState(
         val gameProgress: GameProgress,
@@ -58,9 +59,6 @@ class GameViewModel(
         )
     val gameUiState = _gameUiState.asStateFlow()
 
-    // private var inkBuilder = Ink.builder()
-    // private var strokeBuilder = Ink.Stroke.builder()
-
     init {
         viewModelScope.launch {
             gameRepository
@@ -74,7 +72,7 @@ class GameViewModel(
                             challengeCompletionError = null,
                         )
                     }
-                    // inkBuilder = Ink.builder()
+                    textRecognizer.cleanCurrentData()
                 }
         }
     }
@@ -97,50 +95,50 @@ class GameViewModel(
                 drawnStrokes = uiState.drawnStrokes.plus(currentPath),
             )
         }
-//        inkBuilder.addStroke(strokeBuilder.build())
-//        val ink = inkBuilder.build()
-//        if (ink.strokes.size >= currentChallenge.answer.requiredStrokes) {
-//            viewModelScope.launch {
-//                val recognizedText = textRecognizer.recognizeText(ink)
-//                if (recognizedText == currentChallenge.answer.answerText) {
-//                    gameRepository.insertSolution(
-//                        challengeId = currentChallenge.name,
-//                        solution = _gameUiState.value.drawnStrokes,
-//                    )
-//                } else {
-//                    _gameUiState.update {
-//                        it.copy(challengeCompletionError = ChallengeCompletionError.WrongText(recognizedText))
-//                    }
-//                }
-//            }
-//        }
+        textRecognizer.completeStroke()
+        if (textRecognizer.currentStrokeAmount() >= currentChallenge.answer.requiredStrokes) {
+            viewModelScope.launch {
+                val recognizedText = textRecognizer.recognizeCurrentText()
+                if (recognizedText == currentChallenge.answer.answerText) {
+                    gameRepository.insertSolution(
+                        challengeId = currentChallenge.name,
+                        solution = _gameUiState.value.drawnStrokes,
+                    )
+                } else {
+                    _gameUiState.update {
+                        it.copy(challengeCompletionError = ChallengeCompletionError.WrongText(recognizedText))
+                    }
+                }
+            }
+        }
     }
 
     private fun onNewPathStart() {
         val currentChallenge = _gameUiState.value.gameProgress.currentChallenge ?: return
-//        if (_gameUiState.value.challengeCompletionError != null) {
-//            cleanCanvas()
-//        } else if (inkBuilder.build().strokes.size >= currentChallenge.answer.requiredStrokes) {
-//            return
-//        }
+        if (_gameUiState.value.challengeCompletionError != null) {
+            cleanCanvas()
+        } else if (textRecognizer.currentStrokeAmount() >= currentChallenge.answer.requiredStrokes) {
+            return
+        }
         _gameUiState.update { uiState ->
             uiState.copy(
                 currentStroke = Stroke(path = emptyList()),
             )
         }
-        // strokeBuilder = Ink.Stroke.builder()
+        textRecognizer.startNewStroke()
     }
 
     private fun onDraw(offset: Offset) {
+        val newPoint = Point(offset.x, offset.y)
         _gameUiState.update { uiState ->
             uiState.copy(
                 currentStroke =
                     uiState.currentStroke?.copy(
-                        path = uiState.currentStroke.path + Point(offset.x, offset.y),
+                        path = uiState.currentStroke.path + newPoint,
                     ),
             )
         }
-        // strokeBuilder.addPoint(Ink.Point.create(offset.x, offset.y))
+        textRecognizer.addNewPoint(newPoint)
     }
 
     private fun onClearCanvasClick() {
@@ -155,6 +153,6 @@ class GameViewModel(
                 challengeCompletionError = null,
             )
         }
-        // inkBuilder = Ink.builder()
+        textRecognizer.cleanCurrentData()
     }
 }

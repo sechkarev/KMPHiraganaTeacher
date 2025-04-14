@@ -3,6 +3,7 @@ package com.sechkarev.hiraganateacherkmp.ui.mainmenu
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sechkarev.hiraganateacherkmp.domain.GameRepository
+import com.sechkarev.hiraganateacherkmp.textrecognition.TextRecognizer
 import com.sechkarev.hiraganateacherkmp.utils.LengthyTask
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -14,7 +15,7 @@ import kotlinx.coroutines.launch
 
 class MainMenuViewModel(
     private val gameRepository: GameRepository,
-    // private val textRecognizer: TextRecognizer,
+    private val textRecognizer: TextRecognizer,
 ) : ViewModel() {
     private val _state = MutableStateFlow(UiState())
     val state =
@@ -58,7 +59,7 @@ class MainMenuViewModel(
         viewModelScope.launch {
             _state.update { it.copy(textRecognitionInitResult = LengthyTask.InProgress) }
             try {
-                // textRecognizer.init()
+                textRecognizer.init()
             } catch (throwable: Throwable) {
                 _state.update { it.copy(textRecognitionInitResult = LengthyTask.Error(throwable)) }
             }

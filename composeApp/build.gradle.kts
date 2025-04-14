@@ -37,6 +37,7 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
+            implementation(libs.digital.ink.recognition)
         }
         commonMain.dependencies {
             implementation(compose.runtime)

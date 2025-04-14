@@ -20,8 +20,7 @@ class CharacterListViewModel(
             .map { gameProgress ->
                 UiState(
                     putCharactersOnGrid(
-                        HiraganaCharacter.entries,
-                        // todo gameProgress.solvedChallenges.mapNotNull { it.challenge.newCharacter }
+                        gameProgress.solvedChallenges.mapNotNull { it.challenge.newCharacter },
                     ),
                 )
             }

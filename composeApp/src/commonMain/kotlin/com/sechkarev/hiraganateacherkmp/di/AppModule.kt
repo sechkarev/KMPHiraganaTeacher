@@ -15,11 +15,11 @@ import org.koin.dsl.module
 fun initKoin(config: KoinAppDeclaration? = null) {
     startKoin {
         config?.invoke(this)
-        modules(appModule, databaseModule)
+        modules(appModule, platformModule)
     }
 }
 
-expect val databaseModule: Module
+expect val platformModule: Module
 
 val appModule =
     module {
