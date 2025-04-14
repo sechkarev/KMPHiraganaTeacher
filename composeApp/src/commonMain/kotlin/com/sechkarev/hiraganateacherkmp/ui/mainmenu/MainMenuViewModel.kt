@@ -68,7 +68,7 @@ class MainMenuViewModel(
 
     private fun onDeleteGameDataClick() {
         viewModelScope.launch {
-            // gameRepository.deleteAllSolutions()
+            gameRepository.deleteAllSolutions()
         }
     }
 }

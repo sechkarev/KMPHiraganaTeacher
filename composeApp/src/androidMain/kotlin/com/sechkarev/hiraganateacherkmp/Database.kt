@@ -6,8 +6,8 @@ import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import com.sechkarev.hiraganateacherkmp.database.ChallengeSolutionDatabase
 import kotlinx.coroutines.Dispatchers
 
-fun getDatabase(ctx: Context): ChallengeSolutionDatabase {
-    val appContext = ctx.applicationContext
+fun getDatabase(context: Context): ChallengeSolutionDatabase {
+    val appContext = context.applicationContext
     val dbFile = appContext.getDatabasePath("challenges.db")
     return Room
         .databaseBuilder<ChallengeSolutionDatabase>(
