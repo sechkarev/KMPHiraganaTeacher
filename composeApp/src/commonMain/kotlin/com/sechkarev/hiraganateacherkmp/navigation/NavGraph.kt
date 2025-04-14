@@ -6,6 +6,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.sechkarev.hiraganateacherkmp.ui.characters.CharacterListScreen
+import com.sechkarev.hiraganateacherkmp.ui.credits.CreditsScreen
+import com.sechkarev.hiraganateacherkmp.ui.dictionary.DictionaryScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -48,9 +50,6 @@ fun NavGraph(modifier: Modifier = Modifier) {
              },
              )
              }
-             composable<Credits> {
-             CreditsScreen()
-             }
              composable<Game> {
              GameScreen(
              onReturnToMainMenuClick = {
@@ -58,10 +57,13 @@ fun NavGraph(modifier: Modifier = Modifier) {
              },
              )
              }
-             composable<Dictionary> {
-             DictionaryScreen()
-             }
              */
+            composable<Credits> {
+                CreditsScreen()
+            }
+            composable<Dictionary> {
+                DictionaryScreen()
+            }
             composable<CharacterList> {
                 CharacterListScreen()
             }
