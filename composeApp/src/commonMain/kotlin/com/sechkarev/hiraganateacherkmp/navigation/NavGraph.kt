@@ -56,16 +56,31 @@ fun NavGraph(modifier: Modifier = Modifier) {
                     onReturnToMainMenuClick = {
                         navController.navigateUp()
                     },
+                    onBackClick = {
+                        navController.navigateUp()
+                    },
                 )
             }
             composable<Credits> {
-                CreditsScreen()
+                CreditsScreen(
+                    onBackClick = {
+                        navController.navigateUp()
+                    },
+                )
             }
             composable<Dictionary> {
-                DictionaryScreen()
+                DictionaryScreen(
+                    onBackClick = {
+                        navController.navigateUp()
+                    },
+                )
             }
             composable<CharacterList> {
-                CharacterListScreen()
+                CharacterListScreen(
+                    onBackClick = {
+                        navController.navigateUp()
+                    },
+                )
             }
         },
     )

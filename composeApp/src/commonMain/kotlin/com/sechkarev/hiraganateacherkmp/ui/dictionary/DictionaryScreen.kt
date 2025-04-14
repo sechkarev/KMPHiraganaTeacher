@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sechkarev.hiraganateacherkmp.model.DictionaryItem
+import com.sechkarev.hiraganateacherkmp.ui.components.TopBarWithBackIcon
 import kmphiraganateacher.composeapp.generated.resources.Res
 import kmphiraganateacher.composeapp.generated.resources.dictionary_screen_subtitle
 import kmphiraganateacher.composeapp.generated.resources.dictionary_screen_title
@@ -26,10 +27,19 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun DictionaryScreen(
+    onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: DictionaryViewModel = koinViewModel(),
 ) {
-    Scaffold(modifier = modifier.fillMaxSize()) { innerPadding ->
+    Scaffold(
+        modifier = modifier.fillMaxSize(),
+        topBar = {
+            TopBarWithBackIcon(
+                title = stringResource(Res.string.dictionary_screen_title),
+                onBackClick = onBackClick,
+            )
+        },
+    ) { innerPadding ->
 
         val uiState = viewModel.uiState.collectAsStateWithLifecycle(DictionaryViewModel.UiState(emptyList()))
 
@@ -37,7 +47,7 @@ fun DictionaryScreen(
             val dictionaryItems = uiState.value.items
 
             item {
-                Spacer(Modifier.height(48.dp))
+                Spacer(Modifier.height(24.dp))
                 Text(
                     text = stringResource(Res.string.dictionary_screen_title),
                     style = MaterialTheme.typography.headlineLarge,

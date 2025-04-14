@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sechkarev.hiraganateacherkmp.model.Challenge
 import com.sechkarev.hiraganateacherkmp.model.Stroke
+import com.sechkarev.hiraganateacherkmp.ui.components.TopBarWithBackIcon
 import com.sechkarev.hiraganateacherkmp.ui.game.GameViewModel.GameUiState
 import com.sechkarev.hiraganateacherkmp.ui.game.challenges.Challenge1
 import com.sechkarev.hiraganateacherkmp.ui.game.challenges.Challenge2
@@ -25,17 +26,29 @@ import com.sechkarev.hiraganateacherkmp.ui.game.challenges.Challenge8
 import com.sechkarev.hiraganateacherkmp.ui.game.challenges.Challenge9
 import com.sechkarev.hiraganateacherkmp.ui.game.challenges.ChallengeUiState
 import com.sechkarev.hiraganateacherkmp.ui.game.challenges.GameCompletedMessage
+import kmphiraganateacher.composeapp.generated.resources.Res
+import kmphiraganateacher.composeapp.generated.resources.app_name
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun GameScreen(
+    onBackClick: () -> Unit,
     onReturnToMainMenuClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: GameViewModel = koinViewModel(),
 ) {
     val gameUiState by viewModel.gameUiState.collectAsStateWithLifecycle()
 
-    Scaffold(modifier = modifier.fillMaxSize()) { innerPadding ->
+    Scaffold(
+        modifier = modifier.fillMaxSize(),
+        topBar = {
+            TopBarWithBackIcon(
+                title = stringResource(Res.string.app_name),
+                onBackClick = onBackClick,
+            )
+        },
+    ) { innerPadding ->
         LazyColumn(
             // always scroll to the very bottom, to the current challenge
             state = rememberLazyListState(initialFirstVisibleItemIndex = Int.MAX_VALUE),

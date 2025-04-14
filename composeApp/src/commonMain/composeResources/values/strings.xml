@@ -30,6 +30,7 @@
     <string name="answer_appearance_hint_description">A hint reminding how the hiragana character %1$s looks like</string>
     <string name="game_completion_message">Congratulations, you have beaten every challenge I’ve got! The game is completed, but you can return to the main menu and revisit every character and word you have learned!</string>
     <string name="game_completion_button_text">Back to the main menu</string>
+    <string name="credits_screen_title">Credits</string>
     <string name="credits_developer_image_description">A photo of the developer</string>
     <string name="credits_developer">Developed by:</string>
     <string name="credits_developer_name">Vladimir Sechkarev</string>
@@ -49,4 +50,5 @@
     <string name="dictionary_word_iie">No 👎</string>
     <string name="dictionary_word_hai">Yes 👍</string>
     <string name="dictionary_word_new">New word!</string>
+    <string name="accessibility_return_to_main_menu_button">Return to main menu</string>
 </resources>

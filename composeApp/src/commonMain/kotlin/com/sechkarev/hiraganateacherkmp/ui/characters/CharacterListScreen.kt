@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sechkarev.hiraganateacherkmp.model.HiraganaCharacter
 import com.sechkarev.hiraganateacherkmp.model.HiraganaCharacterOnGrid
+import com.sechkarev.hiraganateacherkmp.ui.components.TopBarWithBackIcon
 import kmphiraganateacher.composeapp.generated.resources.Res
 import kmphiraganateacher.composeapp.generated.resources.characters_screen_subtitle
 import kmphiraganateacher.composeapp.generated.resources.characters_screen_title
@@ -32,16 +33,25 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun CharacterListScreen(
+    onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: CharacterListViewModel = koinViewModel(),
 ) {
-    Scaffold(modifier) { innerPadding ->
+    Scaffold(
+        modifier = modifier,
+        topBar = {
+            TopBarWithBackIcon(
+                title = stringResource(Res.string.characters_screen_title),
+                onBackClick = onBackClick,
+            )
+        },
+    ) { innerPadding ->
         val uiState = viewModel.uiState.collectAsStateWithLifecycle(CharacterListViewModel.UiState(emptyList()))
 
         Column(modifier = Modifier.padding(innerPadding)) {
             val characterItems = uiState.value.gridItems
 
-            Spacer(Modifier.height(48.dp))
+            Spacer(Modifier.height(24.dp))
             Text(
                 text = stringResource(Res.string.characters_screen_title),
                 style = MaterialTheme.typography.headlineLarge,
