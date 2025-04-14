@@ -41,6 +41,7 @@ fun CharacterListScreen(
         Column(modifier = Modifier.padding(innerPadding)) {
             val characterItems = uiState.value.gridItems
 
+            Spacer(Modifier.height(48.dp))
             Text(
                 text = stringResource(Res.string.characters_screen_title),
                 style = MaterialTheme.typography.headlineLarge,

@@ -16,7 +16,6 @@ import com.sechkarev.hiraganateacherkmp.ui.components.AnimatedHiraganaCharacter
 import kmphiraganateacher.composeapp.generated.resources.Res
 import kmphiraganateacher.composeapp.generated.resources.challenge3_task
 import kmphiraganateacher.composeapp.generated.resources.challenge3_text
-import kmphiraganateacher.composeapp.generated.resources.hiragana_animated_e
 import kmphiraganateacher.composeapp.generated.resources.hiragana_static_e
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -34,7 +33,7 @@ fun Challenge3(
         )
         Spacer(Modifier.height(16.dp))
         AnimatedHiraganaCharacter(
-            animationRes = Res.drawable.hiragana_animated_e,
+            resourceName = "hiragana_animated_e",
             animatedCharacter = HiraganaCharacter.E.spelling,
             modifier = Modifier.align(Alignment.CenterHorizontally),
         )

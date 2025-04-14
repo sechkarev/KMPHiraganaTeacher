@@ -38,6 +38,8 @@ kotlin {
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
             implementation(libs.digital.ink.recognition)
+            implementation(libs.coil.compose)
+            implementation(libs.coil.gif)
         }
         commonMain.dependencies {
             implementation(compose.runtime)

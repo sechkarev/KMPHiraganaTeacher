@@ -2,7 +2,7 @@ package com.sechkarev.hiraganateacherkmp.textrecognition
 
 import com.sechkarev.hiraganateacherkmp.model.Point
 
-// todo
+// todo: add text recognition to iOS
 actual class TextRecognizer {
     actual suspend fun init() {
     }
