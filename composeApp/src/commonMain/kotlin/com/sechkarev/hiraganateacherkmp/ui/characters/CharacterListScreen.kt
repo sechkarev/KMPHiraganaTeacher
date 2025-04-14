@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -34,76 +35,77 @@ fun CharacterListScreen(
     modifier: Modifier = Modifier,
     viewModel: CharacterListViewModel = koinViewModel(),
 ) {
-    val uiState = viewModel.uiState.collectAsStateWithLifecycle(CharacterListViewModel.UiState(emptyList()))
+    Scaffold(modifier) { innerPadding ->
+        val uiState = viewModel.uiState.collectAsStateWithLifecycle(CharacterListViewModel.UiState(emptyList()))
 
-    Column(modifier = modifier.fillMaxSize()) {
-        val characterItems = uiState.value.gridItems
+        Column(modifier = Modifier.padding(innerPadding)) {
+            val characterItems = uiState.value.gridItems
 
-        Spacer(Modifier.height(48.dp))
-        Text(
-            text = stringResource(Res.string.characters_screen_title),
-            style = MaterialTheme.typography.headlineLarge,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth(),
-        )
-        Text(
-            text =
-                stringResource(
-                    Res.string.characters_screen_subtitle,
-                    characterItems.filter { it is HiraganaCharacterOnGrid.Filled }.size,
-                    HiraganaCharacter.entries.size,
-                ),
-            style = MaterialTheme.typography.bodyLarge,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth(),
-        )
-        Spacer(Modifier.height(24.dp))
+            Text(
+                text = stringResource(Res.string.characters_screen_title),
+                style = MaterialTheme.typography.headlineLarge,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth(),
+            )
+            Text(
+                text =
+                    stringResource(
+                        Res.string.characters_screen_subtitle,
+                        characterItems.filter { it is HiraganaCharacterOnGrid.Filled }.size,
+                        HiraganaCharacter.entries.size,
+                    ),
+                style = MaterialTheme.typography.bodyLarge,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth(),
+            )
+            Spacer(Modifier.height(24.dp))
 
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(5),
-            content = {
-                items(characterItems) { gridItem ->
-                    Box(
-                        modifier =
-                            Modifier
-                                .background(
-                                    color =
-                                        if (gridItem is HiraganaCharacterOnGrid.Null) {
-                                            Color.LightGray
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(5),
+                content = {
+                    items(characterItems) { gridItem ->
+                        Box(
+                            modifier =
+                                Modifier
+                                    .background(
+                                        color =
+                                            if (gridItem is HiraganaCharacterOnGrid.Null) {
+                                                Color.LightGray
+                                            } else {
+                                                Color.Transparent
+                                            },
+                                    ).border(width = 0.5.dp, Color.Gray)
+                                    .fillMaxSize(),
+                        ) {
+                            Column(Modifier.fillMaxSize()) {
+                                Text(
+                                    text =
+                                        if (gridItem is HiraganaCharacterOnGrid.Filled) {
+                                            gridItem.character.spelling.toString()
                                         } else {
-                                            Color.Transparent
+                                            ""
                                         },
-                                ).border(width = 0.5.dp, Color.Gray)
-                                .fillMaxSize(),
-                    ) {
-                        Column(Modifier.fillMaxSize()) {
-                            Text(
-                                text =
-                                    if (gridItem is HiraganaCharacterOnGrid.Filled) {
-                                        gridItem.character.spelling.toString()
-                                    } else {
-                                        ""
-                                    },
-                                modifier = Modifier.align(Alignment.CenterHorizontally),
-                            )
-                            Text(
-                                text =
-                                    if (gridItem is HiraganaCharacterOnGrid.Filled) {
-                                        gridItem.character.pronunciation.toString()
-                                    } else {
-                                        ""
-                                    },
-                                modifier = Modifier.align(Alignment.CenterHorizontally),
-                            )
+                                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                                )
+                                Text(
+                                    text =
+                                        if (gridItem is HiraganaCharacterOnGrid.Filled) {
+                                            gridItem.character.pronunciation.toString()
+                                        } else {
+                                            ""
+                                        },
+                                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                                )
+                            }
                         }
                     }
-                }
-            },
-            modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-                    .border(width = 1.dp, Color.Gray),
-        )
+                },
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                        .border(width = 1.dp, Color.Gray),
+            )
+        }
     }
 }

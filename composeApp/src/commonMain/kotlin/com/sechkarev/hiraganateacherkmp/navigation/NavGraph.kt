@@ -8,6 +8,8 @@ import androidx.navigation.compose.rememberNavController
 import com.sechkarev.hiraganateacherkmp.ui.characters.CharacterListScreen
 import com.sechkarev.hiraganateacherkmp.ui.credits.CreditsScreen
 import com.sechkarev.hiraganateacherkmp.ui.dictionary.DictionaryScreen
+import com.sechkarev.hiraganateacherkmp.ui.game.GameScreen
+import com.sechkarev.hiraganateacherkmp.ui.mainmenu.MainMenuScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -31,33 +33,31 @@ fun NavGraph(modifier: Modifier = Modifier) {
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = CharacterList,
+        startDestination = MainMenu,
         builder = {
-            /**
-             composable<MainMenu> {
-             MainMenuScreen(
-             onStartGameClick = {
-             navController.navigate(Game)
-             },
-             onCreditsClick = {
-             navController.navigate(Credits)
-             },
-             onDictionaryClick = {
-             navController.navigate(Dictionary)
-             },
-             onCharacterListClick = {
-             navController.navigate(CharacterList)
-             },
-             )
-             }
-             composable<Game> {
-             GameScreen(
-             onReturnToMainMenuClick = {
-             navController.navigateUp()
-             },
-             )
-             }
-             */
+            composable<MainMenu> {
+                MainMenuScreen(
+                    onStartGameClick = {
+                        navController.navigate(Game)
+                    },
+                    onCreditsClick = {
+                        navController.navigate(Credits)
+                    },
+                    onDictionaryClick = {
+                        navController.navigate(Dictionary)
+                    },
+                    onCharacterListClick = {
+                        navController.navigate(CharacterList)
+                    },
+                )
+            }
+            composable<Game> {
+                GameScreen(
+                    onReturnToMainMenuClick = {
+                        navController.navigateUp()
+                    },
+                )
+            }
             composable<Credits> {
                 CreditsScreen()
             }

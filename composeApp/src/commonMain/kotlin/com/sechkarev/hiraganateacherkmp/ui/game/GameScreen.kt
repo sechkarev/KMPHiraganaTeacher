@@ -1,0 +1,103 @@
+package com.sechkarev.hiraganateacherkmp.ui.game
+
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.sechkarev.hiraganateacherkmp.model.Challenge
+import com.sechkarev.hiraganateacherkmp.model.Stroke
+import com.sechkarev.hiraganateacherkmp.ui.game.GameViewModel.GameUiState
+import com.sechkarev.hiraganateacherkmp.ui.game.challenges.ChallengeUiState
+import com.sechkarev.hiraganateacherkmp.ui.game.challenges.GameCompletedMessage
+import org.koin.compose.viewmodel.koinViewModel
+
+@Composable
+fun GameScreen(
+    onReturnToMainMenuClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: GameViewModel = koinViewModel(),
+) {
+    val gameUiState by viewModel.gameUiState.collectAsStateWithLifecycle()
+
+    Scaffold(modifier = modifier.fillMaxSize()) { innerPadding ->
+        LazyColumn(
+            // always scroll to the very bottom, to the current challenge
+            state = rememberLazyListState(initialFirstVisibleItemIndex = Int.MAX_VALUE),
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
+        ) {
+            items(gameUiState.gameProgress.solvedChallenges) {
+                Challenge(
+                    gameUiState = gameUiState,
+                    challenge = it.challenge,
+                    solution = it.solution,
+                    onAction = viewModel::onAction,
+                )
+            }
+            val currentChallenge = gameUiState.gameProgress.currentChallenge
+            if (currentChallenge != null) {
+                item {
+                    Challenge(
+                        gameUiState = gameUiState,
+                        challenge = currentChallenge,
+                        solution = null,
+                        onAction = viewModel::onAction,
+                    )
+                }
+            }
+            if (gameUiState.gameProgress.gameCompleted) {
+                item {
+                    GameCompletedMessage(
+                        onReturnToMainMenuClick = onReturnToMainMenuClick,
+                        modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 24.dp),
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun Challenge(
+    gameUiState: GameUiState,
+    challenge: Challenge,
+    solution: List<Stroke>?,
+    onAction: (DrawingAction) -> Unit,
+) {
+    val challengeUiState =
+        if (solution == null) {
+            ChallengeUiState.Current(
+                challenge = challenge,
+                drawnStrokes = gameUiState.drawnStrokes,
+                currentStroke = gameUiState.currentStroke,
+                completionError = gameUiState.challengeCompletionError,
+                onAction = onAction,
+            )
+        } else {
+            ChallengeUiState.Completed(
+                challenge = challenge,
+                solution = solution,
+            )
+        }
+    // todo: can I make this mapping better?
+//    return when (challenge) {
+//        Challenge.Challenge1 -> Challenge1(challengeUiState)
+//        Challenge.Challenge2 -> Challenge2(challengeUiState)
+//        Challenge.Challenge3 -> Challenge3(challengeUiState)
+//        Challenge.Challenge4 -> Challenge4(challengeUiState)
+//        Challenge.Challenge5 -> Challenge5(challengeUiState)
+//        Challenge.Challenge6 -> Challenge6(challengeUiState)
+//        Challenge.Challenge7 -> Challenge7(challengeUiState)
+//        Challenge.Challenge8 -> Challenge8(challengeUiState)
+//        Challenge.Challenge9 -> Challenge9(challengeUiState)
+//    }
+}
