@@ -71,6 +71,7 @@ fun DrawingChallenge(
                         if (hintImageRes != null) {
                             Image(
                                 painter = painterResource(hintImageRes),
+                                modifier = Modifier.fillMaxSize(),
                                 alpha = 0.1f,
                                 contentScale = ContentScale.FillWidth,
                                 contentDescription =
