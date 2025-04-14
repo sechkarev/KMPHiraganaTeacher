@@ -1,0 +1,37 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "0814eac99332face8d3a87564d3e5522",
+    "entities": [
+      {
+        "tableName": "ChallengeSolutionEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`challengeId` TEXT NOT NULL, `solution` TEXT NOT NULL, PRIMARY KEY(`challengeId`))",
+        "fields": [
+          {
+            "fieldPath": "challengeId",
+            "columnName": "challengeId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "solution",
+            "columnName": "solution",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "challengeId"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0814eac99332face8d3a87564d3e5522')"
+    ]
+  }
+}

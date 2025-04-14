@@ -1,4 +1,3 @@
-import org.gradle.kotlin.dsl.implementation
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -8,6 +7,8 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.room)
 }
 
 kotlin {
@@ -48,9 +49,13 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.navigation.compose)
             implementation(libs.kotlinx.serialization.json)
+
             api(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
+
+            implementation(libs.room.runtime)
+            implementation(libs.sqlite.bundled)
         }
     }
 }
@@ -91,6 +96,11 @@ android {
     }
 }
 
+room {
+    schemaDirectory("$projectDir/schemas")
+}
+
 dependencies {
     debugImplementation(compose.uiTooling)
+    ksp(libs.room.compiler)
 }
