@@ -1,7 +1,7 @@
 [versions]
 agp = "8.5.2"
 android-compileSdk = "35"
-android-minSdk = "24"
+android-minSdk = "28"
 android-targetSdk = "35"
 androidx-activityCompose = "1.10.1"
 androidx-appcompat = "1.7.0"
@@ -11,9 +11,9 @@ androidx-espresso-core = "3.6.1"
 androidx-lifecycle = "2.8.4"
 androidx-material = "1.12.0"
 androidx-test-junit = "1.2.1"
-coil = "3.1.0"
 compose-multiplatform = "1.7.3"
 junit = "4.13.2"
+kamel = "1.0.3"
 kotlin = "2.1.20"
 serialization-json = "1.8.1"
 navigationCompose = "2.8.0-alpha10"
@@ -24,8 +24,7 @@ sqlite = "2.5.0"
 digitalInkRecognition = "18.1.0"
 
 [libraries]
-coil-gif = { module = "io.coil-kt.coil3:coil-gif", version.ref = "coil" }
-coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+kamel = { module = "media.kamel:kamel-image-default", version.ref = "kamel" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

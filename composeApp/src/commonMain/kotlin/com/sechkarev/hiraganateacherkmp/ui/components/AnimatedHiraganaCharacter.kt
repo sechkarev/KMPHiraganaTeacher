@@ -24,6 +24,6 @@ fun AnimatedHiraganaCharacter(
                 .border(width = 1.dp, color = Color.Black)
                 .then(modifier),
         contentDescription = stringResource(Res.string.animated_character_drawing_description, animatedCharacter.toString()),
-        url = Res.getUri("drawable/$resourceName.gif"),
+        fileResourcePath = "drawable/$resourceName.gif",
     )
 }

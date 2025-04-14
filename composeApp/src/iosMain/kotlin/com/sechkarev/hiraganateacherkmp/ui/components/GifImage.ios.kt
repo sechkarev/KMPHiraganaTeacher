@@ -1,13 +1,8 @@
 package com.sechkarev.hiraganateacherkmp.ui.components
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import io.kamel.core.utils.File
+import kmphiraganateacher.composeapp.generated.resources.Res
+import org.jetbrains.compose.resources.ExperimentalResourceApi
 
-@Composable
-actual fun GifImage(
-    url: String,
-    contentDescription: String,
-    modifier: Modifier,
-) {
-    // todo: add gif support to iOS
-}
+@OptIn(ExperimentalResourceApi::class)
+actual suspend fun getResourceFile(fileResourcePath: String): File = File(Res.getUri(fileResourcePath).substringAfter("file://"))
