@@ -14,6 +14,15 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sechkarev.hiraganateacherkmp.model.Challenge
 import com.sechkarev.hiraganateacherkmp.model.Stroke
 import com.sechkarev.hiraganateacherkmp.ui.game.GameViewModel.GameUiState
+import com.sechkarev.hiraganateacherkmp.ui.game.challenges.Challenge1
+import com.sechkarev.hiraganateacherkmp.ui.game.challenges.Challenge2
+import com.sechkarev.hiraganateacherkmp.ui.game.challenges.Challenge3
+import com.sechkarev.hiraganateacherkmp.ui.game.challenges.Challenge4
+import com.sechkarev.hiraganateacherkmp.ui.game.challenges.Challenge5
+import com.sechkarev.hiraganateacherkmp.ui.game.challenges.Challenge6
+import com.sechkarev.hiraganateacherkmp.ui.game.challenges.Challenge7
+import com.sechkarev.hiraganateacherkmp.ui.game.challenges.Challenge8
+import com.sechkarev.hiraganateacherkmp.ui.game.challenges.Challenge9
 import com.sechkarev.hiraganateacherkmp.ui.game.challenges.ChallengeUiState
 import com.sechkarev.hiraganateacherkmp.ui.game.challenges.GameCompletedMessage
 import org.koin.compose.viewmodel.koinViewModel
@@ -88,16 +97,16 @@ private fun Challenge(
                 solution = solution,
             )
         }
-    // todo: can I make this mapping better?
-//    return when (challenge) {
-//        Challenge.Challenge1 -> Challenge1(challengeUiState)
-//        Challenge.Challenge2 -> Challenge2(challengeUiState)
-//        Challenge.Challenge3 -> Challenge3(challengeUiState)
-//        Challenge.Challenge4 -> Challenge4(challengeUiState)
-//        Challenge.Challenge5 -> Challenge5(challengeUiState)
-//        Challenge.Challenge6 -> Challenge6(challengeUiState)
-//        Challenge.Challenge7 -> Challenge7(challengeUiState)
-//        Challenge.Challenge8 -> Challenge8(challengeUiState)
-//        Challenge.Challenge9 -> Challenge9(challengeUiState)
-//    }
+//     todo: can I make this mapping better?
+    return when (challenge) {
+        Challenge.Challenge1 -> Challenge1(challengeUiState)
+        Challenge.Challenge2 -> Challenge2(challengeUiState)
+        Challenge.Challenge3 -> Challenge3(challengeUiState)
+        Challenge.Challenge4 -> Challenge4(challengeUiState)
+        Challenge.Challenge5 -> Challenge5(challengeUiState)
+        Challenge.Challenge6 -> Challenge6(challengeUiState)
+        Challenge.Challenge7 -> Challenge7(challengeUiState)
+        Challenge.Challenge8 -> Challenge8(challengeUiState)
+        Challenge.Challenge9 -> Challenge9(challengeUiState)
+    }
 }
