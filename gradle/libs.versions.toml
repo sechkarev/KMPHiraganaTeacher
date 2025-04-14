@@ -1,5 +1,5 @@
 [versions]
-agp = "8.5.2"
+agp = "8.9.1"
 android-compileSdk = "35"
 android-minSdk = "28"
 android-targetSdk = "35"
@@ -60,3 +60,4 @@ kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", versio
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 room = { id = "androidx.room", version.ref = "room" }
+kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
