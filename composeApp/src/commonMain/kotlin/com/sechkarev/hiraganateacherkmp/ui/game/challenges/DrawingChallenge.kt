@@ -16,16 +16,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.sechkarev.hiraganateacherkmp.ui.components.DrawingCanvas
 import com.sechkarev.hiraganateacherkmp.ui.components.StaticCanvas
 import com.sechkarev.hiraganateacherkmp.ui.components.drawingCanvasSize
 import com.sechkarev.hiraganateacherkmp.ui.game.ChallengeCompletionError
+import com.sechkarev.hiraganateacherkmp.ui.game.TimerState
 import kmphiraganateacher.composeapp.generated.resources.Res
 import kmphiraganateacher.composeapp.generated.resources.answer_appearance_hint_description
 import kmphiraganateacher.composeapp.generated.resources.challenge_text_recognition_mistake
+import kmphiraganateacher.composeapp.generated.resources.timer_idle
+import kmphiraganateacher.composeapp.generated.resources.timer_time_remaining
+import kmphiraganateacher.composeapp.generated.resources.timer_timeout
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -99,9 +105,30 @@ fun DrawingChallenge(
                         )
                     }
                     Spacer(Modifier.height(8.dp))
+                    if (challengeState.challenge.secondsToComplete != null) {
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center,
+                            text =
+                                if (challengeState.completionError is ChallengeCompletionError.Timeout) {
+                                    stringResource(Res.string.timer_timeout)
+                                } else {
+                                    when (challengeState.timerState) {
+                                        TimerState.Idle -> stringResource(Res.string.timer_idle)
+                                        is TimerState.Running ->
+                                            pluralStringResource(
+                                                Res.plurals.timer_time_remaining,
+                                                challengeState.timerState.remainingSeconds,
+                                                challengeState.timerState.remainingSeconds,
+                                            )
+                                    }
+                                },
+                        )
+                        Spacer(Modifier.height(8.dp))
+                    }
                     // This is a hack I introduced so the canvas doesn't move around during drawing:
                     // The error message is always drawn, it's just invisible when there is no error.
-                    // todo: rethink in the future?
+                    // todo: rethink in the future? I can use keys of lazy column.
                     val erroneouslyRecognizedText = (challengeState.completionError as? ChallengeCompletionError.WrongText)?.text
                     Text(
                         text =

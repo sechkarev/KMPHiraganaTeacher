@@ -4,6 +4,7 @@ import com.sechkarev.hiraganateacherkmp.model.Challenge
 import com.sechkarev.hiraganateacherkmp.model.Stroke
 import com.sechkarev.hiraganateacherkmp.ui.game.ChallengeCompletionError
 import com.sechkarev.hiraganateacherkmp.ui.game.DrawingAction
+import com.sechkarev.hiraganateacherkmp.ui.game.TimerState
 
 sealed interface ChallengeUiState {
     val challenge: Challenge
@@ -18,6 +19,7 @@ sealed interface ChallengeUiState {
         val drawnStrokes: List<Stroke>,
         val currentStroke: Stroke?,
         val completionError: ChallengeCompletionError?,
+        val timerState: TimerState,
         val onAction: (DrawingAction) -> Unit,
     ) : ChallengeUiState
 }

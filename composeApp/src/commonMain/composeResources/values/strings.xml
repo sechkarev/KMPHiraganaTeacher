@@ -25,6 +25,7 @@
     <string name="challenge8_task">Yes, you have seen exactly zero consonants yet, but in Japanese, words comprising only vocals are much more common than in English.\nThere’s another one actually! Draw IIE. You have 6 strokes.</string>
     <string name="challenge9_congratulations">Surprise-surprise! IIE is also a word 🎉</string>
     <string name="challenge9_task">A new task. Are you afraid to continue? Answer in Japanese.</string>
+    <string name="challenge10_text">Good, because the next challenge is timed. You need to know how to draw characters fast!\nThe timer isn’t running yet: it will turn on once you start drawing. You'll have 10 seconds.\nThe question is: are you afraid this time? Answer in Japanese, 6 strokes.</string>
     <string name="challenge_text_recognition_mistake">Uh-oh! The computer recognises your drawing as %1$s. Try again!</string>
     <string name="animated_character_drawing_description">An animation showcasing how to draw the hiragana character %1$s</string>
     <string name="answer_appearance_hint_description">A hint reminding how the hiragana character %1$s looks like</string>
@@ -51,4 +52,10 @@
     <string name="dictionary_word_hai">Yes 👍</string>
     <string name="dictionary_word_new">New word!</string>
     <string name="accessibility_return_to_main_menu_button">Return to main menu</string>
+    <string name="timer_idle">Start drawing!</string>
+    <string name="timer_timeout">Timeout! Try again!</string>
+    <plurals name="timer_time_remaining">
+        <item quantity="one">One second remaining!</item>
+        <item quantity="other">%1$d seconds remaining!</item>
+    </plurals>
 </resources>
