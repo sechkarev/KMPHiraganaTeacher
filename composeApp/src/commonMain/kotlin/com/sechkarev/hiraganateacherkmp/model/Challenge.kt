@@ -151,4 +151,8 @@ enum class Challenge(
         answer = Answer.HAI,
         dictionaryItem = DictionaryItem.HAI,
     ),
+    Challenge15(
+        answer = Answer.HAI,
+        secondsToComplete = 5,
+    ),
 }

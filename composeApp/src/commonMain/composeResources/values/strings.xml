@@ -31,6 +31,7 @@
     <string name="challenge12_task">Now draw it yourself. Use three strokes.</string>
     <string name="challenge13_task">And once again, without a hint. For good measure.</string>
     <string name="challenge14_task">Okay, you are ready now. Do you wish to continue? Answer in Japanese and use exactly five strokes.</string>
+    <string name="challenge15_task">「はい」(yes, this is how Japanese quotation marks look like) is also a word you need to learn to write fast. I’ll give you five seconds. Off you go!</string>
     <string name="challenge_text_recognition_mistake">Uh-oh! The computer recognises your drawing as %1$s. Try again!</string>
     <string name="animated_character_drawing_description">An animation showcasing how to draw the hiragana character %1$s</string>
     <string name="answer_appearance_hint_description">A hint reminding how the hiragana character %1$s looks like</string>
