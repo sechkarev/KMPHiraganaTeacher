@@ -168,6 +168,7 @@ enum class Challenge(
     ),
     Challenge18(
         answer = Answer.AI,
+        dictionaryItem = DictionaryItem.AI,
     ),
     Challenge19(
         answer = Answer.AI,
