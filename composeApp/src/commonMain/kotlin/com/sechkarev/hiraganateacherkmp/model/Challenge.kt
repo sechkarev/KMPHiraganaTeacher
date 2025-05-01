@@ -18,6 +18,7 @@ enum class Answer(
     E(answerText = "え", requiredStrokes = 2),
     IE(answerText = "いえ", requiredStrokes = 4),
     IIE(answerText = "いいえ", requiredStrokes = 6),
+    HA(answerText = "は", requiredStrokes = 3),
 }
 
 enum class DictionaryItem(
@@ -135,5 +136,9 @@ enum class Challenge(
     Challenge11(
         answer = Answer.IIE,
         secondsToComplete = 5,
+    ),
+    Challenge12(
+        answer = Answer.HA,
+        newCharacter = HiraganaCharacter.HA,
     ),
 }

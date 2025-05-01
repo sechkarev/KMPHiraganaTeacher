@@ -13,7 +13,7 @@
     <string name="main_menu_snackbar_game_data_deleted">All game data has been deleted.</string>
     <string name="challenge1_welcome_message">Welcome!</string>
     <string name="challenge1_text">The Japanese language is special, because it uses three different writing systems: hiragana and katakana, two syllabaries (syllable alphabets) invented in the 9th century, and the Chinese characters (kanji) which were imported even earlier.\nThis app is intended to teach you hiragana: the system most learners start with, because it has the most widespread use.\nLet’s get into it! We’ll start with the vocals. This is I, pronounced like ‘e’ in ‘me’.</string>
-    <string name="challenge1_task">Now try to draw it yourself! Use exactly 2 strokes: draw first the left part, then the right.</string>
+    <string name="challenge1_task">Now try to draw it yourself! Use exactly two strokes: draw first the left part, then the right.</string>
     <string name="challenge2_task">Good, we’re off to a good start! Now do it again in the same manner, so you do not forget it in a minute.</string>
     <string name="challenge3_text">Great! Let’s continue. This is E. Sounds like the first ‘e’ in ‘every’.</string>
     <string name="challenge3_task">Draw it! Start from the top. Again, two strokes only.</string>
@@ -27,6 +27,8 @@
     <string name="challenge9_task">A new task. Are you afraid to continue? Answer in Japanese.</string>
     <string name="challenge10_text">It’s good that you’re fearless, because the next challenge is timed. You need to know how to draw characters fast!\nThe timer isn’t running yet: it will turn on once you start drawing. You'll have 10 seconds.\nThe question is: are you afraid this time? Answer in Japanese.</string>
     <string name="challenge11_text">You made it! Now... what if instead of ten seconds you had just five? It’s less than a second per stroke!\nThis is probably the toughest challenge you’ve encountered so far. Will you fail it? Answer in Japanese.</string>
+    <string name="challenge12_text">People usually learn vocals first, but since you know how to say no now, let’s make a quick detour to learn its counterpart. The Japanese for yes is HAI.\nThis word comprises two characters: one for HA and I, which you already know. There is no character just for H in Japanese: every consonant must be superseded by a vocal. There is one exception though... which we’ll get to in due time.\nFirst things first, let’s learn how to draw HA.</string>
+    <string name="challenge12_task">Now draw it yourself. Use three strokes.</string>
     <string name="challenge_text_recognition_mistake">Uh-oh! The computer recognises your drawing as %1$s. Try again!</string>
     <string name="animated_character_drawing_description">An animation showcasing how to draw the hiragana character %1$s</string>
     <string name="answer_appearance_hint_description">A hint reminding how the hiragana character %1$s looks like</string>

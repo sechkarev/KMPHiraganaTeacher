@@ -14,46 +14,37 @@ import com.sechkarev.hiraganateacherkmp.model.Challenge
 import com.sechkarev.hiraganateacherkmp.model.HiraganaCharacter
 import com.sechkarev.hiraganateacherkmp.ui.components.AnimatedHiraganaCharacter
 import kmphiraganateacher.composeapp.generated.resources.Res
-import kmphiraganateacher.composeapp.generated.resources.challenge1_task
-import kmphiraganateacher.composeapp.generated.resources.challenge1_text
-import kmphiraganateacher.composeapp.generated.resources.challenge1_welcome_message
-import kmphiraganateacher.composeapp.generated.resources.hiragana_static_i
+import kmphiraganateacher.composeapp.generated.resources.challenge12_task
+import kmphiraganateacher.composeapp.generated.resources.challenge12_text
+import kmphiraganateacher.composeapp.generated.resources.hiragana_static_ha
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun Challenge1(
+fun Challenge12(
     challengeState: ChallengeUiState,
     modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = Modifier.padding(horizontal = 16.dp).then(modifier),
     ) {
-        Spacer(Modifier.height(24.dp))
         Text(
-            text = stringResource(Res.string.challenge1_welcome_message),
-            style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-        )
-        Spacer(Modifier.height(24.dp))
-        Text(
-            text = stringResource(Res.string.challenge1_text),
+            text = stringResource(Res.string.challenge12_text),
         )
         Spacer(Modifier.height(16.dp))
         AnimatedHiraganaCharacter(
-            resourceName = "hiragana_animated_i",
-            animatedCharacter = HiraganaCharacter.I.spelling,
+            resourceName = "hiragana_animated_ha",
+            animatedCharacter = HiraganaCharacter.HA.spelling,
             modifier = Modifier.align(Alignment.CenterHorizontally),
         )
-        // todo: SOUNDS
         Spacer(Modifier.height(16.dp))
         Text(
-            text = stringResource(Res.string.challenge1_task),
+            text = stringResource(Res.string.challenge12_task),
         )
         Spacer(Modifier.height(16.dp))
         DrawingChallenge(
             challengeState = challengeState,
-            hintImageRes = Res.drawable.hiragana_static_i,
+            hintImageRes = Res.drawable.hiragana_static_ha,
             drawingLineThickness = 48f,
         )
         Spacer(Modifier.height(16.dp))
@@ -62,8 +53,8 @@ fun Challenge1(
 
 @Preview
 @Composable
-private fun PreviewChallenge1() {
+private fun PreviewChallenge12() {
     MaterialTheme {
-        Challenge1(ChallengeUiState.Completed(Challenge.Challenge1, emptyList()))
+        Challenge12(ChallengeUiState.Completed(Challenge.Challenge12, emptyList()))
     }
 }
