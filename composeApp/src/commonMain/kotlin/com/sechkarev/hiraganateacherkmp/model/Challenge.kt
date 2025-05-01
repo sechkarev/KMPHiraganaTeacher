@@ -160,4 +160,7 @@ enum class Challenge(
         answer = Answer.A,
         newCharacter = HiraganaCharacter.A,
     ),
+    Challenge17(
+        answer = Answer.A,
+    ),
 }

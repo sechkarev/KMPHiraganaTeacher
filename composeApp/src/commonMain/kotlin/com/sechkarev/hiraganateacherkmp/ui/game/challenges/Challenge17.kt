@@ -11,12 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.sechkarev.hiraganateacherkmp.model.Challenge
 import kmphiraganateacher.composeapp.generated.resources.Res
-import kmphiraganateacher.composeapp.generated.resources.challenge13_task
+import kmphiraganateacher.composeapp.generated.resources.challenge17_task
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun Challenge13(
+fun Challenge17(
     challengeState: ChallengeUiState,
     modifier: Modifier = Modifier,
 ) {
@@ -24,7 +24,7 @@ fun Challenge13(
         modifier = Modifier.padding(horizontal = 16.dp).then(modifier),
     ) {
         Text(
-            text = stringResource(Res.string.challenge13_task),
+            text = stringResource(Res.string.challenge17_task),
         )
         Spacer(Modifier.height(16.dp))
         DrawingChallenge(
@@ -37,8 +37,8 @@ fun Challenge13(
 
 @Preview
 @Composable
-private fun PreviewChallenge13() {
+private fun PreviewChallenge17() {
     MaterialTheme {
-        Challenge13(ChallengeUiState.Completed(Challenge.Challenge13))
+        Challenge17(ChallengeUiState.Completed(Challenge.Challenge17))
     }
 }
