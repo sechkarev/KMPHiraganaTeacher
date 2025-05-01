@@ -13,6 +13,8 @@ final class IosTestRecognizer: TextRecognizer2 {
     private var recognizer: DigitalInkRecognizer
     private var model: DigitalInkRecognitionModel
     private var modelManager: ModelManager
+    private var strokes: [MLKitDigitalInkRecognition.Stroke] = []
+    private var points: [StrokePoint] = []
     
     init() {
         modelManager = ModelManager.modelManager()
@@ -41,7 +43,8 @@ final class IosTestRecognizer: TextRecognizer2 {
             }
         )
         NotificationCenter.default.addObserver(
-            forName: NSNotification.Name.mlkitModelDownloadDidFail, object: nil,
+            forName: NSNotification.Name.mlkitModelDownloadDidFail,
+            object: nil,
             queue: OperationQueue.main,
             using: {
                 [unowned self]
@@ -53,5 +56,32 @@ final class IosTestRecognizer: TextRecognizer2 {
                 }
             }
         )
+    }
+    
+    func recognizeCurrentText() async throws -> String {
+        let ink = Ink.init(strokes: strokes)
+        return try await recognizer.recognize(ink: ink).candidates.first!.text
+    }
+    
+    func cleanCurrentData() {
+        strokes = []
+        points = []
+    }
+    
+    func startNewStroke() {
+        
+    }
+    
+    func completeStroke() {
+        strokes.append(MLKitDigitalInkRecognition.Stroke(points: points))
+        points = []
+    }
+    
+    func currentStrokeAmount() -> Int32 {
+        return Int32(strokes.count)
+    }
+    
+    func addNewPoint(point: Point) {
+        points.append(StrokePoint(x: point.x, y: point.y))
     }
 }

@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
 import com.sechkarev.hiraganateacherkmp.domain.GameRepository
-import com.sechkarev.hiraganateacherkmp.textrecognition.TextRecognizer
 import com.sechkarev.hiraganateacherkmp.textrecognition.TextRecognizer2
 import com.sechkarev.hiraganateacherkmp.utils.LengthyTask
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,7 +17,6 @@ import kotlin.coroutines.suspendCoroutine
 
 class MainMenuViewModel(
     private val gameRepository: GameRepository,
-    private val textRecognizer: TextRecognizer,
     private val textRecognizer2: TextRecognizer2,
 ) : ViewModel() {
     private val _state = MutableStateFlow(UiState())
@@ -63,7 +61,6 @@ class MainMenuViewModel(
         viewModelScope.launch {
             _state.update { it.copy(textRecognitionInitResult = LengthyTask.InProgress) }
             try {
-                textRecognizer.init()
                 suspendCoroutine { continuation ->
                     textRecognizer2.initialize(
                         onSuccess = {

@@ -7,7 +7,7 @@ import com.sechkarev.hiraganateacherkmp.domain.GameRepository
 import com.sechkarev.hiraganateacherkmp.model.GameProgress
 import com.sechkarev.hiraganateacherkmp.model.Point
 import com.sechkarev.hiraganateacherkmp.model.Stroke
-import com.sechkarev.hiraganateacherkmp.textrecognition.TextRecognizer
+import com.sechkarev.hiraganateacherkmp.textrecognition.TextRecognizer2
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -34,7 +34,7 @@ sealed interface ChallengeCompletionError {
 
 class GameViewModel(
     private val gameRepository: GameRepository,
-    private val textRecognizer: TextRecognizer,
+    private val textRecognizer: TextRecognizer2,
 ) : ViewModel() {
     data class GameUiState(
         val gameProgress: GameProgress,
