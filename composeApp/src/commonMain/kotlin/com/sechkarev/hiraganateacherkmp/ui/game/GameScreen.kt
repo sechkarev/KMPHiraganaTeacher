@@ -16,6 +16,7 @@ import com.sechkarev.hiraganateacherkmp.model.Stroke
 import com.sechkarev.hiraganateacherkmp.ui.components.TopBarWithBackIcon
 import com.sechkarev.hiraganateacherkmp.ui.game.challenges.Challenge1
 import com.sechkarev.hiraganateacherkmp.ui.game.challenges.Challenge10
+import com.sechkarev.hiraganateacherkmp.ui.game.challenges.Challenge11
 import com.sechkarev.hiraganateacherkmp.ui.game.challenges.Challenge2
 import com.sechkarev.hiraganateacherkmp.ui.game.challenges.Challenge3
 import com.sechkarev.hiraganateacherkmp.ui.game.challenges.Challenge4
@@ -123,5 +124,6 @@ private fun Challenge(
         Challenge.Challenge8 -> Challenge8(challengeUiState)
         Challenge.Challenge9 -> Challenge9(challengeUiState)
         Challenge.Challenge10 -> Challenge10(challengeUiState)
+        Challenge.Challenge11 -> Challenge11(challengeUiState)
     }
 }

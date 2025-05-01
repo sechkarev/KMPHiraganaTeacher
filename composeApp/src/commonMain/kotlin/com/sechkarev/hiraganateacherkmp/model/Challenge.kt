@@ -132,4 +132,8 @@ enum class Challenge(
         answer = Answer.IIE,
         secondsToComplete = 10,
     ),
+    Challenge11(
+        answer = Answer.IIE,
+        secondsToComplete = 5,
+    ),
 }
