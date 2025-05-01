@@ -141,4 +141,7 @@ enum class Challenge(
         answer = Answer.HA,
         newCharacter = HiraganaCharacter.HA,
     ),
+    Challenge13(
+        answer = Answer.HA,
+    ),
 }

@@ -38,8 +38,8 @@ import org.jetbrains.compose.resources.stringResource
 fun DrawingChallenge(
     challengeState: ChallengeUiState,
     drawingLineThickness: Float,
-    hintImageRes: DrawableResource?,
     modifier: Modifier = Modifier,
+    hintImageRes: DrawableResource? = null,
 ) {
     Box(
         modifier =
