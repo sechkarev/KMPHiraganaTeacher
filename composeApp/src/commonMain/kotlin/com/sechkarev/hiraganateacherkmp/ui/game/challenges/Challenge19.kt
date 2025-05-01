@@ -10,31 +10,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.sechkarev.hiraganateacherkmp.model.Challenge
-import com.sechkarev.hiraganateacherkmp.model.DictionaryItem
 import kmphiraganateacher.composeapp.generated.resources.Res
-import kmphiraganateacher.composeapp.generated.resources.challenge18_congratulations
-import kmphiraganateacher.composeapp.generated.resources.challenge18_task
+import kmphiraganateacher.composeapp.generated.resources.challenge19_task
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun Challenge18(
+fun Challenge19(
     challengeState: ChallengeUiState,
     modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = Modifier.padding(horizontal = 16.dp).then(modifier),
     ) {
-        Text(stringResource(Res.string.challenge18_congratulations))
-        Spacer(Modifier.height(16.dp))
-        NewWord(DictionaryItem.AI)
-        Spacer(Modifier.height(16.dp))
-        Text(stringResource(Res.string.challenge18_task))
+        Text(stringResource(Res.string.challenge19_task))
         Spacer(Modifier.height(16.dp))
         DrawingChallenge(
             challengeState = challengeState,
             hintImageRes = null,
             drawingLineThickness = 32f,
+            canvasDecoration = CanvasDecoration.HEARTS,
         )
         Spacer(Modifier.height(16.dp))
     }
@@ -42,8 +37,8 @@ fun Challenge18(
 
 @Preview
 @Composable
-private fun PreviewChallenge18() {
+private fun PreviewChallenge19() {
     MaterialTheme {
-        Challenge18(ChallengeUiState.Completed(Challenge.Challenge18))
+        Challenge1(ChallengeUiState.Completed(Challenge.Challenge19))
     }
 }

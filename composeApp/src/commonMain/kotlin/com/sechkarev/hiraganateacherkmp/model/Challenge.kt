@@ -169,4 +169,7 @@ enum class Challenge(
     Challenge18(
         answer = Answer.AI,
     ),
+    Challenge19(
+        answer = Answer.AI,
+    ),
 }
