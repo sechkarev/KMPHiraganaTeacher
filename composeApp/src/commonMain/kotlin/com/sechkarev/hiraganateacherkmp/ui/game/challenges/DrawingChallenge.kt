@@ -10,15 +10,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clipToBounds
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
@@ -55,19 +51,28 @@ fun DrawingChallenge(
     ) {
         when (challengeState) {
             is ChallengeUiState.Completed -> {
-                StaticCanvas(
-                    paths = challengeState.solution,
-                    drawingLineThickness = drawingLineThickness,
+                Box(
                     modifier =
                         Modifier
-                            .drawingCanvasSize()
-                            .clipToBounds()
-                            .background(Color.White)
-                            .align(Alignment.Center)
-                            .background(color = Color.Green.copy(alpha = 0.1f))
-                            .border(width = 1.dp, color = Color.Black)
-                            .clickable { challengeState.onWrittenTextClick(challengeState.challenge.answer.answerText) },
-                )
+                            .drawingCanvasSize(),
+                ) {
+                    StaticCanvas(
+                        paths = challengeState.solution,
+                        drawingLineThickness = drawingLineThickness,
+                        modifier =
+                            Modifier
+                                .drawingCanvasSize()
+                                .clipToBounds()
+                                .background(Color.White)
+                                .align(Alignment.Center)
+                                .background(color = Color.Green.copy(alpha = 0.1f))
+                                .border(width = 1.dp, color = Color.Black)
+                                .clickable { challengeState.onWrittenTextClick(challengeState.challenge.answer.answerText) },
+                    )
+                    if (canvasDecoration != null) {
+                        CanvasDecorationHearts()
+                    }
+                }
             }
             is ChallengeUiState.Current -> {
                 Column(
@@ -95,21 +100,7 @@ fun DrawingChallenge(
                             )
                         }
                         if (canvasDecoration != null) {
-                            when (canvasDecoration) {
-                                CanvasDecoration.HEARTS -> {
-                                    // todo: add more hearts; move to a function to decorate a static canvas, too
-                                    Text(
-                                        text = "\uD83D\uDC95",
-                                        modifier =
-                                            Modifier
-                                                .rotate(74f)
-                                                .align(Alignment.TopStart)
-                                                .padding(top = 19.dp, start = 31.dp)
-                                                .alpha(0.2f)
-                                                .size(24.dp),
-                                    )
-                                }
-                            }
+                            CanvasDecorationHearts()
                         }
                         DrawingCanvas(
                             paths = challengeState.drawnStrokes,
