@@ -1,6 +1,7 @@
 package com.sechkarev.hiraganateacherkmp.model
 
 import kmphiraganateacher.composeapp.generated.resources.Res
+import kmphiraganateacher.composeapp.generated.resources.dictionary_word_hai
 import kmphiraganateacher.composeapp.generated.resources.dictionary_word_ie
 import kmphiraganateacher.composeapp.generated.resources.dictionary_word_iie
 import org.jetbrains.compose.resources.StringResource
@@ -19,6 +20,7 @@ enum class Answer(
     IE(answerText = "いえ", requiredStrokes = 4),
     IIE(answerText = "いいえ", requiredStrokes = 6),
     HA(answerText = "は", requiredStrokes = 3),
+    HAI(answerText = "はい", requiredStrokes = 5),
 }
 
 enum class DictionaryItem(
@@ -27,6 +29,7 @@ enum class DictionaryItem(
 ) {
     IE(original = "いえ", translation = Res.string.dictionary_word_ie),
     IIE(original = "いいえ", translation = Res.string.dictionary_word_iie),
+    HAI(original = "はい", translation = Res.string.dictionary_word_hai),
 }
 
 sealed interface HiraganaCharacterOnGrid {
@@ -143,5 +146,9 @@ enum class Challenge(
     ),
     Challenge13(
         answer = Answer.HA,
+    ),
+    Challenge14(
+        answer = Answer.HAI,
+        dictionaryItem = DictionaryItem.HAI,
     ),
 }

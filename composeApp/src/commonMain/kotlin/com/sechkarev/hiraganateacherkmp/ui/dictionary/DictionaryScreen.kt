@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.sechkarev.hiraganateacherkmp.model.DictionaryItem
 import com.sechkarev.hiraganateacherkmp.ui.components.TopBarWithBackIcon
 import kmphiraganateacher.composeapp.generated.resources.Res
 import kmphiraganateacher.composeapp.generated.resources.dictionary_screen_subtitle
@@ -59,7 +58,6 @@ fun DictionaryScreen(
                         stringResource(
                             Res.string.dictionary_screen_subtitle,
                             dictionaryItems.size,
-                            DictionaryItem.entries.size,
                         ),
                     style = MaterialTheme.typography.bodyLarge,
                     textAlign = TextAlign.Center,

@@ -30,6 +30,7 @@
     <string name="challenge12_text">People usually learn vocals first, but since you know how to say no now, let’s make a quick detour to learn its counterpart. The Japanese for yes is HAI.\nThis word comprises two characters: one for HA and I, which you already know. There is no character just for H in Japanese: every consonant must be superseded by a vocal. There is one exception though... which we’ll get to in due time.\nFirst things first, let’s learn how to draw HA.</string>
     <string name="challenge12_task">Now draw it yourself. Use three strokes.</string>
     <string name="challenge13_task">And once again, without a hint. For good measure.</string>
+    <string name="challenge14_task">Okay, you are ready now. Do you wish to continue? Answer in Japanese and use exactly five strokes.</string>
     <string name="challenge_text_recognition_mistake">Uh-oh! The computer recognises your drawing as %1$s. Try again!</string>
     <string name="animated_character_drawing_description">An animation showcasing how to draw the hiragana character %1$s</string>
     <string name="answer_appearance_hint_description">A hint reminding how the hiragana character %1$s looks like</string>
@@ -48,7 +49,7 @@
     <string name="credits_app_icon">App icon:</string>
     <string name="credits_app_icon_wikimedia">Wikimedia</string>
     <string name="dictionary_screen_title">Dictionary</string>
-    <string name="dictionary_screen_subtitle">Learned words: %1$d out of %2$d</string>
+    <string name="dictionary_screen_subtitle">Learned words: %1$d</string>
     <string name="characters_screen_title">Hiragana</string>
     <string name="characters_screen_subtitle">Learned characters: %1$d out of %2$d</string>
     <string name="dictionary_word_ie">House 🏠</string>
