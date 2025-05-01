@@ -35,6 +35,8 @@
     <string name="challenge16_text">Good job. Now back to vocals.\nThis one is really important. It’s A.</string>
     <string name="challenge16_task">As you can see, it’s not at all alike は. If you assumed that the appearances of A and HA should have something in common – reasonable, but no, this is not how it works.\nThis character, like many things Japanese, is a work of art though. Who could have thought a thing as common as the first letter in the alphabet could be so adorable?\nDraw it.</string>
     <string name="challenge17_task">Great. You know the drill already: same character, but no hint this time.</string>
+    <string name="challenge18_congratulations">Nice! Your treat is a new word 😊</string>
+    <string name="challenge18_task">In English, "AI" has a completely different meaning: it’s a cold, inhumane, cunning yet disobedient servant-turned-mastermind (like HAL from 2001: A Space Odyssey) or, in some cases, a literal torturer (like AM in I Have No Mouth, and I Must Scream). In Japanese though, AI is literally the opposite. It's love.\nWould you kindly write this word below?</string>
     <string name="challenge_text_recognition_mistake">Uh-oh! The computer recognises your drawing as %1$s. Try again!</string>
     <string name="animated_character_drawing_description">An animation showcasing how to draw the hiragana character %1$s</string>
     <string name="answer_appearance_hint_description">A hint reminding how the hiragana character %1$s looks like</string>
@@ -59,6 +61,7 @@
     <string name="dictionary_word_ie">House 🏠</string>
     <string name="dictionary_word_iie">No 👎</string>
     <string name="dictionary_word_hai">Yes 👍</string>
+    <string name="dictionary_word_ai">Love 💕</string>
     <string name="dictionary_word_new">New word!</string>
     <string name="accessibility_return_to_main_menu_button">Return to main menu</string>
     <string name="timer_idle">Start drawing!</string>
