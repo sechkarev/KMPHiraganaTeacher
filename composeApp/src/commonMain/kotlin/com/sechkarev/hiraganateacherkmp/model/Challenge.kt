@@ -93,16 +93,39 @@ enum class HiraganaCharacter(
 
 enum class Challenge(
     val answer: Answer,
-    val dictionaryItem: DictionaryItem?,
-    val newCharacter: HiraganaCharacter?,
+    val dictionaryItem: DictionaryItem? = null,
+    val newCharacter: HiraganaCharacter? = null,
+    val secondsToComplete: Int? = null,
 ) {
-    Challenge1(answer = Answer.I, dictionaryItem = null, newCharacter = HiraganaCharacter.I),
-    Challenge2(answer = Answer.I, dictionaryItem = null, newCharacter = null),
-    Challenge3(answer = Answer.E, dictionaryItem = null, newCharacter = null),
-    Challenge4(answer = Answer.E, dictionaryItem = null, newCharacter = HiraganaCharacter.E),
-    Challenge5(answer = Answer.E, dictionaryItem = null, newCharacter = null),
-    Challenge6(answer = Answer.I, dictionaryItem = null, newCharacter = null),
-    Challenge7(answer = Answer.IE, dictionaryItem = DictionaryItem.IE, newCharacter = null),
-    Challenge8(answer = Answer.IIE, dictionaryItem = DictionaryItem.IIE, newCharacter = null),
-    Challenge9(answer = Answer.IIE, dictionaryItem = null, newCharacter = null),
+    Challenge1(
+        answer = Answer.I,
+        newCharacter = HiraganaCharacter.I,
+    ),
+    Challenge2(
+        answer = Answer.I,
+    ),
+    Challenge3(
+        answer = Answer.E,
+        newCharacter = HiraganaCharacter.E,
+    ),
+    Challenge4(
+        answer = Answer.E,
+    ),
+    Challenge5(
+        answer = Answer.E,
+    ),
+    Challenge6(
+        answer = Answer.I,
+    ),
+    Challenge7(
+        answer = Answer.IE,
+        dictionaryItem = DictionaryItem.IE,
+    ),
+    Challenge8(
+        answer = Answer.IIE,
+        dictionaryItem = DictionaryItem.IIE,
+    ),
+    Challenge9(
+        answer = Answer.IIE,
+    ),
 }
