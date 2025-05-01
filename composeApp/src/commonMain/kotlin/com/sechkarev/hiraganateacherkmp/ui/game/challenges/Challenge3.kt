@@ -35,6 +35,7 @@ fun Challenge3(
         AnimatedHiraganaCharacter(
             resourceName = "hiragana_animated_e",
             animatedCharacter = HiraganaCharacter.E.spelling,
+            onClick = { challengeState.onWrittenTextClick(HiraganaCharacter.E.spelling.toString()) },
             modifier = Modifier.align(Alignment.CenterHorizontally),
         )
         Spacer(Modifier.height(16.dp))
@@ -55,6 +56,6 @@ fun Challenge3(
 @Composable
 private fun PreviewChallenge3() {
     MaterialTheme {
-        Challenge3(ChallengeUiState.Completed(Challenge.Challenge3, emptyList()))
+        Challenge3(ChallengeUiState.Completed(Challenge.Challenge3))
     }
 }

@@ -12,9 +12,9 @@
     <string name="main_menu_content_loading_try_again">Try again</string>
     <string name="main_menu_snackbar_game_data_deleted">All game data has been deleted.</string>
     <string name="challenge1_welcome_message">Welcome!</string>
-    <string name="challenge1_text">The Japanese language is special, because it uses three different writing systems: hiragana and katakana, two syllabaries (syllable alphabets) invented in the 9th century, and the Chinese characters (kanji) which were imported even earlier.\nThis app is intended to teach you hiragana: the system most learners start with, because it has the most widespread use.\nLet’s get into it! We’ll start with the vocals. This is I, pronounced like ‘e’ in ‘me’.</string>
+    <string name="challenge1_text">The Japanese language is special, because it uses three different writing systems: hiragana and katakana, two syllabaries (syllable alphabets) invented in the 9th century, and the Chinese characters (kanji) which were imported even earlier.\nThis app is intended to teach you hiragana: the system most learners start with, because it has the most widespread use.\nLet’s get into it! We’ll start with the vocals. This is I, pronounced like ‘e’ in ‘me’. Click on the animation to hear how it sounds like!</string>
     <string name="challenge1_task">Now try to draw it yourself! Use exactly two strokes: draw first the left part, then the right.</string>
-    <string name="challenge2_task">Good, we’re off to a good start! Now do it again in the same manner, so you do not forget it in a minute.</string>
+    <string name="challenge2_task">Good, we’re off to a good start! (You can tap on your solution every time to hear how it is supposed to be pronounced.) Now do it again in the same manner, so you do not forget it in a minute.</string>
     <string name="challenge3_text">Great! Let’s continue. This is E. Sounds like the first ‘e’ in ‘every’.</string>
     <string name="challenge3_task">Draw it! Start from the top. Again, two strokes only.</string>
     <string name="challenge4_task">As they say, repetition is the mother of learning. One more E, please.</string>

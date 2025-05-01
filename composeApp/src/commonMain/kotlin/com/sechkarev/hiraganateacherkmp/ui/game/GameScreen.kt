@@ -107,12 +107,17 @@ private fun Challenge(
                 currentStroke = gameUiState.currentStroke,
                 completionError = gameUiState.challengeCompletionError,
                 timerState = gameUiState.timerState,
-                onAction = onAction,
+                onWrittenTextClick = { onAction(DrawingAction.OnTextClick(it)) },
+                onDragStart = { onAction(DrawingAction.OnNewPathStart) },
+                onDragEnd = { onAction(DrawingAction.OnPathEnd) },
+                onDrag = { onAction(DrawingAction.OnDraw(it)) },
+                onDragCancel = { onAction(DrawingAction.OnPathEnd) },
             )
         } else {
             ChallengeUiState.Completed(
                 challenge = challenge,
                 solution = solution,
+                onWrittenTextClick = { onAction(DrawingAction.OnTextClick(it)) },
             )
         }
 //     todo: can I make this mapping better?

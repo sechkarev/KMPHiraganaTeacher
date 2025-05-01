@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
 import com.sechkarev.hiraganateacherkmp.domain.GameRepository
 import com.sechkarev.hiraganateacherkmp.textrecognition.TextRecognizer2
+import com.sechkarev.hiraganateacherkmp.tts.TextToSpeechEngine
 import com.sechkarev.hiraganateacherkmp.utils.LengthyTask
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -17,12 +18,17 @@ import kotlinx.coroutines.launch
 class MainMenuViewModel(
     private val gameRepository: GameRepository,
     private val textRecognizer2: TextRecognizer2,
+    private val textToSpeechEngine: TextToSpeechEngine,
 ) : ViewModel() {
     private val _state = MutableStateFlow(UiState())
     val state =
         _state
-            .onStart { initTextRecognizer() }
-            .combine(gameRepository.gameProgress) { uiState, gameProgress ->
+            .onStart {
+                textToSpeechEngine.initialise {
+                    Logger.i { "Text to speech init success" }
+                }
+                initTextRecognizer()
+            }.combine(gameRepository.gameProgress) { uiState, gameProgress ->
                 uiState.copy(
                     progressHasBeenMade = gameProgress.solvedChallenges.isNotEmpty(),
                     dictionaryAvailable = gameProgress.solvedChallenges.mapNotNull { it.challenge.dictionaryItem }.isNotEmpty(),

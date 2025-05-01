@@ -1,6 +1,7 @@
 package com.sechkarev.hiraganateacherkmp.ui.components
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,6 +16,7 @@ import org.jetbrains.compose.resources.stringResource
 fun AnimatedHiraganaCharacter(
     resourceName: String, // todo: looks really unsafe
     animatedCharacter: Char,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     GifImage(
@@ -22,6 +24,7 @@ fun AnimatedHiraganaCharacter(
             Modifier
                 .drawingCanvasSize()
                 .border(width = 1.dp, color = Color.Black)
+                .clickable { onClick() }
                 .then(modifier),
         contentDescription = stringResource(Res.string.animated_character_drawing_description, animatedCharacter.toString()),
         fileResourcePath = "drawable/$resourceName.gif",

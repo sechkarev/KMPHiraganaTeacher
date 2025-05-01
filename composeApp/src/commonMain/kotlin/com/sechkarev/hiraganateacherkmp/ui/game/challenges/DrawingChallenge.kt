@@ -3,6 +3,7 @@ package com.sechkarev.hiraganateacherkmp.ui.game.challenges
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -59,7 +60,8 @@ fun DrawingChallenge(
                             .background(Color.White)
                             .align(Alignment.Center)
                             .background(color = Color.Green.copy(alpha = 0.1f))
-                            .border(width = 1.dp, color = Color.Black),
+                            .border(width = 1.dp, color = Color.Black)
+                            .clickable { challengeState.onWrittenTextClick(challengeState.challenge.answer.answerText) },
                 )
             }
             is ChallengeUiState.Current -> {
@@ -91,7 +93,10 @@ fun DrawingChallenge(
                             paths = challengeState.drawnStrokes,
                             currentPath = challengeState.currentStroke,
                             drawingLineThickness = drawingLineThickness,
-                            onAction = challengeState.onAction,
+                            onDragCancel = challengeState.onDragCancel,
+                            onDragStart = challengeState.onDragStart,
+                            onDrag = challengeState.onDrag,
+                            onDragEnd = challengeState.onDragEnd,
                             modifier =
                                 Modifier
                                     .background(

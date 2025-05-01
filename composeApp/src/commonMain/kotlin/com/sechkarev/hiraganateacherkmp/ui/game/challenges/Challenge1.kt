@@ -43,6 +43,7 @@ fun Challenge1(
         AnimatedHiraganaCharacter(
             resourceName = "hiragana_animated_i",
             animatedCharacter = HiraganaCharacter.I.spelling,
+            onClick = { challengeState.onWrittenTextClick(HiraganaCharacter.I.spelling.toString()) },
             modifier = Modifier.align(Alignment.CenterHorizontally),
         )
         // todo: SOUNDS
@@ -64,6 +65,6 @@ fun Challenge1(
 @Composable
 private fun PreviewChallenge1() {
     MaterialTheme {
-        Challenge1(ChallengeUiState.Completed(Challenge.Challenge1, emptyList()))
+        Challenge1(ChallengeUiState.Completed(Challenge.Challenge1))
     }
 }

@@ -16,7 +16,6 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
-import com.sechkarev.hiraganateacherkmp.ui.game.DrawingAction
 import kotlin.math.abs
 
 @Composable
@@ -24,7 +23,10 @@ fun DrawingCanvas(
     paths: List<com.sechkarev.hiraganateacherkmp.model.Stroke>,
     currentPath: com.sechkarev.hiraganateacherkmp.model.Stroke?,
     drawingLineThickness: Float,
-    onAction: (DrawingAction) -> Unit,
+    onDragStart: () -> Unit,
+    onDragEnd: () -> Unit,
+    onDrag: (Offset) -> Unit,
+    onDragCancel: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Canvas(
@@ -34,16 +36,16 @@ fun DrawingCanvas(
                 .pointerInput(true) {
                     detectDragGestures(
                         onDragStart = {
-                            onAction(DrawingAction.OnNewPathStart)
+                            onDragStart()
                         },
                         onDragEnd = {
-                            onAction(DrawingAction.OnPathEnd)
+                            onDragEnd()
                         },
                         onDrag = { change, _ ->
-                            onAction(DrawingAction.OnDraw(change.position))
+                            onDrag(change.position)
                         },
                         onDragCancel = {
-                            onAction(DrawingAction.OnPathEnd)
+                            onDragCancel()
                         },
                     )
                 },

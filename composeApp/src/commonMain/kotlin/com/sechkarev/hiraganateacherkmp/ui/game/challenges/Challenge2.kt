@@ -41,6 +41,6 @@ fun Challenge2(
 @Composable
 private fun PreviewChallenge2() {
     MaterialTheme {
-        Challenge2(ChallengeUiState.Completed(Challenge.Challenge2, emptyList()))
+        Challenge2(ChallengeUiState.Completed(Challenge.Challenge2))
     }
 }

@@ -8,6 +8,7 @@ import com.sechkarev.hiraganateacherkmp.model.GameProgress
 import com.sechkarev.hiraganateacherkmp.model.Point
 import com.sechkarev.hiraganateacherkmp.model.Stroke
 import com.sechkarev.hiraganateacherkmp.textrecognition.TextRecognizer2
+import com.sechkarev.hiraganateacherkmp.tts.TextToSpeechEngine
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,7 +25,9 @@ sealed interface DrawingAction {
 
     data object OnPathEnd : DrawingAction
 
-    data object OnClearCanvasClick : DrawingAction
+    data class OnTextClick(
+        val text: String,
+    ) : DrawingAction
 }
 
 sealed interface ChallengeCompletionError {
@@ -54,6 +57,7 @@ data class GameUiState(
 class GameViewModel(
     private val gameRepository: GameRepository,
     private val textRecognizer: TextRecognizer2,
+    private val textToSpeechEngine: TextToSpeechEngine,
 ) : ViewModel() {
     private val _gameUiState: MutableStateFlow<GameUiState> = MutableStateFlow(GameUiState())
     val gameUiState = _gameUiState.asStateFlow()
@@ -82,10 +86,10 @@ class GameViewModel(
 
     fun onAction(action: DrawingAction) {
         when (action) {
-            DrawingAction.OnClearCanvasClick -> onClearCanvasClick()
             is DrawingAction.OnDraw -> onDraw(action.offset)
             is DrawingAction.OnNewPathStart -> onNewPathStart()
             is DrawingAction.OnPathEnd -> onPathEnd()
+            is DrawingAction.OnTextClick -> pronounceText(action.text)
         }
     }
 
@@ -186,10 +190,6 @@ class GameViewModel(
         }
     }
 
-    private fun onClearCanvasClick() {
-        cleanCanvas()
-    }
-
     private fun cleanCanvas() {
         _gameUiState.update { uiState ->
             uiState.copy(
@@ -199,5 +199,9 @@ class GameViewModel(
             )
         }
         textRecognizer.cleanCurrentData()
+    }
+
+    private fun pronounceText(text: String) {
+        textToSpeechEngine.pronounce(text)
     }
 }
