@@ -21,7 +21,7 @@ class MainMenuViewModel(
     private val _state = MutableStateFlow(UiState())
     val state =
         _state
-            .onStart { loadGameContent() }
+            .onStart { initTextRecognizer() }
             .combine(gameRepository.gameProgress) { uiState, gameProgress ->
                 uiState.copy(
                     progressHasBeenMade = gameProgress.solvedChallenges.isNotEmpty(),
@@ -46,17 +46,17 @@ class MainMenuViewModel(
     sealed interface UiAction {
         data object DeleteGameData : UiAction
 
-        data object ReloadGameContent : UiAction
+        data object ReInitTextRecognizer : UiAction
     }
 
     fun onAction(uiAction: UiAction) {
         when (uiAction) {
             UiAction.DeleteGameData -> onDeleteGameDataClick()
-            UiAction.ReloadGameContent -> loadGameContent()
+            UiAction.ReInitTextRecognizer -> initTextRecognizer()
         }
     }
 
-    private fun loadGameContent() {
+    private fun initTextRecognizer() {
         _state.update { it.copy(textRecognitionInitResult = LengthyTask.InProgress) }
         try {
             textRecognizer2.initialize(
