@@ -1,11 +1,3 @@
-//
-//  TextRecognizer2.swift
-//  iosApp
-//
-//  Created by Vladimir Sechkarev on 30.04.25.
-//  Copyright © 2025 orgName. All rights reserved.
-//
-
 import ComposeApp
 import MLKitDigitalInkRecognition
 
@@ -25,6 +17,10 @@ final class IosTestRecognizer: TextRecognizer2 {
     }
     
     func initialize(onSuccess: @escaping () -> Void, onFailure: @escaping () -> Void) {
+        if (modelManager.isModelDownloaded(model)) {
+            onSuccess()
+            return
+        }
         let conditions = ModelDownloadConditions.init(allowsCellularAccess: true, allowsBackgroundDownloading: true)
         // To know when this method is done, observe the .mlkitModelDownloadDidSucceed and .mlkitModelDownloadDidFail notifications defined in MLKModelDownloadNotifications.h. If the latest model is already downloaded, completes without additional work and posts .mlkitModelDownloadDidSucceed notification, indicating that the model is ready to use.
         modelManager.download(model, conditions: conditions)

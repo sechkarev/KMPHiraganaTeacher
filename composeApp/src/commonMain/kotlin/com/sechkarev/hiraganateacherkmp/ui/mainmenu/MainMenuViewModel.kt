@@ -13,7 +13,6 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlin.coroutines.suspendCoroutine
 
 class MainMenuViewModel(
     private val gameRepository: GameRepository,
@@ -58,25 +57,20 @@ class MainMenuViewModel(
     }
 
     private fun loadGameContent() {
-        viewModelScope.launch {
-            _state.update { it.copy(textRecognitionInitResult = LengthyTask.InProgress) }
-            try {
-                suspendCoroutine { continuation ->
-                    textRecognizer2.initialize(
-                        onSuccess = {
-                            Logger.i { "textRecognizer2 init success" }
-                            continuation.resumeWith(Result.success(Unit))
-                        },
-                        onFailure = {
-                            Logger.i { "textRecognizer2 init failure" }
-                            continuation.resumeWith(Result.failure(Exception())) // todo: better error handling
-                        },
-                    )
-                }
-            } catch (throwable: Throwable) {
-                _state.update { it.copy(textRecognitionInitResult = LengthyTask.Error(throwable)) }
-            }
-            _state.update { it.copy(textRecognitionInitResult = LengthyTask.Success(Unit)) }
+        _state.update { it.copy(textRecognitionInitResult = LengthyTask.InProgress) }
+        try {
+            textRecognizer2.initialize(
+                onSuccess = {
+                    Logger.i { "textRecognizer2 init success" }
+                    _state.update { it.copy(textRecognitionInitResult = LengthyTask.Success(Unit)) }
+                },
+                onFailure = {
+                    Logger.i { "textRecognizer2 init failure" }
+                    _state.update { it.copy(textRecognitionInitResult = LengthyTask.Error(Exception())) }
+                },
+            )
+        } catch (throwable: Throwable) {
+            _state.update { it.copy(textRecognitionInitResult = LengthyTask.Error(throwable)) }
         }
     }
 
