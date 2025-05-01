@@ -2,8 +2,10 @@ package com.sechkarev.hiraganateacherkmp.ui.mainmenu
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.touchlab.kermit.Logger
 import com.sechkarev.hiraganateacherkmp.domain.GameRepository
 import com.sechkarev.hiraganateacherkmp.textrecognition.TextRecognizer
+import com.sechkarev.hiraganateacherkmp.textrecognition.TextRecognizer2
 import com.sechkarev.hiraganateacherkmp.utils.LengthyTask
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -12,10 +14,12 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlin.coroutines.suspendCoroutine
 
 class MainMenuViewModel(
     private val gameRepository: GameRepository,
     private val textRecognizer: TextRecognizer,
+    private val textRecognizer2: TextRecognizer2,
 ) : ViewModel() {
     private val _state = MutableStateFlow(UiState())
     val state =
@@ -60,6 +64,18 @@ class MainMenuViewModel(
             _state.update { it.copy(textRecognitionInitResult = LengthyTask.InProgress) }
             try {
                 textRecognizer.init()
+                suspendCoroutine { continuation ->
+                    textRecognizer2.initialize(
+                        onSuccess = {
+                            Logger.i { "textRecognizer2 init success" }
+                            continuation.resumeWith(Result.success(Unit))
+                        },
+                        onFailure = {
+                            Logger.i { "textRecognizer2 init failure" }
+                            continuation.resumeWith(Result.failure(Exception())) // todo: better error handling
+                        },
+                    )
+                }
             } catch (throwable: Throwable) {
                 _state.update { it.copy(textRecognitionInitResult = LengthyTask.Error(throwable)) }
             }

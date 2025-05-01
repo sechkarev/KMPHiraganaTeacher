@@ -97,6 +97,7 @@ kotlin {
             implementation(libs.sqlite.bundled)
 
             implementation(libs.kamel)
+            implementation(libs.kermit)
         }
     }
 }
