@@ -21,6 +21,7 @@ import com.sechkarev.hiraganateacherkmp.ui.game.challenges.Challenge12
 import com.sechkarev.hiraganateacherkmp.ui.game.challenges.Challenge13
 import com.sechkarev.hiraganateacherkmp.ui.game.challenges.Challenge14
 import com.sechkarev.hiraganateacherkmp.ui.game.challenges.Challenge15
+import com.sechkarev.hiraganateacherkmp.ui.game.challenges.Challenge16
 import com.sechkarev.hiraganateacherkmp.ui.game.challenges.Challenge2
 import com.sechkarev.hiraganateacherkmp.ui.game.challenges.Challenge3
 import com.sechkarev.hiraganateacherkmp.ui.game.challenges.Challenge4
@@ -138,5 +139,6 @@ private fun Challenge(
         Challenge.Challenge13 -> Challenge13(challengeUiState)
         Challenge.Challenge14 -> Challenge14(challengeUiState)
         Challenge.Challenge15 -> Challenge15(challengeUiState)
+        Challenge.Challenge16 -> Challenge16(challengeUiState)
     }
 }

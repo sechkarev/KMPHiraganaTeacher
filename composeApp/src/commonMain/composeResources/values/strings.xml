@@ -32,6 +32,8 @@
     <string name="challenge13_task">And once again, without a hint. For good measure.</string>
     <string name="challenge14_task">Okay, you are ready now. Do you wish to continue? Answer in Japanese and use exactly five strokes.</string>
     <string name="challenge15_task">「はい」(yes, this is how Japanese quotation marks look like) is also a word you need to learn to write fast. I’ll give you five seconds. Off you go!</string>
+    <string name="challenge16_text">Good job. Now back to vocals.\nThis one is really important. It’s A.</string>
+    <string name="challenge16_task">As you can see, it’s not at all alike は. If you assumed that the appearances of A and HA should have something in common – reasonable, but no, this is not how it works.\nThis character, like many things Japanese, is a work of art though. Who could have thought a thing as common as the first letter in the alphabet could be so adorable?\nDraw it.</string>
     <string name="challenge_text_recognition_mistake">Uh-oh! The computer recognises your drawing as %1$s. Try again!</string>
     <string name="animated_character_drawing_description">An animation showcasing how to draw the hiragana character %1$s</string>
     <string name="answer_appearance_hint_description">A hint reminding how the hiragana character %1$s looks like</string>

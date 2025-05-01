@@ -21,6 +21,7 @@ enum class Answer(
     IIE(answerText = "いいえ", requiredStrokes = 6),
     HA(answerText = "は", requiredStrokes = 3),
     HAI(answerText = "はい", requiredStrokes = 5),
+    A(answerText = "あ", requiredStrokes = 3),
 }
 
 enum class DictionaryItem(
@@ -154,5 +155,9 @@ enum class Challenge(
     Challenge15(
         answer = Answer.HAI,
         secondsToComplete = 5,
+    ),
+    Challenge16(
+        answer = Answer.A,
+        newCharacter = HiraganaCharacter.A,
     ),
 }
