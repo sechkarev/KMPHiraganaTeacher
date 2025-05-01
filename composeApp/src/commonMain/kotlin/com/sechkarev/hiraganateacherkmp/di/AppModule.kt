@@ -2,6 +2,7 @@ package com.sechkarev.hiraganateacherkmp.di
 
 import com.sechkarev.hiraganateacherkmp.domain.GameRepository
 import com.sechkarev.hiraganateacherkmp.textrecognition.TextRecognizer2
+import com.sechkarev.hiraganateacherkmp.tts.TextToSpeechEngine
 import com.sechkarev.hiraganateacherkmp.ui.characters.CharacterListViewModel
 import com.sechkarev.hiraganateacherkmp.ui.dictionary.DictionaryViewModel
 import com.sechkarev.hiraganateacherkmp.ui.game.GameViewModel
@@ -15,6 +16,7 @@ import org.koin.dsl.module
 
 fun initKoin(
     textRecognizer2: TextRecognizer2,
+    textToSpeechEngine: TextToSpeechEngine,
     config: KoinAppDeclaration? = null,
 ) {
     startKoin {
@@ -23,7 +25,8 @@ fun initKoin(
             appModule,
             platformModule,
             module {
-                single { textRecognizer2 }
+                single<TextRecognizer2> { textRecognizer2 }
+                single<TextToSpeechEngine> { textToSpeechEngine }
             },
         )
     }

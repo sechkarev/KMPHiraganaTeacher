@@ -3,6 +3,7 @@ package com.sechkarev.hiraganateacherkmp
 import android.app.Application
 import com.sechkarev.hiraganateacherkmp.di.initKoin
 import com.sechkarev.hiraganateacherkmp.textrecognition.TextRecognizer2Impl
+import com.sechkarev.hiraganateacherkmp.tts.TextToSpeechEngineImpl
 import org.koin.android.ext.koin.androidContext
 
 class HiraganaTeacherApplication : Application() {
@@ -10,6 +11,7 @@ class HiraganaTeacherApplication : Application() {
         super.onCreate()
         initKoin(
             textRecognizer2 = TextRecognizer2Impl(),
+            textToSpeechEngine = TextToSpeechEngineImpl(this),
         ) {
             androidContext(this@HiraganaTeacherApplication)
         }

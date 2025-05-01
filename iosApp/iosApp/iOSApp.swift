@@ -6,7 +6,8 @@ struct iOSApp: App {
     
     init() {
         AppModuleKt.doInitKoin(
-            textRecognizer2: IosTestRecognizer()
+            textRecognizer2: IosTestRecognizer(),
+            textToSpeechEngine: IosTextToSpeech(),
         )
     }
     
