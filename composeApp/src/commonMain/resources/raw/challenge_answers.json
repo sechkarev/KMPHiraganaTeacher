@@ -1,0 +1,47 @@
+[
+  {
+    "name": "I",
+    "answerText": "い",
+    "requiredStrokes": 2
+  },
+  {
+    "name": "E",
+    "answerText": "え",
+    "requiredStrokes": 2
+  },
+  {
+    "name": "IE",
+    "answerText": "いえ",
+    "requiredStrokes": 4
+  },
+  {
+    "name": "II",
+    "answerText": "いい",
+    "requiredStrokes": 4
+  },
+  {
+    "name": "IIE",
+    "answerText": "いいえ",
+    "requiredStrokes": 6
+  },
+  {
+    "name": "HA",
+    "answerText": "は",
+    "requiredStrokes": 3
+  },
+  {
+    "name": "HAI",
+    "answerText": "はい",
+    "requiredStrokes": 5
+  },
+  {
+    "name": "A",
+    "answerText": "あ",
+    "requiredStrokes": 3
+  },
+  {
+    "name": "AI",
+    "answerText": "あい",
+    "requiredStrokes": 5
+  }
+]

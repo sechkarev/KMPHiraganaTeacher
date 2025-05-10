@@ -1,0 +1,99 @@
+[
+  {
+    "name": "i_beginning",
+    "answer": "I",
+    "new_character": "I"
+  },
+  {
+    "name": "i_repetition",
+    "answer": "I"
+  },
+  {
+    "name": "e_introduction",
+    "answer": "E",
+    "new_character": "E"
+  },
+  {
+    "name": "e_repetition",
+    "answer": "E"
+  },
+  {
+    "name": "e_no_hint",
+    "answer": "E"
+  },
+  {
+    "name": "back_to_i",
+    "answer": "I"
+  },
+  {
+    "name": "new_word_ii",
+    "answer": "II",
+    "dictionary_item": "II"
+  },
+  {
+    "name": "new_word_ie",
+    "answer": "IE",
+    "dictionary_item": "IE"
+  },
+  {
+    "name": "new_word_iie",
+    "answer": "IIE",
+    "dictionary_item": "IIE"
+  },
+  {
+    "name": "are_you_afraid",
+    "answer": "IIE"
+  },
+  {
+    "name": "iie_timed_10_sec",
+    "answer": "IIE",
+    "seconds_to_complete": 10
+  },
+  {
+    "name": "iie_timed_5_sec",
+    "answer": "IIE",
+    "seconds_to_complete": 5
+  },
+  {
+    "name": "ha_introduction",
+    "answer": "HA",
+    "new_character": "HA"
+  },
+  {
+    "name": "ha_repetition",
+    "answer": "HA"
+  },
+  {
+    "name": "new_word_hai",
+    "answer": "HAI",
+    "dictionary_item": "HAI"
+  },
+  {
+    "name": "hai_timed_5_sec",
+    "answer": "HAI",
+    "seconds_to_complete": 5
+  },
+  {
+    "name": "new_word_hae",
+    "answer": "HAE",
+    "dictionary_item": "HAE"
+  },
+  {
+    "name": "a_introduction",
+    "answer": "A",
+    "new_character": "A"
+  },
+  {
+    "name": "a_repetition",
+    "answer": "A"
+  },
+  {
+    "name": "new_word_ai",
+    "answer": "AI",
+    "dictionary_item": "AI"
+  },
+  {
+    "name": "ai_decorated_canvas",
+    "answer": "AI"
+  }
+]

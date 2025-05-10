@@ -1,0 +1,278 @@
+[
+  {
+    "name": "A",
+    "spelling": "あ",
+    "pronunciation": "a",
+    "gridCell": 0
+  },
+  {
+    "name": "I",
+    "spelling": "い",
+    "pronunciation": "i",
+    "gridCell": 1
+  },
+  {
+    "name": "U",
+    "spelling": "う",
+    "pronunciation": "u",
+    "gridCell": 2
+  },
+  {
+    "name": "E",
+    "spelling": "え",
+    "pronunciation": "e",
+    "gridCell": 3
+  },
+  {
+    "name": "O",
+    "spelling": "お",
+    "pronunciation": "o",
+    "gridCell": 4
+  },
+  {
+    "name": "KA",
+    "spelling": "か",
+    "pronunciation": "ka",
+    "gridCell": 5
+  },
+  {
+    "name": "KI",
+    "spelling": "き",
+    "pronunciation": "ki",
+    "gridCell": 6
+  },
+  {
+    "name": "KU",
+    "spelling": "く",
+    "pronunciation": "ku",
+    "gridCell": 7
+  },
+  {
+    "name": "KE",
+    "spelling": "け",
+    "pronunciation": "ke",
+    "gridCell": 8
+  },
+  {
+    "name": "KO",
+    "spelling": "こ",
+    "pronunciation": "ko",
+    "gridCell": 9
+  },
+  {
+    "name": "SA",
+    "spelling": "さ",
+    "pronunciation": "sa",
+    "gridCell": 10
+  },
+  {
+    "name": "SHI",
+    "spelling": "し",
+    "pronunciation": "shi",
+    "gridCell": 11
+  },
+  {
+    "name": "SU",
+    "spelling": "す",
+    "pronunciation": "su",
+    "gridCell": 12
+  },
+  {
+    "name": "SE",
+    "spelling": "せ",
+    "pronunciation": "se",
+    "gridCell": 13
+  },
+  {
+    "name": "SO",
+    "spelling": "そ",
+    "pronunciation": "so",
+    "gridCell": 14
+  },
+  {
+    "name": "TA",
+    "spelling": "た",
+    "pronunciation": "ta",
+    "gridCell": 15
+  },
+  {
+    "name": "CHI",
+    "spelling": "ち",
+    "pronunciation": "chi",
+    "gridCell": 16
+  },
+  {
+    "name": "TSU",
+    "spelling": "つ",
+    "pronunciation": "tsu",
+    "gridCell": 17
+  },
+  {
+    "name": "TE",
+    "spelling": "て",
+    "pronunciation": "te",
+    "gridCell": 18
+  },
+  {
+    "name": "TO",
+    "spelling": "と",
+    "pronunciation": "to",
+    "gridCell": 19
+  },
+  {
+    "name": "NA",
+    "spelling": "な",
+    "pronunciation": "na",
+    "gridCell": 20
+  },
+  {
+    "name": "NI",
+    "spelling": "に",
+    "pronunciation": "ni",
+    "gridCell": 21
+  },
+  {
+    "name": "NU",
+    "spelling": "ぬ",
+    "pronunciation": "nu",
+    "gridCell": 22
+  },
+  {
+    "name": "NE",
+    "spelling": "ね",
+    "pronunciation": "ne",
+    "gridCell": 23
+  },
+  {
+    "name": "NO",
+    "spelling": "の",
+    "pronunciation": "no",
+    "gridCell": 24
+  },
+  {
+    "name": "HA",
+    "spelling": "は",
+    "pronunciation": "ha",
+    "gridCell": 25
+  },
+  {
+    "name": "HI",
+    "spelling": "ひ",
+    "pronunciation": "hi",
+    "gridCell": 26
+  },
+  {
+    "name": "FU",
+    "spelling": "ふ",
+    "pronunciation": "fu",
+    "gridCell": 27
+  },
+  {
+    "name": "HE",
+    "spelling": "へ",
+    "pronunciation": "he",
+    "gridCell": 28
+  },
+  {
+    "name": "HO",
+    "spelling": "ほ",
+    "pronunciation": "ho",
+    "gridCell": 29
+  },
+  {
+    "name": "MA",
+    "spelling": "ま",
+    "pronunciation": "ma",
+    "gridCell": 30
+  },
+  {
+    "name": "MI",
+    "spelling": "み",
+    "pronunciation": "mi",
+    "gridCell": 31
+  },
+  {
+    "name": "MU",
+    "spelling": "む",
+    "pronunciation": "mu",
+    "gridCell": 32
+  },
+  {
+    "name": "ME",
+    "spelling": "め",
+    "pronunciation": "me",
+    "gridCell": 33
+  },
+  {
+    "name": "MO",
+    "spelling": "も",
+    "pronunciation": "mo",
+    "gridCell": 34
+  },
+  {
+    "name": "YA",
+    "spelling": "や",
+    "pronunciation": "ya",
+    "gridCell": 35
+  },
+  {
+    "name": "YU",
+    "spelling": "ゆ",
+    "pronunciation": "yu",
+    "gridCell": 37
+  },
+  {
+    "name": "YO",
+    "spelling": "よ",
+    "pronunciation": "yo",
+    "gridCell": 39
+  },
+  {
+    "name": "RA",
+    "spelling": "ら",
+    "pronunciation": "ra",
+    "gridCell": 40
+  },
+  {
+    "name": "RI",
+    "spelling": "り",
+    "pronunciation": "ri",
+    "gridCell": 41
+  },
+  {
+    "name": "RU",
+    "spelling": "る",
+    "pronunciation": "ru",
+    "gridCell": 42
+  },
+  {
+    "name": "RE",
+    "spelling": "れ",
+    "pronunciation": "re",
+    "gridCell": 43
+  },
+  {
+    "name": "RO",
+    "spelling": "ろ",
+    "pronunciation": "ro",
+    "gridCell": 44
+  },
+  {
+    "name": "WA",
+    "spelling": "わ",
+    "pronunciation": "wa",
+    "gridCell": 45
+  },
+  {
+    "name": "WO",
+    "spelling": "を",
+    "pronunciation": "o",
+    "gridCell": 47
+  },
+  {
+    "name": "N",
+    "spelling": "ん",
+    "pronunciation": "n",
+    "gridCell": 49
+  }
+]
