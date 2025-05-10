@@ -154,7 +154,7 @@ fun MainMenuScreen(
                     )
                     Spacer(Modifier.height(8.dp))
                     Button(
-                        onClick = { mainMenuViewModel.onAction(MainMenuViewModel.UiAction.ReInitTextRecognizer) },
+                        onClick = { mainMenuViewModel.onAction(MainMenuViewModel.UiAction.RetryInit) },
                         content = {
                             Text(text = stringResource(Res.string.main_menu_content_loading_try_again))
                         },

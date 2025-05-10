@@ -45,16 +45,17 @@ class MainMenuViewModel(
     sealed interface UiAction {
         data object DeleteGameData : UiAction
 
-        data object ReInitTextRecognizer : UiAction
+        data object RetryInit : UiAction
     }
 
     fun onAction(uiAction: UiAction) {
         when (uiAction) {
             UiAction.DeleteGameData -> onDeleteGameDataClick()
-            UiAction.ReInitTextRecognizer -> initData() // todo: granular?
+            UiAction.RetryInit -> initData() // todo: granular initialisation?
         }
     }
 
+    // todo: this data is initialised every time the screen opens! I need to do it just once.
     private fun initData() {
         _state.update { it.copy(initResult = LengthyTask.InProgress) }
         viewModelScope.launch {
