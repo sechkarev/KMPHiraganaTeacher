@@ -2,16 +2,17 @@ package com.sechkarev.hiraganateacherkmp.ui.mainmenu
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.touchlab.kermit.Logger
 import com.sechkarev.hiraganateacherkmp.challenges.ChallengesDataSource
 import com.sechkarev.hiraganateacherkmp.domain.GameRepository
 import com.sechkarev.hiraganateacherkmp.textrecognition.TextRecognizer2
 import com.sechkarev.hiraganateacherkmp.tts.TextToSpeechEngine
-import com.sechkarev.hiraganateacherkmp.ui.utils.stateInWhileSubscribed
 import com.sechkarev.hiraganateacherkmp.utils.LengthyTask
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.coroutines.suspendCoroutine
@@ -26,9 +27,14 @@ class MainMenuViewModel(
     val state =
         _state
             .onStart {
+                Logger.i { "MainMenuViewModel, onStart" }
                 initData().join() // the repository needs to be initialised first
                 retrieveGameProgress()
-            }.stateInWhileSubscribed(viewModelScope, UiState())
+            }.stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(), // update every time this screen opens
+                initialValue = UiState(),
+            )
 
     data class UiState(
         val initResult: LengthyTask<Unit> = LengthyTask.InProgress,
@@ -51,9 +57,9 @@ class MainMenuViewModel(
     }
 
     // todo: this data is initialised every time the screen opens! I need to do it just once.
-    private fun initData(): Job {
-        _state.update { it.copy(initResult = LengthyTask.InProgress) }
-        return viewModelScope.launch {
+    private fun initData() =
+        viewModelScope.launch {
+            _state.update { it.copy(initResult = LengthyTask.InProgress) }
             val textRecognizerInitDeferred = async { initTextRecognizer() }
             val textToSpeechInitDeferred = async { initTextToSpeech() }
             val challengeRepositoryInitDeferred = async { challengesDataSource.init() }
@@ -66,7 +72,6 @@ class MainMenuViewModel(
                 _state.update { it.copy(initResult = LengthyTask.Error(throwable)) }
             }
         }
-    }
 
     private suspend fun initTextRecognizer() =
         suspendCoroutine { continuation ->
