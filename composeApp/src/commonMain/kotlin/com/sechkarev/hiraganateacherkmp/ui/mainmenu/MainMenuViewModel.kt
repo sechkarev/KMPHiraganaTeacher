@@ -6,6 +6,7 @@ import co.touchlab.kermit.Logger
 import com.sechkarev.hiraganateacherkmp.domain.GameRepository
 import com.sechkarev.hiraganateacherkmp.textrecognition.TextRecognizer2
 import com.sechkarev.hiraganateacherkmp.tts.TextToSpeechEngine
+import com.sechkarev.hiraganateacherkmp.ui.utils.stateInWhileSubscribed
 import com.sechkarev.hiraganateacherkmp.utils.LengthyTask
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -34,13 +35,7 @@ class MainMenuViewModel(
                     dictionaryAvailable = gameProgress.solvedChallenges.mapNotNull { it.challenge.dictionaryItem }.isNotEmpty(),
                     characterListAvailable = gameProgress.solvedChallenges.mapNotNull { it.challenge.newCharacter }.isNotEmpty(),
                 )
-            }.stateIn(
-                // I saw this approach in a Philipp Lackner's video and decided to give it a chance.
-                // Works as intended, but if you ask me, the magic number doesn't belong here
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5000L),
-                initialValue = UiState(),
-            )
+            }.stateInWhileSubscribed(viewModelScope, UiState())
 
     data class UiState(
         val textRecognitionInitResult: LengthyTask<Unit> = LengthyTask.InProgress,
