@@ -9,6 +9,7 @@ import com.sechkarev.hiraganateacherkmp.ui.utils.stateInWhileSubscribed
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.update
 
 class CharacterListViewModel(
     gameRepository: GameRepository,
@@ -21,9 +22,17 @@ class CharacterListViewModel(
     val uiState: StateFlow<UiState> =
         _uiState
             .onStart {
-                UiState(
-                    putCharactersOnGrid(gameRepository.retrieveGameProgress().solvedChallenges.mapNotNull { it.challenge.newCharacter }),
-                )
+                _uiState.update {
+                    UiState(
+                        gridItems =
+                            putCharactersOnGrid(
+                                characters =
+                                    gameRepository.retrieveGameProgress().solvedChallenges.mapNotNull {
+                                        it.challenge.newCharacter
+                                    },
+                            ),
+                    )
+                }
             }.stateInWhileSubscribed(viewModelScope, UiState())
 
     private fun putCharactersOnGrid(characters: List<HiraganaCharacter>): List<HiraganaCharacterOnGrid> {

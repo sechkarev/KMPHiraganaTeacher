@@ -45,7 +45,7 @@ fun CharacterListScreen(
             )
         },
     ) { innerPadding ->
-        val uiState = viewModel.uiState.collectAsStateWithLifecycle(CharacterListViewModel.UiState(emptyList()))
+        val uiState = viewModel.uiState.collectAsStateWithLifecycle()
 
         Column(modifier = Modifier.padding(innerPadding)) {
             val characterItems = uiState.value.gridItems
@@ -62,7 +62,7 @@ fun CharacterListScreen(
                     stringResource(
                         Res.string.characters_screen_subtitle,
                         characterItems.filter { it is HiraganaCharacterOnGrid.Filled }.size,
-                        characterItems.size,
+                        characterItems.filter { it !is HiraganaCharacterOnGrid.Null }.size,
                     ),
                 style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center,
