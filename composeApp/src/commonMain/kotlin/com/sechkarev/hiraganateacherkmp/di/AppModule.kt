@@ -1,5 +1,6 @@
 package com.sechkarev.hiraganateacherkmp.di
 
+import com.sechkarev.hiraganateacherkmp.challenges.ChallengesDataSource
 import com.sechkarev.hiraganateacherkmp.domain.GameRepository
 import com.sechkarev.hiraganateacherkmp.textrecognition.TextRecognizer2
 import com.sechkarev.hiraganateacherkmp.tts.TextToSpeechEngine
@@ -10,6 +11,7 @@ import com.sechkarev.hiraganateacherkmp.ui.mainmenu.MainMenuViewModel
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
+import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.module
@@ -41,4 +43,5 @@ val appModule =
         viewModelOf(::DictionaryViewModel)
         viewModelOf(::MainMenuViewModel)
         viewModelOf(::GameViewModel)
+        singleOf(::ChallengesDataSource)
     }

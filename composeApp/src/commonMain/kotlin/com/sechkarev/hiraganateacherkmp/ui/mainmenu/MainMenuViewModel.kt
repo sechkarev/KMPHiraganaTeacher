@@ -2,33 +2,31 @@ package com.sechkarev.hiraganateacherkmp.ui.mainmenu
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import co.touchlab.kermit.Logger
+import com.sechkarev.hiraganateacherkmp.challenges.ChallengesDataSource
 import com.sechkarev.hiraganateacherkmp.domain.GameRepository
 import com.sechkarev.hiraganateacherkmp.textrecognition.TextRecognizer2
 import com.sechkarev.hiraganateacherkmp.tts.TextToSpeechEngine
 import com.sechkarev.hiraganateacherkmp.ui.utils.stateInWhileSubscribed
 import com.sechkarev.hiraganateacherkmp.utils.LengthyTask
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlin.coroutines.suspendCoroutine
 
 class MainMenuViewModel(
     private val gameRepository: GameRepository,
-    private val textRecognizer2: TextRecognizer2,
+    private val textRecognizer: TextRecognizer2,
     private val textToSpeechEngine: TextToSpeechEngine,
+    private val challengesDataSource: ChallengesDataSource,
 ) : ViewModel() {
     private val _state = MutableStateFlow(UiState())
     val state =
         _state
             .onStart {
-                textToSpeechEngine.initialise {
-                    Logger.i { "Text to speech init success" }
-                }
-                initTextRecognizer()
+                initData()
             }.combine(gameRepository.gameProgress) { uiState, gameProgress ->
                 uiState.copy(
                     progressHasBeenMade = gameProgress.solvedChallenges.isNotEmpty(),
@@ -38,7 +36,7 @@ class MainMenuViewModel(
             }.stateInWhileSubscribed(viewModelScope, UiState())
 
     data class UiState(
-        val textRecognitionInitResult: LengthyTask<Unit> = LengthyTask.InProgress,
+        val initResult: LengthyTask<Unit> = LengthyTask.InProgress,
         val progressHasBeenMade: Boolean = false,
         val dictionaryAvailable: Boolean = false,
         val characterListAvailable: Boolean = false,
@@ -53,27 +51,55 @@ class MainMenuViewModel(
     fun onAction(uiAction: UiAction) {
         when (uiAction) {
             UiAction.DeleteGameData -> onDeleteGameDataClick()
-            UiAction.ReInitTextRecognizer -> initTextRecognizer()
+            UiAction.ReInitTextRecognizer -> initData() // todo: granular?
         }
     }
 
-    private fun initTextRecognizer() {
-        _state.update { it.copy(textRecognitionInitResult = LengthyTask.InProgress) }
-        try {
-            textRecognizer2.initialize(
-                onSuccess = {
-                    Logger.i { "textRecognizer2 init success" }
-                    _state.update { it.copy(textRecognitionInitResult = LengthyTask.Success(Unit)) }
-                },
-                onFailure = {
-                    Logger.i { "textRecognizer2 init failure" }
-                    _state.update { it.copy(textRecognitionInitResult = LengthyTask.Error(Exception())) }
-                },
-            )
-        } catch (throwable: Throwable) {
-            _state.update { it.copy(textRecognitionInitResult = LengthyTask.Error(throwable)) }
+    private fun initData() {
+        _state.update { it.copy(initResult = LengthyTask.InProgress) }
+        viewModelScope.launch {
+            val textRecognizerInitDeferred = async { initTextRecognizer() }
+            val textToSpeechInitDeferred = async { initTextToSpeech() }
+            val challengeRepositoryInitDeferred = async { challengesDataSource.init() }
+            try {
+                challengeRepositoryInitDeferred.await()
+                textToSpeechInitDeferred.await()
+                textRecognizerInitDeferred.await()
+                _state.update { it.copy(initResult = LengthyTask.Success(Unit)) }
+            } catch (throwable: Throwable) {
+                _state.update { it.copy(initResult = LengthyTask.Error(throwable)) }
+            }
         }
     }
+
+    private suspend fun initTextRecognizer() =
+        suspendCoroutine { continuation ->
+            try {
+                textRecognizer.initialize(
+                    onSuccess = {
+                        continuation.resumeWith(Result.success(Unit))
+                    },
+                    onFailure = {
+                        continuation.resumeWith(Result.failure(Exception()))
+                    },
+                )
+            } catch (throwable: Throwable) {
+                continuation.resumeWith(Result.failure(throwable))
+            }
+        }
+
+    private suspend fun initTextToSpeech() =
+        suspendCoroutine { continuation ->
+            try {
+                textToSpeechEngine.initialise(
+                    onCompletion = {
+                        continuation.resumeWith(Result.success(Unit))
+                    },
+                )
+            } catch (throwable: Throwable) {
+                continuation.resumeWith(Result.failure(throwable))
+            }
+        }
 
     private fun onDeleteGameDataClick() {
         viewModelScope.launch {

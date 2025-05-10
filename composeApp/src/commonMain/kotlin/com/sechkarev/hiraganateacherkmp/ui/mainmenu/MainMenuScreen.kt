@@ -59,7 +59,7 @@ fun MainMenuScreen(
             SnackbarHost(hostState = snackbarHostState)
         },
         content = { innerPadding ->
-            val textRecognitionInitResult = mainMenuState.textRecognitionInitResult
+            val initResult = mainMenuState.initResult
             Column(Modifier.padding(innerPadding).fillMaxSize()) {
                 Spacer(Modifier.height(72.dp))
                 Text(
@@ -75,7 +75,7 @@ fun MainMenuScreen(
                 Spacer(Modifier.height(48.dp))
                 Button(
                     onClick = onStartGameClick,
-                    enabled = textRecognitionInitResult is LengthyTask.Success,
+                    enabled = initResult is LengthyTask.Success,
                     content = {
                         Text(
                             text =
@@ -133,7 +133,7 @@ fun MainMenuScreen(
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                 )
                 Spacer(Modifier.height(8.dp))
-                if (textRecognitionInitResult is LengthyTask.InProgress) {
+                if (initResult is LengthyTask.InProgress) {
                     Text(
                         text = stringResource(Res.string.main_menu_content_loading_warning),
                         textAlign = TextAlign.Center,
@@ -143,7 +143,7 @@ fun MainMenuScreen(
                                 .align(Alignment.CenterHorizontally),
                     )
                 }
-                if (textRecognitionInitResult is LengthyTask.Error) {
+                if (initResult is LengthyTask.Error) {
                     Text(
                         text = stringResource(Res.string.main_menu_content_loading_error),
                         textAlign = TextAlign.Center,
