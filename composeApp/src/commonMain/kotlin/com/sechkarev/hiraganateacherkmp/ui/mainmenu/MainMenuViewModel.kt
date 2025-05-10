@@ -8,9 +8,9 @@ import com.sechkarev.hiraganateacherkmp.textrecognition.TextRecognizer2
 import com.sechkarev.hiraganateacherkmp.tts.TextToSpeechEngine
 import com.sechkarev.hiraganateacherkmp.ui.utils.stateInWhileSubscribed
 import com.sechkarev.hiraganateacherkmp.utils.LengthyTask
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -26,13 +26,8 @@ class MainMenuViewModel(
     val state =
         _state
             .onStart {
-                initData()
-            }.combine(gameRepository.gameProgress) { uiState, gameProgress ->
-                uiState.copy(
-                    progressHasBeenMade = gameProgress.solvedChallenges.isNotEmpty(),
-                    dictionaryAvailable = gameProgress.solvedChallenges.mapNotNull { it.challenge.dictionaryItem }.isNotEmpty(),
-                    characterListAvailable = gameProgress.solvedChallenges.mapNotNull { it.challenge.newCharacter }.isNotEmpty(),
-                )
+                initData().join() // the repository needs to be initialised first
+                retrieveGameProgress()
             }.stateInWhileSubscribed(viewModelScope, UiState())
 
     data class UiState(
@@ -56,9 +51,9 @@ class MainMenuViewModel(
     }
 
     // todo: this data is initialised every time the screen opens! I need to do it just once.
-    private fun initData() {
+    private fun initData(): Job {
         _state.update { it.copy(initResult = LengthyTask.InProgress) }
-        viewModelScope.launch {
+        return viewModelScope.launch {
             val textRecognizerInitDeferred = async { initTextRecognizer() }
             val textToSpeechInitDeferred = async { initTextToSpeech() }
             val challengeRepositoryInitDeferred = async { challengesDataSource.init() }
@@ -102,9 +97,21 @@ class MainMenuViewModel(
             }
         }
 
+    private suspend fun retrieveGameProgress() {
+        val gameProgress = gameRepository.retrieveGameProgress()
+        _state.update {
+            it.copy(
+                progressHasBeenMade = gameProgress.solvedChallenges.isNotEmpty(),
+                dictionaryAvailable = gameProgress.solvedChallenges.mapNotNull { it.challenge.dictionaryItem }.isNotEmpty(),
+                characterListAvailable = gameProgress.solvedChallenges.mapNotNull { it.challenge.newCharacter }.isNotEmpty(),
+            )
+        }
+    }
+
     private fun onDeleteGameDataClick() {
         viewModelScope.launch {
             gameRepository.deleteAllSolutions()
+            retrieveGameProgress()
         }
     }
 }

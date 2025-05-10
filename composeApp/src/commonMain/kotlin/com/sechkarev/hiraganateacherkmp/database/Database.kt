@@ -9,7 +9,6 @@ import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.RoomDatabase
 import androidx.room.RoomDatabaseConstructor
-import kotlinx.coroutines.flow.Flow
 
 @Entity
 data class ChallengeSolutionEntity(
@@ -20,7 +19,7 @@ data class ChallengeSolutionEntity(
 @Dao
 interface ChallengeSolutionDao {
     @Query("SELECT * FROM challengesolutionentity")
-    fun retrieveAllSolutions(): Flow<List<ChallengeSolutionEntity>>
+    suspend fun retrieveAllSolutions(): List<ChallengeSolutionEntity>
 
     @Insert
     suspend fun insertSolution(challengeSolutionEntity: ChallengeSolutionEntity)

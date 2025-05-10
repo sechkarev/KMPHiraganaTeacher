@@ -10,8 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.sechkarev.hiraganateacherkmp.model.Challenge
-import com.sechkarev.hiraganateacherkmp.model.HiraganaCharacter
 import com.sechkarev.hiraganateacherkmp.ui.components.AnimatedHiraganaCharacter
 import kmphiraganateacher.composeapp.generated.resources.Res
 import kmphiraganateacher.composeapp.generated.resources.challenge1_task
@@ -19,7 +17,6 @@ import kmphiraganateacher.composeapp.generated.resources.challenge1_text
 import kmphiraganateacher.composeapp.generated.resources.challenge1_welcome_message
 import kmphiraganateacher.composeapp.generated.resources.hiragana_static_i
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun Challenge1(
@@ -42,11 +39,16 @@ fun Challenge1(
         Spacer(Modifier.height(16.dp))
         AnimatedHiraganaCharacter(
             resourceName = "hiragana_animated_i",
-            animatedCharacter = HiraganaCharacter.I.spelling,
-            onClick = { challengeState.onWrittenTextClick(HiraganaCharacter.I.spelling.toString()) },
+            animatedCharacter = challengeState.challenge.newCharacter?.spelling,
+            onClick = {
+                challengeState.onWrittenTextClick(
+                    challengeState.challenge.newCharacter
+                        ?.spelling
+                        .toString(),
+                )
+            },
             modifier = Modifier.align(Alignment.CenterHorizontally),
         )
-        // todo: SOUNDS
         Spacer(Modifier.height(16.dp))
         Text(
             text = stringResource(Res.string.challenge1_task),
@@ -58,13 +60,5 @@ fun Challenge1(
             drawingLineThickness = 48f,
         )
         Spacer(Modifier.height(16.dp))
-    }
-}
-
-@Preview
-@Composable
-private fun PreviewChallenge1() {
-    MaterialTheme {
-        Challenge1(ChallengeUiState.Completed(Challenge.Challenge1))
     }
 }

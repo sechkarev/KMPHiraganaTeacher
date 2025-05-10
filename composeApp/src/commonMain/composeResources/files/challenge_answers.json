@@ -35,6 +35,11 @@
     "requiredStrokes": 5
   },
   {
+    "name": "HAE",
+    "answerText": "はえ",
+    "requiredStrokes": 5
+  },
+  {
     "name": "A",
     "answerText": "あ",
     "requiredStrokes": 3

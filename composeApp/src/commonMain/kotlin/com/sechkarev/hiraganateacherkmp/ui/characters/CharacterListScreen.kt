@@ -22,7 +22,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.sechkarev.hiraganateacherkmp.model.HiraganaCharacter
 import com.sechkarev.hiraganateacherkmp.model.HiraganaCharacterOnGrid
 import com.sechkarev.hiraganateacherkmp.ui.components.TopBarWithBackIcon
 import kmphiraganateacher.composeapp.generated.resources.Res
@@ -63,7 +62,7 @@ fun CharacterListScreen(
                     stringResource(
                         Res.string.characters_screen_subtitle,
                         characterItems.filter { it is HiraganaCharacterOnGrid.Filled }.size,
-                        HiraganaCharacter.entries.size,
+                        characterItems.size,
                     ),
                 style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center,

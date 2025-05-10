@@ -67,7 +67,7 @@ fun DrawingChallenge(
                                 .align(Alignment.Center)
                                 .background(color = Color.Green.copy(alpha = 0.1f))
                                 .border(width = 1.dp, color = Color.Black)
-                                .clickable { challengeState.onWrittenTextClick(challengeState.challenge.answer.answerText) },
+                                .clickable { challengeState.onWrittenTextClick(challengeState.challenge.challengeAnswer.answerText) },
                     )
                     if (canvasDecoration != null) {
                         CanvasDecorationHearts()
@@ -95,7 +95,7 @@ fun DrawingChallenge(
                                 contentDescription =
                                     stringResource(
                                         Res.string.answer_appearance_hint_description,
-                                        challengeState.challenge.answer.answerText,
+                                        challengeState.challenge.challengeAnswer.answerText,
                                     ),
                             )
                         }

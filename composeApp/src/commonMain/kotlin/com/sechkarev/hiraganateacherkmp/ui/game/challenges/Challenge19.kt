@@ -4,16 +4,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.sechkarev.hiraganateacherkmp.model.Challenge
 import kmphiraganateacher.composeapp.generated.resources.Res
 import kmphiraganateacher.composeapp.generated.resources.challenge19_task
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun Challenge19(
@@ -32,13 +29,5 @@ fun Challenge19(
             canvasDecoration = CanvasDecoration.HEARTS,
         )
         Spacer(Modifier.height(16.dp))
-    }
-}
-
-@Preview
-@Composable
-private fun PreviewChallenge19() {
-    MaterialTheme {
-        Challenge1(ChallengeUiState.Completed(Challenge.Challenge19))
     }
 }

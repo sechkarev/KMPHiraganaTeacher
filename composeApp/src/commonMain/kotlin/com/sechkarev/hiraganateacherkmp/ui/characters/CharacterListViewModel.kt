@@ -1,29 +1,30 @@
 package com.sechkarev.hiraganateacherkmp.ui.characters
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.sechkarev.hiraganateacherkmp.domain.GameRepository
 import com.sechkarev.hiraganateacherkmp.model.HiraganaCharacter
 import com.sechkarev.hiraganateacherkmp.model.HiraganaCharacterOnGrid
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import com.sechkarev.hiraganateacherkmp.ui.utils.stateInWhileSubscribed
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.onStart
 
 class CharacterListViewModel(
     gameRepository: GameRepository,
 ) : ViewModel() {
     data class UiState(
-        val gridItems: List<HiraganaCharacterOnGrid>,
+        val gridItems: List<HiraganaCharacterOnGrid> = emptyList(),
     )
 
-    val uiState: Flow<UiState> =
-        gameRepository
-            .gameProgress
-            .map { gameProgress ->
+    private val _uiState = MutableStateFlow(UiState())
+    val uiState: StateFlow<UiState> =
+        _uiState
+            .onStart {
                 UiState(
-                    putCharactersOnGrid(
-                        gameProgress.solvedChallenges.mapNotNull { it.challenge.newCharacter },
-                    ),
+                    putCharactersOnGrid(gameRepository.retrieveGameProgress().solvedChallenges.mapNotNull { it.challenge.newCharacter }),
                 )
-            }
+            }.stateInWhileSubscribed(viewModelScope, UiState())
 
     private fun putCharactersOnGrid(characters: List<HiraganaCharacter>): List<HiraganaCharacterOnGrid> {
         // Given that we know in advance how a hiragana grid typically looks like,

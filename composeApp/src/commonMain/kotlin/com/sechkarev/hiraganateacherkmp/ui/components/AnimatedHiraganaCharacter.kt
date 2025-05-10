@@ -15,7 +15,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun AnimatedHiraganaCharacter(
     resourceName: String, // todo: looks really unsafe
-    animatedCharacter: Char,
+    animatedCharacter: String?,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {

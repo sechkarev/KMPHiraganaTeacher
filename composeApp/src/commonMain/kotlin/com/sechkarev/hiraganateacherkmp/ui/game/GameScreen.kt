@@ -125,26 +125,29 @@ private fun Challenge(
                 onWrittenTextClick = { onAction(DrawingAction.OnTextClick(it)) },
             )
         }
-//     todo: can I make this mapping better?
-    return when (challenge) {
-        Challenge.Challenge1 -> Challenge1(challengeUiState)
-        Challenge.Challenge2 -> Challenge2(challengeUiState)
-        Challenge.Challenge3 -> Challenge3(challengeUiState)
-        Challenge.Challenge4 -> Challenge4(challengeUiState)
-        Challenge.Challenge5 -> Challenge5(challengeUiState)
-        Challenge.Challenge6 -> Challenge6(challengeUiState)
-        Challenge.Challenge7 -> Challenge7(challengeUiState)
-        Challenge.Challenge8 -> Challenge8(challengeUiState)
-        Challenge.Challenge9 -> Challenge9(challengeUiState)
-        Challenge.Challenge10 -> Challenge10(challengeUiState)
-        Challenge.Challenge11 -> Challenge11(challengeUiState)
-        Challenge.Challenge12 -> Challenge12(challengeUiState)
-        Challenge.Challenge13 -> Challenge13(challengeUiState)
-        Challenge.Challenge14 -> Challenge14(challengeUiState)
-        Challenge.Challenge15 -> Challenge15(challengeUiState)
-        Challenge.Challenge16 -> Challenge16(challengeUiState)
-        Challenge.Challenge17 -> Challenge17(challengeUiState)
-        Challenge.Challenge18 -> Challenge18(challengeUiState)
-        Challenge.Challenge19 -> Challenge19(challengeUiState)
+//     todo: move ids to a separate class
+    // todo: add remaining challenges
+    // todo: rename composables
+    return when (challenge.name) {
+        "i_beginning" -> Challenge1(challengeUiState)
+        "i_repetition" -> Challenge2(challengeUiState)
+        "e_introduction" -> Challenge3(challengeUiState)
+        "e_repetition" -> Challenge4(challengeUiState)
+        "e_no_hint" -> Challenge5(challengeUiState)
+        "back_to_i" -> Challenge6(challengeUiState)
+        "new_word_ie" -> Challenge7(challengeUiState)
+        "new_word_iie" -> Challenge8(challengeUiState)
+        "are_you_afraid" -> Challenge9(challengeUiState)
+        "iie_timed_10_sec" -> Challenge10(challengeUiState)
+        "iie_timed_5_sec" -> Challenge11(challengeUiState)
+        "ha_introduction" -> Challenge12(challengeUiState)
+        "ha_repetition" -> Challenge13(challengeUiState)
+        "new_word_hai" -> Challenge14(challengeUiState)
+        "hai_timed_5_sec" -> Challenge15(challengeUiState)
+        "a_introduction" -> Challenge16(challengeUiState)
+        "a_repetition" -> Challenge17(challengeUiState)
+        "new_word_ai" -> Challenge18(challengeUiState)
+        "ai_decorated_canvas" -> Challenge19(challengeUiState)
+        else -> {} // todo: throw an exception at some point
     }
 }

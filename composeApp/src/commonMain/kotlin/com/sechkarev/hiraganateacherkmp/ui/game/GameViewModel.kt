@@ -6,13 +6,15 @@ import androidx.lifecycle.viewModelScope
 import com.sechkarev.hiraganateacherkmp.domain.GameRepository
 import com.sechkarev.hiraganateacherkmp.model.GameProgress
 import com.sechkarev.hiraganateacherkmp.model.Point
+import com.sechkarev.hiraganateacherkmp.model.SolvedChallenge
 import com.sechkarev.hiraganateacherkmp.model.Stroke
 import com.sechkarev.hiraganateacherkmp.textrecognition.TextRecognizer2
 import com.sechkarev.hiraganateacherkmp.tts.TextToSpeechEngine
+import com.sechkarev.hiraganateacherkmp.ui.utils.stateInWhileSubscribed
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -60,29 +62,22 @@ class GameViewModel(
     private val textToSpeechEngine: TextToSpeechEngine,
 ) : ViewModel() {
     private val _gameUiState: MutableStateFlow<GameUiState> = MutableStateFlow(GameUiState())
-    val gameUiState = _gameUiState.asStateFlow()
+    val gameUiState =
+        _gameUiState
+            .onStart {
+                val gameProgress = gameRepository.retrieveGameProgress()
+                _gameUiState.update {
+                    GameUiState(
+                        gameProgress = gameProgress,
+                        timerState = TimerState.Idle,
+                        drawnStrokes = emptyList(),
+                        currentStroke = null,
+                        challengeCompletionError = null,
+                    )
+                }
+            }.stateInWhileSubscribed(viewModelScope, GameUiState())
 
     private var timerJob: Job? = null
-
-    // todo: I probably want to get rid of this flow and react to wins manually
-    init {
-        viewModelScope.launch {
-            gameRepository
-                .gameProgress
-                .collect { gameProgress ->
-                    _gameUiState.update {
-                        GameUiState(
-                            gameProgress = gameProgress,
-                            timerState = TimerState.Idle,
-                            drawnStrokes = emptyList(),
-                            currentStroke = null,
-                            challengeCompletionError = null,
-                        )
-                    }
-                    textRecognizer.cleanCurrentData()
-                }
-        }
-    }
 
     fun onAction(action: DrawingAction) {
         when (action) {
@@ -103,15 +98,35 @@ class GameViewModel(
             )
         }
         textRecognizer.completeStroke()
-        if (textRecognizer.currentStrokeAmount() >= currentChallenge.answer.requiredStrokes) {
+        if (textRecognizer.currentStrokeAmount() >= currentChallenge.challengeAnswer.requiredStrokes) {
             viewModelScope.launch {
                 cancelTimer() // todo: visible lag
                 val recognizedText = textRecognizer.recognizeCurrentText()
-                if (recognizedText == currentChallenge.answer.answerText) {
+                if (recognizedText == currentChallenge.challengeAnswer.answerText) {
+                    textRecognizer.cleanCurrentData()
                     gameRepository.insertSolution(
                         challengeId = currentChallenge.name,
                         solution = _gameUiState.value.drawnStrokes,
                     )
+                    val nextChallenge = gameRepository.retrieveNextChallenge(currentChallenge.name)
+                    _gameUiState.update {
+                        GameUiState(
+                            gameProgress =
+                                GameProgress(
+                                    solvedChallenges =
+                                        it
+                                            .gameProgress
+                                            .solvedChallenges
+                                            .plus(SolvedChallenge(currentChallenge, it.drawnStrokes)),
+                                    currentChallenge = nextChallenge,
+                                    gameCompleted = nextChallenge == null,
+                                ),
+                            timerState = TimerState.Idle,
+                            drawnStrokes = emptyList(),
+                            currentStroke = null,
+                            challengeCompletionError = null,
+                        )
+                    }
                 } else {
                     _gameUiState.update {
                         it.copy(challengeCompletionError = ChallengeCompletionError.WrongText(recognizedText))
@@ -126,7 +141,7 @@ class GameViewModel(
         if (_gameUiState.value.challengeCompletionError != null) {
             cleanCanvas()
         }
-        if (textRecognizer.currentStrokeAmount() >= currentChallenge.answer.requiredStrokes) {
+        if (textRecognizer.currentStrokeAmount() >= currentChallenge.challengeAnswer.requiredStrokes) {
             return
         }
         if (_gameUiState.value.timerState == TimerState.Idle && currentChallenge.secondsToComplete != null) {
