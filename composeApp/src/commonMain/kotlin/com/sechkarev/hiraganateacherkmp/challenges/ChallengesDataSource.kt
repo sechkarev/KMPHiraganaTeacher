@@ -134,7 +134,7 @@ class ChallengesDataSource {
                                     )
                                 is AnimationUiComponentDto ->
                                     Animation(
-                                        animationId = uiComponent.properties.animationId,
+                                        animationId = mapAnimationConfigIdToFileName(uiComponent.properties.animationId),
                                     )
                                 is DrawingChallengeUiComponentDto ->
                                     DrawingChallenge(
@@ -164,6 +164,15 @@ class ChallengesDataSource {
         when (headlineId) {
             "i_beginning_introduction" -> Res.string.challenge1_welcome_message
             else -> throw IllegalArgumentException("Can't find a string corresponding with the headline id $headlineId")
+        }
+
+    private fun mapAnimationConfigIdToFileName(animationId: String): String =
+        when (animationId) {
+            "i_introduction_animation" -> "hiragana_animated_i"
+            "e_introduction_animation" -> "hiragana_animated_e"
+            "ha_introduction_animation" -> "hiragana_animated_ha"
+            "a_introduction_animation" -> "hiragana_animated_a"
+            else -> throw IllegalArgumentException("Can't find a string corresponding with the animation id $animationId")
         }
 
     private fun mapTextConfigIdToStringResource(textId: String): StringResource =
