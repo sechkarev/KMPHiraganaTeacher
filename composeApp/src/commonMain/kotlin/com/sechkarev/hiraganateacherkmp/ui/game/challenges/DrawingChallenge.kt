@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.sechkarev.hiraganateacherkmp.model.CanvasDecoration
 import com.sechkarev.hiraganateacherkmp.ui.components.DrawingCanvas
 import com.sechkarev.hiraganateacherkmp.ui.components.StaticCanvas
 import com.sechkarev.hiraganateacherkmp.ui.components.drawingCanvasSize

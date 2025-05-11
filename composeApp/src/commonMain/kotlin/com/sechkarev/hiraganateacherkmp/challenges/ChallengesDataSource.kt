@@ -1,6 +1,7 @@
 package com.sechkarev.hiraganateacherkmp.challenges
 
 import co.touchlab.kermit.Logger
+import com.sechkarev.hiraganateacherkmp.model.CanvasDecoration
 import com.sechkarev.hiraganateacherkmp.model.Challenge
 import com.sechkarev.hiraganateacherkmp.model.ChallengeAnswer
 import com.sechkarev.hiraganateacherkmp.model.DictionaryItem
@@ -10,7 +11,6 @@ import com.sechkarev.hiraganateacherkmp.model.UiComponent.DrawingChallenge
 import com.sechkarev.hiraganateacherkmp.model.UiComponent.Headline
 import com.sechkarev.hiraganateacherkmp.model.UiComponent.NewWord
 import com.sechkarev.hiraganateacherkmp.model.UiComponent.Text
-import com.sechkarev.hiraganateacherkmp.ui.game.challenges.CanvasDecoration
 import kmphiraganateacher.composeapp.generated.resources.Res
 import kmphiraganateacher.composeapp.generated.resources.challenge1_welcome_message
 import kmphiraganateacher.composeapp.generated.resources.challenge3_text
@@ -90,7 +90,6 @@ class ChallengesDataSource {
                     secondsToComplete = challengeDto.secondsToComplete,
                     uiComponents =
                         challengeDto.uiComponents.map { uiComponent ->
-                            // todo: the rest of the component types
                             when (uiComponent) {
                                 is HeadlineUiComponentDto ->
                                     Headline(
@@ -158,14 +157,14 @@ class ChallengesDataSource {
 }
 
 @Serializable
-data class ChallengeAnswerDto(
+private data class ChallengeAnswerDto(
     val name: String,
     val answerText: String,
     val requiredStrokes: Int,
 )
 
 @Serializable
-data class HiraganaCharacterDto(
+private data class HiraganaCharacterDto(
     val name: String,
     val spelling: String,
     val pronunciation: String,
@@ -173,7 +172,7 @@ data class HiraganaCharacterDto(
 )
 
 @Serializable
-data class DictionaryItemDto(
+private data class DictionaryItemDto(
     val name: String,
     val original: String,
 ) {
@@ -182,7 +181,7 @@ data class DictionaryItemDto(
 }
 
 @Serializable
-data class ChallengeDto(
+private data class ChallengeDto(
     val name: String,
     val answer: String,
     val uiComponents: List<@Polymorphic UiComponentDto>,
@@ -192,62 +191,60 @@ data class ChallengeDto(
 )
 
 @Serializable
-sealed class UiComponentDto
+private sealed class UiComponentDto
 
 @Serializable
 @SerialName("headline")
-data class HeadlineUiComponentDto(
+private data class HeadlineUiComponentDto(
     val properties: HeadlineUiComponentProperties,
 ) : UiComponentDto()
 
 @Serializable
 @SerialName("text")
-data class TextUiComponentDto(
+private data class TextUiComponentDto(
     val properties: TextUiComponentProperties,
 ) : UiComponentDto()
 
 @Serializable
 @SerialName("animation")
-data class AnimationUiComponentDto(
+private data class AnimationUiComponentDto(
     val properties: AnimationUiComponentProperties,
 ) : UiComponentDto()
 
 @Serializable
 @SerialName("new_word")
-data class NewWordUiComponentDto(
+private data class NewWordUiComponentDto(
     val properties: NewWordUiComponentProperties,
 ) : UiComponentDto()
 
 @Serializable
 @SerialName("drawing_challenge")
-data class DrawingChallengeUiComponentDto(
+private data class DrawingChallengeUiComponentDto(
     val properties: DrawingChallengeUiComponentProperties,
 ) : UiComponentDto()
 
 @Serializable
-data class HeadlineUiComponentProperties(
+private data class HeadlineUiComponentProperties(
     val textId: String,
 )
 
 @Serializable
-data class TextUiComponentProperties(
+private data class TextUiComponentProperties(
     val textId: String,
 )
 
 @Serializable
-data class AnimationUiComponentProperties(
+private data class AnimationUiComponentProperties(
     val animationId: String,
 )
 
 @Serializable
-data class NewWordUiComponentProperties(
+private data class NewWordUiComponentProperties(
     val word: String,
 )
 
 @Serializable
-data class DrawingChallengeUiComponentProperties(
+private data class DrawingChallengeUiComponentProperties(
     val hint: String? = null,
     val canvasDecoration: String? = null,
 )
-
-// todo: can I make all these data classes private?

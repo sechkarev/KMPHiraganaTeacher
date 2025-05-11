@@ -13,11 +13,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sechkarev.hiraganateacherkmp.ui.components.drawingCanvasSize
 
-// todo: add more?
-enum class CanvasDecoration {
-    HEARTS,
-}
-
 @Composable
 fun CanvasDecorationHearts(modifier: Modifier = Modifier) {
     Box(

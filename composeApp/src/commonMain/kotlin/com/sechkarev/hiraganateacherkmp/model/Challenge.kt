@@ -1,6 +1,5 @@
 package com.sechkarev.hiraganateacherkmp.model
 
-import com.sechkarev.hiraganateacherkmp.ui.game.challenges.CanvasDecoration
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 
@@ -46,6 +45,10 @@ data class Challenge(
     val newCharacter: HiraganaCharacter? = null,
     val secondsToComplete: Int? = null,
 )
+
+enum class CanvasDecoration {
+    HEARTS,
+}
 
 sealed interface UiComponent {
     data class Headline(
