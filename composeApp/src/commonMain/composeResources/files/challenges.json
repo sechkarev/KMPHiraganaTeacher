@@ -31,7 +31,7 @@
       {
         "type": "drawing_challenge",
         "properties": {
-          "hint": "i_beginning_image"
+          "hint": "i_introduction_image"
         }
       }
     ]
@@ -49,84 +49,19 @@
       {
         "type": "drawing_challenge",
         "properties": {
-          "hint": "i_beginning_image"
+          "hint": "i_introduction_image"
         }
       }
     ]
   },
   {
-    "name": "e_introduction",
-    "answer": "E",
-    "newCharacter": "E",
-    "uiComponents": [
-      {
-        "type": "text",
-        "properties": {
-          "textId": "e_introduction_text"
-        }
-      },
-      {
-        "type": "animation",
-        "properties": {
-          "animationId": "e_introduction_animation"
-        }
-      },
-      {
-        "type": "text",
-        "properties": {
-          "textId": "e_introduction_task"
-        }
-      },
-      {
-        "type": "drawing_challenge",
-        "properties": {
-          "hint": "e_beginning_image"
-        }
-      }
-    ]
-  },
-  {
-    "name": "e_repetition",
-    "answer": "E",
-    "uiComponents": [
-      {
-        "type": "text",
-        "properties": {
-          "textId": "e_repetition_task"
-        }
-      },
-      {
-        "type": "drawing_challenge",
-        "properties": {
-          "hint": "e_beginning_image"
-        }
-      }
-    ]
-  },
-  {
-    "name": "e_no_hint",
-    "answer": "E",
-    "uiComponents": [
-      {
-        "type": "text",
-        "properties": {
-          "textId": "e_no_hint_task"
-        }
-      },
-      {
-        "type": "drawing_challenge",
-        "properties": {}
-      }
-    ]
-  },
-  {
-    "name": "back_to_i",
+    "name": "i_no_hint",
     "answer": "I",
     "uiComponents": [
       {
         "type": "text",
         "properties": {
-          "textId": "back_to_i_task"
+          "textId": "i_no_hint_task"
         }
       },
       {
@@ -153,9 +88,9 @@
     ]
   },
   {
-    "name": "new_word_ie",
-    "answer": "IE",
-    "dictionaryItem": "IE",
+    "name": "e_introduction",
+    "answer": "E",
+    "newCharacter": "E",
     "uiComponents": [
       {
         "type": "text",
@@ -169,6 +104,55 @@
           "word": "II"
         }
       },
+      {
+        "type": "text",
+        "properties": {
+          "textId": "e_introduction_text"
+        }
+      },
+      {
+        "type": "animation",
+        "properties": {
+          "animationId": "e_introduction_animation"
+        }
+      },
+      {
+        "type": "text",
+        "properties": {
+          "textId": "e_introduction_task"
+        }
+      },
+      {
+        "type": "drawing_challenge",
+        "properties": {
+          "hint": "e_introduction_image"
+        }
+      }
+    ]
+  },
+  {
+    "name": "e_repetition",
+    "answer": "E",
+    "uiComponents": [
+      {
+        "type": "text",
+        "properties": {
+          "textId": "e_repetition_task"
+        }
+      },
+      {
+        "type": "drawing_challenge",
+        "properties": {
+          "hint": "e_introduction_image"
+        }
+      }
+    ]
+  },
+  {
+    "name": "new_word_ie",
+    "answer": "IE",
+    "dictionaryItem": "IE",
+    "uiComponents": [
       {
         "type": "text",
         "properties": {
@@ -342,12 +326,6 @@
     "secondsToComplete": 5,
     "uiComponents": [
       {
-        "type": "text",
-        "properties": {
-          "textId": "new_word_hai_congratulations"
-        }
-      },
-      {
         "type": "new_word",
         "properties": {
           "word": "HAI"
@@ -449,6 +427,18 @@
       {
         "type": "text",
         "properties": {
+          "textId": "new_word_ai_congratulations"
+        }
+      },
+      {
+        "type": "new_word",
+        "properties": {
+          "word": "AI"
+        }
+      },
+      {
+        "type": "text",
+        "properties": {
           "textId": "new_word_ai_task"
         }
       },
@@ -462,18 +452,6 @@
     "name": "ai_decorated_canvas",
     "answer": "AI",
     "uiComponents": [
-      {
-        "type": "text",
-        "properties": {
-          "textId": "new_word_ai_congratulations"
-        }
-      },
-      {
-        "type": "new_word",
-        "properties": {
-          "word": "AI"
-        }
-      },
       {
         "type": "text",
         "properties": {

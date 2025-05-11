@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kmphiraganateacher.composeapp.generated.resources.Res
-import kmphiraganateacher.composeapp.generated.resources.challenge5_task
+import kmphiraganateacher.composeapp.generated.resources.challenge3_text
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -21,7 +21,7 @@ fun Challenge5(
         modifier = Modifier.padding(horizontal = 16.dp).then(modifier),
     ) {
         Text(
-            text = stringResource(Res.string.challenge5_task),
+            text = stringResource(Res.string.challenge3_text),
         )
         Spacer(Modifier.height(16.dp))
         DrawingChallenge(

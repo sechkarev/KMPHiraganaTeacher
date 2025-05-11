@@ -46,8 +46,10 @@ data class Challenge(
     val secondsToComplete: Int? = null,
 )
 
-enum class CanvasDecoration {
-    HEARTS,
+enum class CanvasDecoration(
+    val configKey: String,
+) {
+    HEARTS("hearts"),
 }
 
 sealed interface UiComponent {
@@ -60,7 +62,7 @@ sealed interface UiComponent {
     ) : UiComponent
 
     data class Animation(
-        val animationId: String,
+        val animationId: String, // todo: create a wrapper?.. idk
     ) : UiComponent
 
     data class NewWord(
