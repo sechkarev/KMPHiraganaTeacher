@@ -51,6 +51,7 @@ fun DrawingChallenge(
                 .fillMaxWidth()
                 .then(modifier),
     ) {
+        // todo: when I scroll along completed challenges, sometimes there's a jump, and I'm not sure what it is connected with. Hints?
         when (challengeState) {
             is ChallengeUiState.Completed -> {
                 Box(
