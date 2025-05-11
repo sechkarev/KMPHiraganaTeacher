@@ -19,10 +19,11 @@ kotlin = "2.1.21-RC"
 serialization-json = "1.8.1"
 navigationCompose = "2.8.0-alpha10"
 koin = "4.0.3"
-room = "2.7.0"
+room = "2.7.1"
 ksp = "2.1.20-1.0.32"
-sqlite = "2.5.0"
+sqlite = "2.5.1"
 digitalInkRecognition = "18.1.0"
+composeIcons = "1.1.1"
 
 [libraries]
 kamel = { module = "media.kamel:kamel-image-default", version.ref = "kamel" }
@@ -46,6 +47,7 @@ room-runtime-android = { module = "androidx.room:room-runtime-android", version.
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
 digital-ink-recognition = { module = "com.google.mlkit:digital-ink-recognition", version.ref = "digitalInkRecognition" }
+composeIcons-feather = { module = "br.com.devsrsouza.compose.icons:feather", version.ref = "composeIcons" }
 
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }

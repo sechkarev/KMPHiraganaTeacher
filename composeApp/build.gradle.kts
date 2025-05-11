@@ -98,6 +98,8 @@ kotlin {
 
             implementation(libs.kamel)
             implementation(libs.kermit)
+
+            implementation(libs.composeIcons.feather)
         }
     }
 }

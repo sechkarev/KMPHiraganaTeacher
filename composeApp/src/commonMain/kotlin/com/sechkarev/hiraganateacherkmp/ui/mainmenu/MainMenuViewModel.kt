@@ -78,9 +78,11 @@ class MainMenuViewModel(
             try {
                 textRecognizer.initialize(
                     onSuccess = {
+                        Logger.i { "textRecognizer init success" }
                         continuation.resumeWith(Result.success(Unit))
                     },
                     onFailure = {
+                        Logger.i { "textRecognizer init failure" }
                         continuation.resumeWith(Result.failure(Exception()))
                     },
                 )
@@ -94,6 +96,7 @@ class MainMenuViewModel(
             try {
                 textToSpeechEngine.initialise(
                     onCompletion = {
+                        Logger.i { "TTS init complete" }
                         continuation.resumeWith(Result.success(Unit))
                     },
                 )

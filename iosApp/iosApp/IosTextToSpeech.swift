@@ -9,6 +9,7 @@ class IosTextToSpeech: TextToSpeechEngine {
     
     func initialise(onCompletion: @escaping () -> Void) {
         // does nothing
+        onCompletion()
     }
     
     func pronounce(text: String) {
