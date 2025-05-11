@@ -160,7 +160,7 @@ private fun Challenge(
                 }
                 is UiComponent.Text -> {
                     Text(
-                        text = stringResource(it.textResource),
+                        text = stringResource(it.textResource), // todo: add html tag support
                     )
                 }
             }

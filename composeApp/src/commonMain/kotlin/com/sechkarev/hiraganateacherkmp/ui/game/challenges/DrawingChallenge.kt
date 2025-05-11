@@ -55,7 +55,7 @@ fun DrawingChallenge(
                 Box(
                     modifier =
                         Modifier
-                            .drawingCanvasSize(),
+                            .fillMaxWidth(),
                 ) {
                     StaticCanvas(
                         paths = challengeState.solution,
@@ -64,14 +64,19 @@ fun DrawingChallenge(
                             Modifier
                                 .drawingCanvasSize()
                                 .clipToBounds()
-                                .background(Color.White)
                                 .align(Alignment.Center)
                                 .background(color = Color.Green.copy(alpha = 0.1f))
                                 .border(width = 1.dp, color = Color.Black)
                                 .clickable { challengeState.onWrittenTextClick(challengeState.challenge.challengeAnswer.answerText) },
                     )
                     if (canvasDecoration != null) {
-                        CanvasDecorationHearts()
+                        CanvasDecorationHearts(
+                            modifier =
+                                Modifier
+                                    .align(Alignment.Center)
+                                    .drawingCanvasSize()
+                                    .clipToBounds(),
+                        )
                     }
                 }
             }

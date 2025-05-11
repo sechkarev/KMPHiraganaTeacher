@@ -7,20 +7,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.sechkarev.hiraganateacherkmp.ui.components.drawingCanvasSize
 
 @Composable
 fun CanvasDecorationHearts(modifier: Modifier = Modifier) {
     Box(
-        modifier =
-            Modifier
-                .drawingCanvasSize()
-                .clipToBounds()
-                .then(modifier),
+        modifier = modifier,
     ) {
         Text(
             text = "❤\uFE0F",
