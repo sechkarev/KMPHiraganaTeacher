@@ -2,98 +2,490 @@
   {
     "name": "i_beginning",
     "answer": "I",
-    "newCharacter": "I"
+    "newCharacter": "I",
+    "uiComponents": [
+      {
+        "type": "headline",
+        "properties": {
+          "textId": "i_beginning_introduction"
+        }
+      },
+      {
+        "type": "text",
+        "properties": {
+          "textId": "i_beginning_explanation"
+        }
+      },
+      {
+        "type": "animation",
+        "properties": {
+          "animationId": "i_beginning_animation"
+        }
+      },
+      {
+        "type": "text",
+        "properties": {
+          "textId": "i_beginning_task"
+        }
+      },
+      {
+        "type": "drawing_challenge",
+        "properties": {
+          "hint": "i_beginning_image"
+        }
+      }
+    ]
   },
   {
     "name": "i_repetition",
-    "answer": "I"
+    "answer": "I",
+    "uiComponents": [
+      {
+        "type": "text",
+        "properties": {
+          "textId": "i_repetition_task"
+        }
+      },
+      {
+        "type": "drawing_challenge",
+        "properties": {
+          "hint": "i_beginning_image"
+        }
+      }
+    ]
   },
   {
     "name": "e_introduction",
     "answer": "E",
-    "newCharacter": "E"
+    "newCharacter": "E",
+    "uiComponents": [
+      {
+        "type": "text",
+        "properties": {
+          "textId": "e_introduction_text"
+        }
+      },
+      {
+        "type": "animation",
+        "properties": {
+          "animationId": "e_introduction_animation"
+        }
+      },
+      {
+        "type": "text",
+        "properties": {
+          "textId": "e_introduction_task"
+        }
+      },
+      {
+        "type": "drawing_challenge",
+        "properties": {
+          "hint": "e_beginning_image"
+        }
+      }
+    ]
   },
   {
     "name": "e_repetition",
-    "answer": "E"
+    "answer": "E",
+    "uiComponents": [
+      {
+        "type": "text",
+        "properties": {
+          "textId": "e_repetition_task"
+        }
+      },
+      {
+        "type": "drawing_challenge",
+        "properties": {
+          "hint": "e_beginning_image"
+        }
+      }
+    ]
   },
   {
     "name": "e_no_hint",
-    "answer": "E"
+    "answer": "E",
+    "uiComponents": [
+      {
+        "type": "text",
+        "properties": {
+          "textId": "e_no_hint_task"
+        }
+      },
+      {
+        "type": "drawing_challenge",
+        "properties": {}
+      }
+    ]
   },
   {
     "name": "back_to_i",
-    "answer": "I"
+    "answer": "I",
+    "uiComponents": [
+      {
+        "type": "text",
+        "properties": {
+          "textId": "back_to_i_task"
+        }
+      },
+      {
+        "type": "drawing_challenge",
+        "properties": {}
+      }
+    ]
   },
   {
     "name": "new_word_ii",
     "answer": "II",
-    "dictionaryItem": "II"
+    "dictionaryItem": "II",
+    "uiComponents": [
+      {
+        "type": "text",
+        "properties": {
+          "textId": "new_word_ii_task"
+        }
+      },
+      {
+        "type": "drawing_challenge",
+        "properties": {}
+      }
+    ]
   },
   {
     "name": "new_word_ie",
     "answer": "IE",
-    "dictionaryItem": "IE"
+    "dictionaryItem": "IE",
+    "uiComponents": [
+      {
+        "type": "text",
+        "properties": {
+          "textId": "new_word_ii_congratulations"
+        }
+      },
+      {
+        "type": "new_word",
+        "properties": {
+          "word": "II"
+        }
+      },
+      {
+        "type": "text",
+        "properties": {
+          "textId": "new_word_ie_task"
+        }
+      },
+      {
+        "type": "drawing_challenge",
+        "properties": {}
+      }
+    ]
   },
   {
     "name": "new_word_iie",
     "answer": "IIE",
-    "dictionaryItem": "IIE"
+    "dictionaryItem": "IIE",
+    "uiComponents": [
+      {
+        "type": "text",
+        "properties": {
+          "textId": "new_word_ie_congratulations"
+        }
+      },
+      {
+        "type": "new_word",
+        "properties": {
+          "word": "IE"
+        }
+      },
+      {
+        "type": "text",
+        "properties": {
+          "textId": "new_word_iie_task"
+        }
+      },
+      {
+        "type": "drawing_challenge",
+        "properties": {}
+      }
+    ]
   },
   {
     "name": "are_you_afraid",
-    "answer": "IIE"
+    "answer": "IIE",
+    "uiComponents": [
+      {
+        "type": "text",
+        "properties": {
+          "textId": "new_word_iie_congratulations"
+        }
+      },
+      {
+        "type": "new_word",
+        "properties": {
+          "word": "IIE"
+        }
+      },
+      {
+        "type": "text",
+        "properties": {
+          "textId": "are_you_afraid_task"
+        }
+      },
+      {
+        "type": "drawing_challenge",
+        "properties": {}
+      }
+    ]
   },
   {
     "name": "iie_timed_10_sec",
     "answer": "IIE",
-    "secondsToComplete": 10
+    "secondsToComplete": 10,
+    "uiComponents": [
+      {
+        "type": "text",
+        "properties": {
+          "textId": "iie_timed_10_sec_task"
+        }
+      },
+      {
+        "type": "drawing_challenge",
+        "properties": {}
+      }
+    ]
   },
   {
     "name": "iie_timed_5_sec",
     "answer": "IIE",
-    "secondsToComplete": 5
+    "secondsToComplete": 5,
+    "uiComponents": [
+      {
+        "type": "text",
+        "properties": {
+          "textId": "iie_timed_5_sec_task"
+        }
+      },
+      {
+        "type": "drawing_challenge",
+        "properties": {}
+      }
+    ]
   },
   {
     "name": "ha_introduction",
     "answer": "HA",
-    "newCharacter": "HA"
+    "newCharacter": "HA",
+    "uiComponents": [
+      {
+        "type": "text",
+        "properties": {
+          "textId": "ha_introduction_text"
+        }
+      },
+      {
+        "type": "animation",
+        "properties": {
+          "animationId": "ha_introduction_animation"
+        }
+      },
+      {
+        "type": "text",
+        "properties": {
+          "textId": "ha_introduction_task"
+        }
+      },
+      {
+        "type": "drawing_challenge",
+        "properties": {
+          "hint": "ha_introduction_image"
+        }
+      }
+    ]
   },
   {
     "name": "ha_repetition",
-    "answer": "HA"
+    "answer": "HA",
+    "uiComponents": [
+      {
+        "type": "text",
+        "properties": {
+          "textId": "ha_repetition_task"
+        }
+      },
+      {
+        "type": "drawing_challenge",
+        "properties": {}
+      }
+    ]
   },
   {
     "name": "new_word_hai",
     "answer": "HAI",
-    "dictionaryItem": "HAI"
+    "dictionaryItem": "HAI",
+    "uiComponents": [
+      {
+        "type": "text",
+        "properties": {
+          "textId": "new_word_hai_task"
+        }
+      },
+      {
+        "type": "drawing_challenge",
+        "properties": {}
+      }
+    ]
   },
   {
     "name": "hai_timed_5_sec",
     "answer": "HAI",
-    "secondsToComplete": 5
+    "secondsToComplete": 5,
+    "uiComponents": [
+      {
+        "type": "text",
+        "properties": {
+          "textId": "new_word_hai_congratulations"
+        }
+      },
+      {
+        "type": "new_word",
+        "properties": {
+          "word": "HAI"
+        }
+      },
+      {
+        "type": "text",
+        "properties": {
+          "textId": "hai_timed_5_sec_task"
+        }
+      },
+      {
+        "type": "drawing_challenge",
+        "properties": {}
+      }
+    ]
   },
   {
     "name": "new_word_hae",
     "answer": "HAE",
-    "dictionaryItem": "HAE"
+    "dictionaryItem": "HAE",
+    "uiComponents": [
+      {
+        "type": "text",
+        "properties": {
+          "textId": "new_word_hae_task"
+        }
+      },
+      {
+        "type": "drawing_challenge",
+        "properties": {}
+      }
+    ]
   },
   {
     "name": "a_introduction",
     "answer": "A",
-    "newCharacter": "A"
+    "newCharacter": "A",
+    "uiComponents": [
+      {
+        "type": "text",
+        "properties": {
+          "textId": "new_word_hae_congratulations"
+        }
+      },
+      {
+        "type": "new_word",
+        "properties": {
+          "word": "HAE"
+        }
+      },
+      {
+        "type": "text",
+        "properties": {
+          "textId": "a_introduction_text"
+        }
+      },
+      {
+        "type": "animation",
+        "properties": {
+          "animationId": "a_introduction_animation"
+        }
+      },
+      {
+        "type": "text",
+        "properties": {
+          "textId": "a_introduction_task"
+        }
+      },
+      {
+        "type": "drawing_challenge",
+        "properties": {
+          "hint": "a_introduction_image"
+        }
+      }
+    ]
   },
   {
     "name": "a_repetition",
-    "answer": "A"
+    "answer": "A",
+    "uiComponents": [
+      {
+        "type": "text",
+        "properties": {
+          "textId": "a_repetition_task"
+        }
+      },
+      {
+        "type": "drawing_challenge",
+        "properties": {}
+      }
+    ]
   },
   {
     "name": "new_word_ai",
     "answer": "AI",
-    "dictionaryItem": "AI"
+    "dictionaryItem": "AI",
+    "uiComponents": [
+      {
+        "type": "text",
+        "properties": {
+          "textId": "new_word_ai_task"
+        }
+      },
+      {
+        "type": "drawing_challenge",
+        "properties": {}
+      }
+    ]
   },
   {
     "name": "ai_decorated_canvas",
-    "answer": "AI"
+    "answer": "AI",
+    "uiComponents": [
+      {
+        "type": "text",
+        "properties": {
+          "textId": "new_word_ai_congratulations"
+        }
+      },
+      {
+        "type": "new_word",
+        "properties": {
+          "word": "AI"
+        }
+      },
+      {
+        "type": "text",
+        "properties": {
+          "textId": "ai_decorated_canvas_task"
+        }
+      },
+      {
+        "type": "drawing_challenge",
+        "properties": {
+          "canvasDecoration": "hearts"
+        }
+      }
+    ]
   }
 ]
