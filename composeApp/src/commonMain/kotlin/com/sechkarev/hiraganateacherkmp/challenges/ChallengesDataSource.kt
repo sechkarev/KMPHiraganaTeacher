@@ -84,7 +84,7 @@ class ChallengesDataSource {
         dictionaryItems = parseDictionaryItems()
         challenges = parseChallenges()
 
-        Logger.i(null, "ChallengesDataSource") { challenges.joinToString() }
+        Logger.i(null, "ChallengesDataSource") { dictionaryItems.joinToString() }
         initialised = true
     }
 
@@ -116,13 +116,13 @@ class ChallengesDataSource {
                         if (challengeDto.dictionaryItem == null) {
                             null
                         } else {
-                            dictionaryItems.firstOrNull { challengeDto.dictionaryItem == it.name }
+                            dictionaryItems.first { challengeDto.dictionaryItem == it.name }
                         },
                     newCharacter =
                         if (challengeDto.newCharacter == null) {
                             null
                         } else {
-                            hiraganaCharacters.firstOrNull { challengeDto.newCharacter == it.name }
+                            hiraganaCharacters.first { challengeDto.newCharacter == it.name }
                         },
                     secondsToComplete = challengeDto.secondsToComplete,
                     uiComponents =

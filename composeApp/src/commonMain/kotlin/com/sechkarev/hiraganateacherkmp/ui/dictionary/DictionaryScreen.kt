@@ -40,7 +40,7 @@ fun DictionaryScreen(
         },
     ) { innerPadding ->
 
-        val uiState = viewModel.uiState.collectAsStateWithLifecycle(DictionaryViewModel.UiState(emptyList()))
+        val uiState = viewModel.uiState.collectAsStateWithLifecycle()
 
         LazyColumn(modifier = Modifier.padding(innerPadding)) {
             val dictionaryItems = uiState.value.items

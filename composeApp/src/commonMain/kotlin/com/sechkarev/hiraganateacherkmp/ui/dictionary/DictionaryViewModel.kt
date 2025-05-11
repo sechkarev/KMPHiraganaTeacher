@@ -8,6 +8,7 @@ import com.sechkarev.hiraganateacherkmp.ui.utils.stateInWhileSubscribed
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.update
 
 class DictionaryViewModel(
     gameRepository: GameRepository,
@@ -19,6 +20,8 @@ class DictionaryViewModel(
     private val _uiState = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> =
         _uiState
-            .onStart { UiState(gameRepository.retrieveGameProgress().solvedChallenges.mapNotNull { it.challenge.dictionaryItem }) }
-            .stateInWhileSubscribed(viewModelScope, UiState())
+            .onStart {
+                val solvedChallenges = gameRepository.retrieveGameProgress().solvedChallenges
+                _uiState.update { UiState(solvedChallenges.mapNotNull { it.challenge.dictionaryItem }) }
+            }.stateInWhileSubscribed(viewModelScope, UiState())
 }
