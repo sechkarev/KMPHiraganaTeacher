@@ -5,10 +5,24 @@ import com.sechkarev.hiraganateacherkmp.model.Challenge
 import com.sechkarev.hiraganateacherkmp.model.ChallengeAnswer
 import com.sechkarev.hiraganateacherkmp.model.DictionaryItem
 import com.sechkarev.hiraganateacherkmp.model.HiraganaCharacter
+import com.sechkarev.hiraganateacherkmp.model.UiComponent.Animation
+import com.sechkarev.hiraganateacherkmp.model.UiComponent.DrawingChallenge
+import com.sechkarev.hiraganateacherkmp.model.UiComponent.Headline
+import com.sechkarev.hiraganateacherkmp.model.UiComponent.NewWord
+import com.sechkarev.hiraganateacherkmp.model.UiComponent.Text
+import com.sechkarev.hiraganateacherkmp.ui.game.challenges.CanvasDecoration
 import kmphiraganateacher.composeapp.generated.resources.Res
+import kmphiraganateacher.composeapp.generated.resources.challenge1_welcome_message
+import kmphiraganateacher.composeapp.generated.resources.challenge3_text
 import kmphiraganateacher.composeapp.generated.resources.dictionary_word_ai
+import kmphiraganateacher.composeapp.generated.resources.hiragana_static_e
+import kotlinx.serialization.Polymorphic
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.modules.SerializersModule
+import kotlinx.serialization.modules.polymorphic
+import kotlinx.serialization.modules.subclass
 import org.jetbrains.compose.resources.StringResource
 
 // todo: compose resources are used, while this class is in the data layer and shouldn't know about compose
@@ -28,67 +42,119 @@ class ChallengesDataSource {
         if (initialised) {
             return
         }
-        challengeAnswers =
-            Json
-                .decodeFromString<List<ChallengeAnswerDto>>(
-                    Res.readBytes("files/challenge_answers.json").decodeToString(),
-                ).map {
-                    ChallengeAnswer(
-                        name = it.name,
-                        answerText = it.answerText,
-                        requiredStrokes = it.requiredStrokes,
-                    )
-                }
-        hiraganaCharacters =
-            Json
-                .decodeFromString<List<HiraganaCharacterDto>>(
-                    Res.readBytes("files/hiragana_characters.json").decodeToString(),
-                ).map {
-                    HiraganaCharacter(
-                        name = it.name,
-                        spelling = it.spelling,
-                        pronunciation = it.pronunciation,
-                        gridCell = it.gridCell,
-                    )
-                }
-        dictionaryItems =
-            Json
-                .decodeFromString<List<DictionaryItemDto>>(
-                    Res.readBytes("files/dictionary_items.json").decodeToString(),
-                ).map {
-                    DictionaryItem(
-                        it.name,
-                        it.original,
-                        it.translation,
-                    )
-                }
-        challenges =
-            Json
-                .decodeFromString<List<ChallengeDto>>(
-                    Res.readBytes("files/challenges.json").decodeToString(),
-                ).map { challengeDto ->
-                    Challenge(
-                        name = challengeDto.name,
-                        challengeAnswer = challengeAnswers.first { challengeDto.answer == it.name },
-                        dictionaryItem =
-                            if (challengeDto.dictionaryItem == null) {
-                                null
-                            } else {
-                                dictionaryItems.firstOrNull { challengeDto.dictionaryItem == it.name }
-                            },
-                        newCharacter =
-                            if (challengeDto.newCharacter == null) {
-                                null
-                            } else {
-                                hiraganaCharacters.firstOrNull { challengeDto.newCharacter == it.name }
-                            },
-                        secondsToComplete = challengeDto.secondsToComplete,
-                    )
-                }
-        Logger.i { challengeAnswers.joinToString() }
-        Logger.i { challenges.joinToString() }
+        challengeAnswers = parseChallengeAnswers()
+        hiraganaCharacters = parseHiraganaCharacters()
+        dictionaryItems = parseDictionaryItems()
+        challenges = parseChallenges()
+
+        Logger.i(null, "ChallengesDataSource") { challenges.joinToString() }
         initialised = true
     }
+
+    private suspend fun parseChallenges(): List<Challenge> {
+        val module =
+            SerializersModule {
+                polymorphic(baseClass = UiComponentDto::class) {
+                    subclass(HeadlineUiComponentDto::class)
+                    subclass(TextUiComponentDto::class)
+                    subclass(AnimationUiComponentDto::class)
+                    subclass(NewWordUiComponentDto::class)
+                    subclass(DrawingChallengeUiComponentDto::class)
+                }
+            }
+        val json =
+            Json {
+                serializersModule = module
+                classDiscriminator = "type"
+                ignoreUnknownKeys = true // Safe for forward compatibility
+            }
+        return json
+            .decodeFromString<List<ChallengeDto>>(
+                Res.readBytes("files/challenges.json").decodeToString(),
+            ).map { challengeDto ->
+                Challenge(
+                    name = challengeDto.name,
+                    challengeAnswer = challengeAnswers.first { challengeDto.answer == it.name },
+                    dictionaryItem =
+                        if (challengeDto.dictionaryItem == null) {
+                            null
+                        } else {
+                            dictionaryItems.firstOrNull { challengeDto.dictionaryItem == it.name }
+                        },
+                    newCharacter =
+                        if (challengeDto.newCharacter == null) {
+                            null
+                        } else {
+                            hiraganaCharacters.firstOrNull { challengeDto.newCharacter == it.name }
+                        },
+                    secondsToComplete = challengeDto.secondsToComplete,
+                    uiComponents =
+                        challengeDto.uiComponents.map { uiComponent ->
+                            // todo: the rest of the component types
+                            when (uiComponent) {
+                                is HeadlineUiComponentDto ->
+                                    Headline(
+                                        textResource = Res.string.challenge1_welcome_message, // todo: proper mapping!!!
+                                    )
+                                is AnimationUiComponentDto ->
+                                    Animation(
+                                        animationId = uiComponent.properties.animationId,
+                                    )
+                                is DrawingChallengeUiComponentDto ->
+                                    DrawingChallenge(
+                                        hintResource = Res.drawable.hiragana_static_e, // todo: proper mapping
+                                        decoration = CanvasDecoration.HEARTS, // todo: proper mapping
+                                    )
+                                is NewWordUiComponentDto ->
+                                    NewWord(
+                                        word = dictionaryItems.first { it.name == uiComponent.properties.word },
+                                    )
+                                is TextUiComponentDto ->
+                                    Text(
+                                        textResource = Res.string.challenge3_text, // todo: proper mapping!
+                                    )
+                            }
+                        },
+                )
+            }
+    }
+
+    private suspend fun parseDictionaryItems(): List<DictionaryItem> =
+        Json
+            .decodeFromString<List<DictionaryItemDto>>(
+                Res.readBytes("files/dictionary_items.json").decodeToString(),
+            ).map {
+                DictionaryItem(
+                    name = it.name,
+                    original = it.original,
+                    translation = it.translation,
+                )
+            }
+
+    private suspend fun parseHiraganaCharacters(): List<HiraganaCharacter> =
+        Json
+            .decodeFromString<List<HiraganaCharacterDto>>(
+                Res.readBytes("files/hiragana_characters.json").decodeToString(),
+            ).map {
+                HiraganaCharacter(
+                    name = it.name,
+                    spelling = it.spelling,
+                    pronunciation = it.pronunciation,
+                    gridCell = it.gridCell,
+                )
+            }
+
+    private suspend fun parseChallengeAnswers(): List<ChallengeAnswer> =
+        Json
+            .decodeFromString<List<ChallengeAnswerDto>>(
+                Res.readBytes("files/challenge_answers.json").decodeToString(),
+            ).map {
+                ChallengeAnswer(
+                    name = it.name,
+                    answerText = it.answerText,
+                    requiredStrokes = it.requiredStrokes,
+                )
+            }
 }
 
 @Serializable
@@ -119,7 +185,69 @@ data class DictionaryItemDto(
 data class ChallengeDto(
     val name: String,
     val answer: String,
+    val uiComponents: List<@Polymorphic UiComponentDto>,
     val dictionaryItem: String? = null,
     val newCharacter: String? = null,
     val secondsToComplete: Int? = null,
 )
+
+@Serializable
+sealed class UiComponentDto
+
+@Serializable
+@SerialName("headline")
+data class HeadlineUiComponentDto(
+    val properties: HeadlineUiComponentProperties,
+) : UiComponentDto()
+
+@Serializable
+@SerialName("text")
+data class TextUiComponentDto(
+    val properties: TextUiComponentProperties,
+) : UiComponentDto()
+
+@Serializable
+@SerialName("animation")
+data class AnimationUiComponentDto(
+    val properties: AnimationUiComponentProperties,
+) : UiComponentDto()
+
+@Serializable
+@SerialName("new_word")
+data class NewWordUiComponentDto(
+    val properties: NewWordUiComponentProperties,
+) : UiComponentDto()
+
+@Serializable
+@SerialName("drawing_challenge")
+data class DrawingChallengeUiComponentDto(
+    val properties: DrawingChallengeUiComponentProperties,
+) : UiComponentDto()
+
+@Serializable
+data class HeadlineUiComponentProperties(
+    val textId: String,
+)
+
+@Serializable
+data class TextUiComponentProperties(
+    val textId: String,
+)
+
+@Serializable
+data class AnimationUiComponentProperties(
+    val animationId: String,
+)
+
+@Serializable
+data class NewWordUiComponentProperties(
+    val word: String,
+)
+
+@Serializable
+data class DrawingChallengeUiComponentProperties(
+    val hint: String? = null,
+    val canvasDecoration: String? = null,
+)
+
+// todo: can I make all these data classes private?

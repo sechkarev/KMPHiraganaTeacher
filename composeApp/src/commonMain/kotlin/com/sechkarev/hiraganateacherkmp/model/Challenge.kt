@@ -1,5 +1,7 @@
 package com.sechkarev.hiraganateacherkmp.model
 
+import com.sechkarev.hiraganateacherkmp.ui.game.challenges.CanvasDecoration
+import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 
 data class SolvedChallenge(
@@ -39,7 +41,31 @@ data class HiraganaCharacter(
 data class Challenge(
     val name: String,
     val challengeAnswer: ChallengeAnswer,
+    val uiComponents: List<UiComponent>,
     val dictionaryItem: DictionaryItem? = null,
     val newCharacter: HiraganaCharacter? = null,
     val secondsToComplete: Int? = null,
 )
+
+sealed interface UiComponent {
+    data class Headline(
+        val textResource: StringResource,
+    ) : UiComponent
+
+    data class Text(
+        val textResource: StringResource,
+    ) : UiComponent
+
+    data class Animation(
+        val animationId: String,
+    ) : UiComponent
+
+    data class NewWord(
+        val word: DictionaryItem,
+    ) : UiComponent
+
+    data class DrawingChallenge(
+        val hintResource: DrawableResource? = null,
+        val decoration: CanvasDecoration? = null,
+    ) : UiComponent
+}
