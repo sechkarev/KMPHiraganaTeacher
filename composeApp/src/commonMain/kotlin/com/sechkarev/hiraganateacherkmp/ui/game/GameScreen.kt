@@ -123,6 +123,7 @@ private fun Challenge(
         challenge.uiComponents.map {
             when (it) {
                 is UiComponent.Animation -> {
+                    // fixme: every time I complete a challenge with an animation, there is a visible stagger. Animation-less challenges are fine
                     AnimatedHiraganaCharacter(
                         resourceName = it.animationId,
                         animatedCharacter = challenge.newCharacter?.spelling,

@@ -74,9 +74,9 @@ fun DrawingChallenge(
                         CanvasDecorationHearts(
                             modifier =
                                 Modifier
-                                    .align(Alignment.Center)
                                     .drawingCanvasSize()
-                                    .clipToBounds(),
+                                    .clipToBounds()
+                                    .align(Alignment.Center),
                         )
                     }
                 }
@@ -107,7 +107,13 @@ fun DrawingChallenge(
                             )
                         }
                         if (canvasDecoration != null) {
-                            CanvasDecorationHearts()
+                            CanvasDecorationHearts(
+                                modifier =
+                                    Modifier
+                                        .drawingCanvasSize()
+                                        .clipToBounds()
+                                        .align(Alignment.Center),
+                            )
                         }
                         DrawingCanvas(
                             paths = challengeState.drawnStrokes,
