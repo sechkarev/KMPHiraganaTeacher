@@ -94,7 +94,7 @@ private fun Challenge(
     solution: List<Stroke>?,
     onAction: (DrawingAction) -> Unit,
 ) {
-    // todo: remove the ui state?
+    // todo: remove the ui state? it is too complex and its use case is gone
     val challengeUiState =
         if (solution == null) {
             ChallengeUiState.Current(

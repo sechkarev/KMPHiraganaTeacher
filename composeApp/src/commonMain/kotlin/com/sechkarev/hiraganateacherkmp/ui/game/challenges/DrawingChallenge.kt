@@ -29,6 +29,7 @@ import kmphiraganateacher.composeapp.generated.resources.Res
 import kmphiraganateacher.composeapp.generated.resources.answer_appearance_hint_description
 import kmphiraganateacher.composeapp.generated.resources.challenge_text_recognition_mistake
 import kmphiraganateacher.composeapp.generated.resources.timer_idle
+import kmphiraganateacher.composeapp.generated.resources.timer_recognition_in_progress
 import kmphiraganateacher.composeapp.generated.resources.timer_time_remaining
 import kmphiraganateacher.composeapp.generated.resources.timer_timeout
 import org.jetbrains.compose.resources.DrawableResource
@@ -139,6 +140,7 @@ fun DrawingChallenge(
                                 } else {
                                     when (challengeState.timerState) {
                                         TimerState.Idle -> stringResource(Res.string.timer_idle)
+                                        TimerState.RecognitionInProgress -> stringResource(Res.string.timer_recognition_in_progress)
                                         is TimerState.Running ->
                                             pluralStringResource(
                                                 Res.plurals.timer_time_remaining,

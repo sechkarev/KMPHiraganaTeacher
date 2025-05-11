@@ -71,6 +71,7 @@
     <string name="dictionary_word_new">New word!</string>
     <string name="accessibility_return_to_main_menu_button">Return to main menu</string>
     <string name="timer_idle">Start drawing!</string>
+    <string name="timer_recognition_in_progress">Recognising the text…</string>
     <string name="timer_timeout">Timeout! Try again!</string>
     <plurals name="timer_time_remaining">
         <item quantity="one">One second remaining!</item>

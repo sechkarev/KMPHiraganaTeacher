@@ -43,6 +43,8 @@ sealed interface ChallengeCompletionError {
 sealed interface TimerState {
     data object Idle : TimerState
 
+    data object RecognitionInProgress : TimerState
+
     data class Running(
         val remainingSeconds: Int,
     ) : TimerState
@@ -100,7 +102,13 @@ class GameViewModel(
         textRecognizer.completeStroke()
         if (textRecognizer.currentStrokeAmount() >= currentChallenge.challengeAnswer.requiredStrokes) {
             viewModelScope.launch {
-                cancelTimer() // todo: visible lag
+                timerJob?.cancel()
+                _gameUiState.update {
+                    it.copy(
+                        timerState = TimerState.RecognitionInProgress,
+                        challengeCompletionError = null,
+                    )
+                }
                 val recognizedText = textRecognizer.recognizeCurrentText()
                 if (recognizedText == currentChallenge.challengeAnswer.answerText) {
                     textRecognizer.cleanCurrentData()
@@ -129,7 +137,10 @@ class GameViewModel(
                     }
                 } else {
                     _gameUiState.update {
-                        it.copy(challengeCompletionError = ChallengeCompletionError.WrongText(recognizedText))
+                        it.copy(
+                            timerState = TimerState.Idle,
+                            challengeCompletionError = ChallengeCompletionError.WrongText(recognizedText),
+                        )
                     }
                 }
             }
@@ -144,7 +155,7 @@ class GameViewModel(
         if (textRecognizer.currentStrokeAmount() >= currentChallenge.challengeAnswer.requiredStrokes) {
             return
         }
-        if (_gameUiState.value.timerState == TimerState.Idle && currentChallenge.secondsToComplete != null) {
+        if (_gameUiState.value.timerState !is TimerState.Running && currentChallenge.secondsToComplete != null) {
             startTimer(currentChallenge.secondsToComplete)
         }
         _gameUiState.update { uiState ->
@@ -193,16 +204,6 @@ class GameViewModel(
                     )
                 }
             }
-    }
-
-    private fun cancelTimer() {
-        timerJob?.cancel()
-        _gameUiState.update {
-            it.copy(
-                timerState = TimerState.Idle,
-                challengeCompletionError = null,
-            )
-        }
     }
 
     private fun cleanCanvas() {
