@@ -43,6 +43,11 @@
     <string name="challenge19_task">One more time, please. I even decorated the drawing space!</string>
     <string name="challenge_o_introduction_text">Awesome!\nWe are almost done with the vocals. This one is O: 3 strokes (the one at the top right is mandatory), pronounced like the first A in "Awesome". To me, it always looked like the Russian letter Б, but could be just me.</string>
     <string name="challenge_o_introduction_task">Draw it!</string>
+    <string name="challenge_o_repetition_task">One more.</string>
+    <string name="challenge_aoi_task">Thank you. Now let’s combine this vocal with the ones you already know to learn new words. And let me tell you, this time it will get really interesting.\nWrite AOI.</string>
+    <string name="challenge_blue_house_text">「あおい」means "blue".</string>
+    <string name="challenge_blue_house_task">Time to level up the game: you know your first word for colour, you know a couple of nouns, so it’s time to write your first phrase! 🎉\nHere’s the question. What is displayed on the picture below? Answer in Japanese and don’t care about the whitespace.</string>
+    <string name="challenge_blue_house_remainder">No worries if you have forgotten the noun: you can always return to the main menu, open the dictionary and come back.</string>
     <string name="challenge_text_recognition_mistake">Uh-oh! The computer recognises your drawing as %1$s. Try again!</string>
     <string name="animated_character_drawing_description">An animation showcasing how to draw the hiragana character %1$s</string>
     <string name="answer_appearance_hint_description">A hint reminding how the hiragana character %1$s looks like</string>
@@ -60,6 +65,8 @@
     <string name="credits_drawing_instructions_wikimedia">Wikimedia</string>
     <string name="credits_app_icon">App icon:</string>
     <string name="credits_app_icon_wikimedia">Wikimedia</string>
+    <string name="courtesy_image_wikimedia">Wikimedia</string>
+    <string name="courtesy_image">Courtesy: </string>
     <string name="dictionary_screen_title">Dictionary</string>
     <string name="dictionary_screen_subtitle">Learned words: %1$d</string>
     <string name="characters_screen_title">Hiragana</string>
@@ -83,4 +90,5 @@
         <item quantity="one">One second remaining!</item>
         <item quantity="other">%1$d seconds remaining!</item>
     </plurals>
+    <string name="picture_description_blue_house">The picture of a blue house.</string>
 </resources>

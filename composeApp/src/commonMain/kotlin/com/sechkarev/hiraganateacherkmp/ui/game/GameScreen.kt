@@ -139,11 +139,11 @@ private fun Challenge(
                         hintImageRes = it.hintResource,
                         canvasDecoration = it.decoration,
                         drawingLineThickness =
-                            if (challenge.challengeAnswer.answerText.length == 1) {
-                                48f
-                            } else {
-                                // todo: more branches?
-                                32f
+                            when (challenge.challengeAnswer.answerText.length) {
+                                1 -> 48f
+                                2 -> 32f
+                                3 -> 24f
+                                else -> 18f
                             },
                     )
                 }

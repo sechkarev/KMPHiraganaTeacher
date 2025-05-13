@@ -496,5 +496,38 @@
         }
       }
     ]
+  },
+  {
+    "name": "o_repetition",
+    "answer": "O",
+    "uiComponents": [
+      {
+        "type": "text",
+        "properties": {
+          "textId": "o_repetition_task"
+        }
+      },
+      {
+        "type": "drawing_challenge",
+        "properties": {}
+      }
+    ]
+  },
+  {
+    "name": "new_word_aoi",
+    "answer": "AOI",
+    "dictionaryItem": "AOI_blue",
+    "uiComponents": [
+      {
+        "type": "text",
+        "properties": {
+          "textId": "new_word_aoi_task"
+        }
+      },
+      {
+        "type": "drawing_challenge",
+        "properties": {}
+      }
+    ]
   }
 ]

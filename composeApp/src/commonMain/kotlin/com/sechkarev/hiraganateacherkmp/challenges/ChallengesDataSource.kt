@@ -37,6 +37,7 @@ import kmphiraganateacher.composeapp.generated.resources.challenge8_congratulati
 import kmphiraganateacher.composeapp.generated.resources.challenge8_task
 import kmphiraganateacher.composeapp.generated.resources.challenge9_congratulations
 import kmphiraganateacher.composeapp.generated.resources.challenge9_task
+import kmphiraganateacher.composeapp.generated.resources.challenge_aoi_task
 import kmphiraganateacher.composeapp.generated.resources.challenge_hae_congratulations
 import kmphiraganateacher.composeapp.generated.resources.challenge_hae_task
 import kmphiraganateacher.composeapp.generated.resources.challenge_i_no_hint_task
@@ -44,6 +45,7 @@ import kmphiraganateacher.composeapp.generated.resources.challenge_ii_congratula
 import kmphiraganateacher.composeapp.generated.resources.challenge_ii_task
 import kmphiraganateacher.composeapp.generated.resources.challenge_o_introduction_task
 import kmphiraganateacher.composeapp.generated.resources.challenge_o_introduction_text
+import kmphiraganateacher.composeapp.generated.resources.challenge_o_repetition_task
 import kmphiraganateacher.composeapp.generated.resources.dictionary_word_ai
 import kmphiraganateacher.composeapp.generated.resources.dictionary_word_ao_blue
 import kmphiraganateacher.composeapp.generated.resources.dictionary_word_ao_green
@@ -86,8 +88,8 @@ class ChallengesDataSource {
         if (initialised) {
             return
         }
-        challengeAnswers = parseChallengeAnswers()
         hiraganaCharacters = parseHiraganaCharacters()
+        challengeAnswers = parseChallengeAnswers()
         dictionaryItems = parseDictionaryItems()
         challenges = parseChallenges()
 
@@ -223,6 +225,8 @@ class ChallengesDataSource {
             "ai_decorated_canvas_task" -> Res.string.challenge19_task
             "o_introduction_text" -> Res.string.challenge_o_introduction_text
             "o_introduction_task" -> Res.string.challenge_o_introduction_task
+            "o_repetition_task" -> Res.string.challenge_o_repetition_task
+            "new_word_aoi_task" -> Res.string.challenge_aoi_task
             else -> throw IllegalArgumentException("Can't find a string corresponding with the id $textId")
         }
 
