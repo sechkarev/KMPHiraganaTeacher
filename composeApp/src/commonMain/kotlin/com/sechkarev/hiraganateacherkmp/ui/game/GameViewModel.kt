@@ -100,7 +100,7 @@ class GameViewModel(
             )
         }
         textRecognizer.completeStroke()
-        if (textRecognizer.currentStrokeAmount() >= currentChallenge.challengeAnswer.requiredStrokes) {
+        if (textRecognizer.currentStrokeAmount() >= gameRepository.getRequiredStrokesNumber(currentChallenge.challengeAnswer)) {
             viewModelScope.launch {
                 timerJob?.cancel()
                 _gameUiState.update {
@@ -152,7 +152,7 @@ class GameViewModel(
         if (_gameUiState.value.challengeCompletionError != null) {
             cleanCanvas()
         }
-        if (textRecognizer.currentStrokeAmount() >= currentChallenge.challengeAnswer.requiredStrokes) {
+        if (textRecognizer.currentStrokeAmount() >= gameRepository.getRequiredStrokesNumber(currentChallenge.challengeAnswer)) {
             return
         }
         if (_gameUiState.value.timerState !is TimerState.Running && currentChallenge.secondsToComplete != null) {

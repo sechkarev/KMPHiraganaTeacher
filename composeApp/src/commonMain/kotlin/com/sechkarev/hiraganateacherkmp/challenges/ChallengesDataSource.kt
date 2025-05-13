@@ -42,7 +42,13 @@ import kmphiraganateacher.composeapp.generated.resources.challenge_hae_task
 import kmphiraganateacher.composeapp.generated.resources.challenge_i_no_hint_task
 import kmphiraganateacher.composeapp.generated.resources.challenge_ii_congratulations
 import kmphiraganateacher.composeapp.generated.resources.challenge_ii_task
+import kmphiraganateacher.composeapp.generated.resources.challenge_o_introduction_task
+import kmphiraganateacher.composeapp.generated.resources.challenge_o_introduction_text
 import kmphiraganateacher.composeapp.generated.resources.dictionary_word_ai
+import kmphiraganateacher.composeapp.generated.resources.dictionary_word_ao_blue
+import kmphiraganateacher.composeapp.generated.resources.dictionary_word_ao_green
+import kmphiraganateacher.composeapp.generated.resources.dictionary_word_aoi_blue
+import kmphiraganateacher.composeapp.generated.resources.dictionary_word_aoi_green
 import kmphiraganateacher.composeapp.generated.resources.dictionary_word_hae
 import kmphiraganateacher.composeapp.generated.resources.dictionary_word_hai
 import kmphiraganateacher.composeapp.generated.resources.dictionary_word_ie
@@ -52,6 +58,7 @@ import kmphiraganateacher.composeapp.generated.resources.hiragana_static_a
 import kmphiraganateacher.composeapp.generated.resources.hiragana_static_e
 import kmphiraganateacher.composeapp.generated.resources.hiragana_static_ha
 import kmphiraganateacher.composeapp.generated.resources.hiragana_static_i
+import kmphiraganateacher.composeapp.generated.resources.hiragana_static_o
 import kotlinx.serialization.Polymorphic
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -87,6 +94,13 @@ class ChallengesDataSource {
         Logger.i(null, "ChallengesDataSource") { dictionaryItems.joinToString() }
         initialised = true
     }
+
+    fun getRequiredStrokesNumber(challengeAnswer: ChallengeAnswer) =
+        challengeAnswer
+            .answerText
+            .map { answerCharacter ->
+                hiraganaCharacters.first { it.spelling == answerCharacter }.requiredStrokes
+            }.sum()
 
     private suspend fun parseChallenges(): List<Challenge> {
         val module =
@@ -172,6 +186,7 @@ class ChallengesDataSource {
             "e_introduction_animation" -> "hiragana_animated_e"
             "ha_introduction_animation" -> "hiragana_animated_ha"
             "a_introduction_animation" -> "hiragana_animated_a"
+            "o_introduction_animation" -> "hiragana_animated_o"
             else -> throw IllegalArgumentException("Can't find a string corresponding with the animation id $animationId")
         }
 
@@ -206,12 +221,15 @@ class ChallengesDataSource {
             "new_word_ai_congratulations" -> Res.string.challenge18_congratulations
             "new_word_ai_task" -> Res.string.challenge18_task
             "ai_decorated_canvas_task" -> Res.string.challenge19_task
+            "o_introduction_text" -> Res.string.challenge_o_introduction_text
+            "o_introduction_task" -> Res.string.challenge_o_introduction_task
             else -> throw IllegalArgumentException("Can't find a string corresponding with the id $textId")
         }
 
     private fun mapHintConfigIdToDrawableResource(hintId: String): DrawableResource =
         when (hintId) {
             "a_introduction_image" -> Res.drawable.hiragana_static_a
+            "o_introduction_image" -> Res.drawable.hiragana_static_o
             "i_introduction_image" -> Res.drawable.hiragana_static_i
             "e_introduction_image" -> Res.drawable.hiragana_static_e
             "ha_introduction_image" -> Res.drawable.hiragana_static_ha
@@ -237,9 +255,10 @@ class ChallengesDataSource {
             ).map {
                 HiraganaCharacter(
                     name = it.name,
-                    spelling = it.spelling,
+                    spelling = it.spelling.first(), // should only be one character
                     pronunciation = it.pronunciation,
                     gridCell = it.gridCell,
+                    requiredStrokes = it.requiredStrokes,
                 )
             }
 
@@ -251,7 +270,6 @@ class ChallengesDataSource {
                 ChallengeAnswer(
                     name = it.name,
                     answerText = it.answerText,
-                    requiredStrokes = it.requiredStrokes,
                 )
             }
 }
@@ -260,7 +278,6 @@ class ChallengesDataSource {
 private data class ChallengeAnswerDto(
     val name: String,
     val answerText: String,
-    val requiredStrokes: Int,
 )
 
 @Serializable
@@ -269,6 +286,7 @@ private data class HiraganaCharacterDto(
     val spelling: String,
     val pronunciation: String,
     val gridCell: Int,
+    val requiredStrokes: Int,
 )
 
 @Serializable
@@ -285,6 +303,10 @@ private data class DictionaryItemDto(
                 "HAI" -> Res.string.dictionary_word_hai
                 "HAE" -> Res.string.dictionary_word_hae
                 "AI" -> Res.string.dictionary_word_ai
+                "AO_green" -> Res.string.dictionary_word_ao_green
+                "AO_blue" -> Res.string.dictionary_word_ao_blue
+                "AOI_green" -> Res.string.dictionary_word_aoi_green
+                "AOI_blue" -> Res.string.dictionary_word_aoi_blue
                 else -> throw IllegalArgumentException("Can't find a dictionary item corresponding with the name $name")
             }
 }

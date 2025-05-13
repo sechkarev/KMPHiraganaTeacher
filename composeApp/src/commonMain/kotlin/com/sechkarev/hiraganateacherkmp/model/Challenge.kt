@@ -11,7 +11,6 @@ data class SolvedChallenge(
 data class ChallengeAnswer(
     val name: String,
     val answerText: String,
-    val requiredStrokes: Int,
 )
 
 data class DictionaryItem(
@@ -32,9 +31,10 @@ sealed interface HiraganaCharacterOnGrid {
 
 data class HiraganaCharacter(
     val name: String,
-    val spelling: String,
+    val spelling: Char,
     val pronunciation: String,
     val gridCell: Int,
+    val requiredStrokes: Int,
 )
 
 data class Challenge(

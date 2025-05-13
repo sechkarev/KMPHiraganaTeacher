@@ -22,5 +22,21 @@
   {
     "name": "AI",
     "original": "あい"
+  },
+  {
+    "name": "AO_green",
+    "original": "あお"
+  },
+  {
+    "name": "AO_blue",
+    "original": "あお"
+  },
+  {
+    "name": "AOI_green",
+    "original": "あおい"
+  },
+  {
+    "name": "AOI_blue",
+    "original": "あおい"
   }
 ]

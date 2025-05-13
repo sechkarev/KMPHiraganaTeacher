@@ -465,5 +465,36 @@
         }
       }
     ]
+  },
+  {
+    "name": "o_introduction",
+    "answer": "O",
+    "newCharacter": "O",
+    "uiComponents": [
+      {
+        "type": "text",
+        "properties": {
+          "textId": "o_introduction_text"
+        }
+      },
+      {
+        "type": "animation",
+        "properties": {
+          "animationId": "o_introduction_animation"
+        }
+      },
+      {
+        "type": "text",
+        "properties": {
+          "textId": "o_introduction_task"
+        }
+      },
+      {
+        "type": "drawing_challenge",
+        "properties": {
+          "hint": "o_introduction_image"
+        }
+      }
+    ]
   }
 ]

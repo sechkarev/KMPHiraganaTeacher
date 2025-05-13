@@ -1,52 +1,54 @@
 [
   {
     "name": "I",
-    "answerText": "い",
-    "requiredStrokes": 2
+    "answerText": "い"
   },
   {
     "name": "E",
-    "answerText": "え",
-    "requiredStrokes": 2
+    "answerText": "え"
   },
   {
     "name": "IE",
-    "answerText": "いえ",
-    "requiredStrokes": 4
+    "answerText": "いえ"
   },
   {
     "name": "II",
-    "answerText": "いい",
-    "requiredStrokes": 4
+    "answerText": "いい"
   },
   {
     "name": "IIE",
-    "answerText": "いいえ",
-    "requiredStrokes": 6
+    "answerText": "いいえ"
   },
   {
     "name": "HA",
-    "answerText": "は",
-    "requiredStrokes": 3
+    "answerText": "は"
   },
   {
     "name": "HAI",
-    "answerText": "はい",
-    "requiredStrokes": 5
+    "answerText": "はい"
   },
   {
     "name": "HAE",
-    "answerText": "はえ",
-    "requiredStrokes": 5
+    "answerText": "はえ"
   },
   {
     "name": "A",
-    "answerText": "あ",
-    "requiredStrokes": 3
+    "answerText": "あ"
   },
   {
     "name": "AI",
-    "answerText": "あい",
-    "requiredStrokes": 5
+    "answerText": "あい"
+  },
+  {
+    "name": "O",
+    "answerText": "お"
+  },
+  {
+    "name": "AO",
+    "answerText": "あお"
+  },
+  {
+    "name": "AOI",
+    "answerText": "あおい"
   }
 ]

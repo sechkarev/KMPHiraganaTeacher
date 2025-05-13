@@ -4,6 +4,7 @@ import com.sechkarev.hiraganateacherkmp.challenges.ChallengesDataSource
 import com.sechkarev.hiraganateacherkmp.database.ChallengeSolutionDao
 import com.sechkarev.hiraganateacherkmp.database.ChallengeSolutionEntity
 import com.sechkarev.hiraganateacherkmp.model.Challenge
+import com.sechkarev.hiraganateacherkmp.model.ChallengeAnswer
 import com.sechkarev.hiraganateacherkmp.model.GameProgress
 import com.sechkarev.hiraganateacherkmp.model.SolvedChallenge
 import com.sechkarev.hiraganateacherkmp.model.Stroke
@@ -53,6 +54,8 @@ class GameRepository(
             challengesDataSource.challenges[indexOfCurrentChallenge + 1]
         }
     }
+
+    fun getRequiredStrokesNumber(challengeAnswer: ChallengeAnswer) = challengesDataSource.getRequiredStrokesNumber(challengeAnswer)
 
     suspend fun deleteAllSolutions() {
         challengeSolutionDao.deleteAllSolutions()

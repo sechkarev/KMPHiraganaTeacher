@@ -16,7 +16,7 @@
     <string name="challenge1_task">Now try to draw it yourself! Use exactly two strokes: draw first the left part, then the right.</string>
     <string name="challenge2_task">Good, we’re off to a good start! (You can tap on your solution every time to hear how it is supposed to be pronounced.) Now do it again in the same manner, so you do not forget it in a minute.</string>
     <string name="challenge_i_no_hint_task">And another one! But this time, there is no hint!</string>
-    <string name="challenge_ii_task">Awesome! Now draw two Is back to back.</string>
+    <string name="challenge_ii_task">Awesome! Now draw two Is back to back, like this: いい</string>
     <string name="challenge_ii_congratulations">Thank you! It wasn’t for nothing: you’ve learned a word 🎉\nGood! And I mean… <i>good</i>.</string>
     <string name="challenge3_text">Great! Let’s continue. This is E. Sounds like the first ‘e’ in ‘every’.</string>
     <string name="challenge3_task">Draw it! Start from the top. Again, two strokes only.</string>
@@ -41,6 +41,8 @@
     <string name="challenge18_congratulations">Nice! Your treat is a new word 😊</string>
     <string name="challenge18_task">In English, "AI" has a completely different meaning: it’s a cold, inhumane, cunning yet disobedient servant-turned-mastermind (like HAL from 2001: A Space Odyssey) or, in some cases, a literal torturer (like AM in I Have No Mouth, and I Must Scream). In Japanese though, AI is literally the opposite. It's love.\nWould you kindly write this word below?</string>
     <string name="challenge19_task">One more time, please. I even decorated the drawing space!</string>
+    <string name="challenge_o_introduction_text">Awesome!\nWe are almost done with the vocals. This one is O: 3 strokes (the one at the top right is mandatory), pronounced like the first A in "Awesome". To me, it always looked like the Russian letter Б, but could be just me.</string>
+    <string name="challenge_o_introduction_task">Draw it!</string>
     <string name="challenge_text_recognition_mistake">Uh-oh! The computer recognises your drawing as %1$s. Try again!</string>
     <string name="animated_character_drawing_description">An animation showcasing how to draw the hiragana character %1$s</string>
     <string name="answer_appearance_hint_description">A hint reminding how the hiragana character %1$s looks like</string>
@@ -68,6 +70,10 @@
     <string name="dictionary_word_hai">Yes ✅</string>
     <string name="dictionary_word_hae">Fly 🪰</string>
     <string name="dictionary_word_ai">Love 💕</string>
+    <string name="dictionary_word_ao_green">Green 🟢</string>
+    <string name="dictionary_word_ao_blue">Blue 🔵</string>
+    <string name="dictionary_word_aoi_green">Green 🟢</string>
+    <string name="dictionary_word_aoi_blue">Blue 🔵</string>
     <string name="dictionary_word_new">New word!</string>
     <string name="accessibility_return_to_main_menu_button">Return to main menu</string>
     <string name="timer_idle">Start drawing!</string>
