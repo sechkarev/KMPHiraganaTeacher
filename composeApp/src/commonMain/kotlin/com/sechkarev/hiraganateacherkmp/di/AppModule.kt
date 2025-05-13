@@ -1,6 +1,7 @@
 package com.sechkarev.hiraganateacherkmp.di
 
-import com.sechkarev.hiraganateacherkmp.challenges.ChallengesDataSource
+import com.sechkarev.hiraganateacherkmp.data.challenges.ChallengesDataSource
+import com.sechkarev.hiraganateacherkmp.data.mapping.ConfigMapper
 import com.sechkarev.hiraganateacherkmp.domain.GameRepository
 import com.sechkarev.hiraganateacherkmp.textrecognition.TextRecognizer2
 import com.sechkarev.hiraganateacherkmp.tts.TextToSpeechEngine
@@ -38,10 +39,11 @@ expect val platformModule: Module
 
 val appModule =
     module {
-        factoryOf(::GameRepository)
+        singleOf(::GameRepository)
         viewModelOf(::CharacterListViewModel)
         viewModelOf(::DictionaryViewModel)
         viewModelOf(::MainMenuViewModel)
         viewModelOf(::GameViewModel)
-        singleOf(::ChallengesDataSource)
+        factoryOf(::ChallengesDataSource)
+        factoryOf(::ConfigMapper)
     }

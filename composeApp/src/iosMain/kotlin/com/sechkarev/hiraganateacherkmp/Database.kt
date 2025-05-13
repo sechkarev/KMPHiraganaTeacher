@@ -2,7 +2,7 @@ package com.sechkarev.hiraganateacherkmp
 
 import androidx.room.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
-import com.sechkarev.hiraganateacherkmp.database.ChallengeSolutionDatabase
+import com.sechkarev.hiraganateacherkmp.data.database.ChallengeSolutionDatabase
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO

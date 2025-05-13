@@ -1,4 +1,4 @@
-package com.sechkarev.hiraganateacherkmp.database
+package com.sechkarev.hiraganateacherkmp.data.database
 
 import androidx.room.ConstructedBy
 import androidx.room.Dao

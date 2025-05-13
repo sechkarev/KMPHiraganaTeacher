@@ -3,12 +3,12 @@ package com.sechkarev.hiraganateacherkmp.ui.mainmenu
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
-import com.sechkarev.hiraganateacherkmp.challenges.ChallengesDataSource
 import com.sechkarev.hiraganateacherkmp.domain.GameRepository
 import com.sechkarev.hiraganateacherkmp.textrecognition.TextRecognizer2
 import com.sechkarev.hiraganateacherkmp.tts.TextToSpeechEngine
 import com.sechkarev.hiraganateacherkmp.utils.LengthyTask
 import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
@@ -21,7 +21,6 @@ class MainMenuViewModel(
     private val gameRepository: GameRepository,
     private val textRecognizer: TextRecognizer2,
     private val textToSpeechEngine: TextToSpeechEngine,
-    private val challengesDataSource: ChallengesDataSource,
 ) : ViewModel() {
     private val _state = MutableStateFlow(UiState())
     val state =
@@ -62,11 +61,9 @@ class MainMenuViewModel(
             _state.update { it.copy(initResult = LengthyTask.InProgress) }
             val textRecognizerInitDeferred = async { initTextRecognizer() }
             val textToSpeechInitDeferred = async { initTextToSpeech() }
-            val challengeRepositoryInitDeferred = async { challengesDataSource.init() }
+            val challengeRepositoryInitDeferred = async { gameRepository.init() }
             try {
-                challengeRepositoryInitDeferred.await()
-                textToSpeechInitDeferred.await()
-                textRecognizerInitDeferred.await()
+                awaitAll(challengeRepositoryInitDeferred, textToSpeechInitDeferred, textRecognizerInitDeferred)
                 _state.update { it.copy(initResult = LengthyTask.Success(Unit)) }
             } catch (throwable: Throwable) {
                 _state.update { it.copy(initResult = LengthyTask.Error(throwable)) }

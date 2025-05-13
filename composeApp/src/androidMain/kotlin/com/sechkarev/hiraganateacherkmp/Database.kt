@@ -3,7 +3,7 @@ package com.sechkarev.hiraganateacherkmp
 import android.content.Context
 import androidx.room.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
-import com.sechkarev.hiraganateacherkmp.database.ChallengeSolutionDatabase
+import com.sechkarev.hiraganateacherkmp.data.database.ChallengeSolutionDatabase
 import kotlinx.coroutines.Dispatchers
 
 fun getDatabase(context: Context): ChallengeSolutionDatabase {
