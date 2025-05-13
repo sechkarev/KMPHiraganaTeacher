@@ -109,7 +109,7 @@ class GameViewModel(
                         challengeCompletionError = null,
                     )
                 }
-                val recognizedText = textRecognizer.recognizeCurrentText()
+                val recognizedText = textRecognizer.recognizeCurrentText().replace(" ", "") // trim the whitespace
                 if (recognizedText == currentChallenge.challengeAnswer.answerText) {
                     textRecognizer.cleanCurrentData()
                     gameRepository.insertSolution(

@@ -14,6 +14,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.LinkAnnotation
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLinkStyles
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withLink
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sechkarev.hiraganateacherkmp.model.Challenge
@@ -21,12 +27,15 @@ import com.sechkarev.hiraganateacherkmp.model.Stroke
 import com.sechkarev.hiraganateacherkmp.model.UiComponent
 import com.sechkarev.hiraganateacherkmp.ui.components.AnimatedHiraganaCharacter
 import com.sechkarev.hiraganateacherkmp.ui.components.TopBarWithBackIcon
+import com.sechkarev.hiraganateacherkmp.ui.game.DrawingAction.OnTextClick
 import com.sechkarev.hiraganateacherkmp.ui.game.challenges.ChallengeUiState
 import com.sechkarev.hiraganateacherkmp.ui.game.challenges.DrawingChallenge
 import com.sechkarev.hiraganateacherkmp.ui.game.challenges.GameCompletedMessage
+import com.sechkarev.hiraganateacherkmp.ui.game.challenges.ImageWithSubtitle
 import com.sechkarev.hiraganateacherkmp.ui.game.challenges.NewWord
 import kmphiraganateacher.composeapp.generated.resources.Res
 import kmphiraganateacher.composeapp.generated.resources.app_name
+import kmphiraganateacher.composeapp.generated.resources.courtesy_image
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -128,7 +137,7 @@ private fun Challenge(
                         resourceName = it.animationId,
                         animatedCharacter = challenge.newCharacter?.spelling,
                         onClick = {
-                            onAction(DrawingAction.OnTextClick(challenge.newCharacter?.spelling.toString()))
+                            onAction(OnTextClick(challenge.newCharacter?.spelling.toString()))
                         },
                         modifier = Modifier.align(Alignment.CenterHorizontally),
                     )
@@ -162,6 +171,26 @@ private fun Challenge(
                 is UiComponent.Text -> {
                     Text(
                         text = stringResource(it.textResource), // todo: add html tag support
+                    )
+                }
+                is UiComponent.Image -> {
+                    ImageWithSubtitle(
+                        imageResource = it.imageResource,
+                        imageDescription = stringResource(it.descriptionResource),
+                        subtitle =
+                            buildAnnotatedString {
+                                withLink(
+                                    LinkAnnotation.Url(
+                                        url = it.link,
+                                        styles = TextLinkStyles(style = SpanStyle(color = Color.Blue)),
+                                    ),
+                                ) {
+                                    append(stringResource(Res.string.courtesy_image, it.courtesy))
+                                }
+                            },
+                        modifier =
+                            Modifier
+                                .align(Alignment.CenterHorizontally),
                     )
                 }
             }

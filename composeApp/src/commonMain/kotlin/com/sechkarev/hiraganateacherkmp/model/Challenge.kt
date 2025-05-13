@@ -73,4 +73,11 @@ sealed interface UiComponent {
         val hintResource: DrawableResource? = null,
         val decoration: CanvasDecoration? = null,
     ) : UiComponent
+
+    data class Image(
+        val imageResource: DrawableResource,
+        val link: String,
+        val courtesy: String,
+        val descriptionResource: StringResource,
+    ) : UiComponent
 }

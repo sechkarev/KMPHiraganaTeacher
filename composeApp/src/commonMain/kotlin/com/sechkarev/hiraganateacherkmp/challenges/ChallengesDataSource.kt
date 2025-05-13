@@ -9,9 +9,11 @@ import com.sechkarev.hiraganateacherkmp.model.HiraganaCharacter
 import com.sechkarev.hiraganateacherkmp.model.UiComponent.Animation
 import com.sechkarev.hiraganateacherkmp.model.UiComponent.DrawingChallenge
 import com.sechkarev.hiraganateacherkmp.model.UiComponent.Headline
+import com.sechkarev.hiraganateacherkmp.model.UiComponent.Image
 import com.sechkarev.hiraganateacherkmp.model.UiComponent.NewWord
 import com.sechkarev.hiraganateacherkmp.model.UiComponent.Text
 import kmphiraganateacher.composeapp.generated.resources.Res
+import kmphiraganateacher.composeapp.generated.resources.blue_house
 import kmphiraganateacher.composeapp.generated.resources.challenge10_text
 import kmphiraganateacher.composeapp.generated.resources.challenge11_text
 import kmphiraganateacher.composeapp.generated.resources.challenge12_task
@@ -38,6 +40,9 @@ import kmphiraganateacher.composeapp.generated.resources.challenge8_task
 import kmphiraganateacher.composeapp.generated.resources.challenge9_congratulations
 import kmphiraganateacher.composeapp.generated.resources.challenge9_task
 import kmphiraganateacher.composeapp.generated.resources.challenge_aoi_task
+import kmphiraganateacher.composeapp.generated.resources.challenge_blue_house_remainder
+import kmphiraganateacher.composeapp.generated.resources.challenge_blue_house_task
+import kmphiraganateacher.composeapp.generated.resources.challenge_blue_house_text
 import kmphiraganateacher.composeapp.generated.resources.challenge_hae_congratulations
 import kmphiraganateacher.composeapp.generated.resources.challenge_hae_task
 import kmphiraganateacher.composeapp.generated.resources.challenge_i_no_hint_task
@@ -61,6 +66,7 @@ import kmphiraganateacher.composeapp.generated.resources.hiragana_static_e
 import kmphiraganateacher.composeapp.generated.resources.hiragana_static_ha
 import kmphiraganateacher.composeapp.generated.resources.hiragana_static_i
 import kmphiraganateacher.composeapp.generated.resources.hiragana_static_o
+import kmphiraganateacher.composeapp.generated.resources.picture_description_blue_house
 import kotlinx.serialization.Polymorphic
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -113,6 +119,7 @@ class ChallengesDataSource {
                     subclass(AnimationUiComponentDto::class)
                     subclass(NewWordUiComponentDto::class)
                     subclass(DrawingChallengeUiComponentDto::class)
+                    subclass(ImageUiComponentDto::class)
                 }
             }
         val json =
@@ -169,6 +176,13 @@ class ChallengesDataSource {
                                 is TextUiComponentDto ->
                                     Text(
                                         textResource = mapTextConfigIdToStringResource(uiComponent.properties.textId),
+                                    )
+                                is ImageUiComponentDto ->
+                                    Image(
+                                        link = uiComponent.properties.link,
+                                        courtesy = uiComponent.properties.courtesy,
+                                        imageResource = mapImageIdToDrawableResource(uiComponent.properties.imageId),
+                                        descriptionResource = mapImageIdToDescriptionResource(uiComponent.properties.imageId),
                                     )
                             }
                         },
@@ -227,6 +241,9 @@ class ChallengesDataSource {
             "o_introduction_task" -> Res.string.challenge_o_introduction_task
             "o_repetition_task" -> Res.string.challenge_o_repetition_task
             "new_word_aoi_task" -> Res.string.challenge_aoi_task
+            "blue_house_text" -> Res.string.challenge_blue_house_text
+            "blue_house_task" -> Res.string.challenge_blue_house_task
+            "blue_house_remainder" -> Res.string.challenge_blue_house_remainder
             else -> throw IllegalArgumentException("Can't find a string corresponding with the id $textId")
         }
 
@@ -238,6 +255,18 @@ class ChallengesDataSource {
             "e_introduction_image" -> Res.drawable.hiragana_static_e
             "ha_introduction_image" -> Res.drawable.hiragana_static_ha
             else -> throw IllegalArgumentException("Can't find a drawable corresponding with the hint id $hintId")
+        }
+
+    private fun mapImageIdToDrawableResource(imageId: String): DrawableResource =
+        when (imageId) {
+            "blue_house_image" -> Res.drawable.blue_house
+            else -> throw IllegalArgumentException("Can't find a drawable corresponding with the image id $imageId")
+        }
+
+    private fun mapImageIdToDescriptionResource(imageId: String): StringResource =
+        when (imageId) {
+            "blue_house_image" -> Res.string.picture_description_blue_house
+            else -> throw IllegalArgumentException("Can't find a drawable corresponding with the image id $imageId")
         }
 
     private suspend fun parseDictionaryItems(): List<DictionaryItem> =
@@ -359,6 +388,12 @@ private data class DrawingChallengeUiComponentDto(
 ) : UiComponentDto()
 
 @Serializable
+@SerialName("image")
+private data class ImageUiComponentDto(
+    val properties: ImageUiComponentProperties,
+) : UiComponentDto()
+
+@Serializable
 private data class HeadlineUiComponentProperties(
     val textId: String,
 )
@@ -376,6 +411,13 @@ private data class AnimationUiComponentProperties(
 @Serializable
 private data class NewWordUiComponentProperties(
     val word: String,
+)
+
+@Serializable
+private data class ImageUiComponentProperties(
+    val imageId: String,
+    val link: String,
+    val courtesy: String,
 )
 
 @Serializable

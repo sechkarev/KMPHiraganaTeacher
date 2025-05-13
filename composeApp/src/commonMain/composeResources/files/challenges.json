@@ -529,5 +529,47 @@
         "properties": {}
       }
     ]
+  },
+  {
+    "name": "blue_house",
+    "answer": "AOI IE",
+    "uiComponents": [
+      {
+        "type": "text",
+        "properties": {
+          "textId": "blue_house_text"
+        }
+      },
+      {
+        "type": "new_word",
+        "properties": {
+          "word": "AOI_blue"
+        }
+      },
+      {
+        "type": "text",
+        "properties": {
+          "textId": "blue_house_task"
+        }
+      },
+      {
+        "type": "image",
+        "properties": {
+          "imageId": "blue_house_image",
+          "link": "https://commons.wikimedia.org/wiki/File:Blue_house_-_geograph.org.uk_-_917927.jpg",
+          "courtesy": "Wikimedia"
+        }
+      },
+      {
+        "type": "text",
+        "properties": {
+          "textId": "blue_house_remainder"
+        }
+      },
+      {
+        "type": "drawing_challenge",
+        "properties": {}
+      }
+    ]
   }
 ]

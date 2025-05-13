@@ -50,5 +50,9 @@
   {
     "name": "AOI",
     "answerText": "あおい"
+  },
+  {
+    "name": "AOI IE",
+    "answerText": "あおいいえ"
   }
 ]
