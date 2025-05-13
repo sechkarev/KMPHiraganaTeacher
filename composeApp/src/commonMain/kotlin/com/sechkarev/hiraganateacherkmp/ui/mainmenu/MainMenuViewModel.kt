@@ -119,7 +119,13 @@ class MainMenuViewModel(
     private fun onDeleteGameDataClick() {
         viewModelScope.launch {
             gameRepository.deleteAllSolutions()
-            retrieveGameProgress()
+            _state.update {
+                it.copy(
+                    progressHasBeenMade = false,
+                    dictionaryAvailable = false,
+                    characterListAvailable = false,
+                )
+            }
         }
     }
 }
