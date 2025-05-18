@@ -157,8 +157,8 @@ class ConfigMapper {
 
     fun mapConditionalStringIdToResource(conditionalStringId: String): StringResource =
         when (conditionalStringId) {
-            "aoi_repetition_true_text" -> Res.string.challenge_aoi_repetition_no_dictionary
-            "aoi_repetition_false_text" -> Res.string.challenge_aoi_repetition_with_dictionary
+            "aoi_repetition_true_text" -> Res.string.challenge_aoi_repetition_with_dictionary
+            "aoi_repetition_false_text" -> Res.string.challenge_aoi_repetition_no_dictionary
             else -> throw IllegalArgumentException("Can't find a string corresponding with the id $conditionalStringId")
         }
 }

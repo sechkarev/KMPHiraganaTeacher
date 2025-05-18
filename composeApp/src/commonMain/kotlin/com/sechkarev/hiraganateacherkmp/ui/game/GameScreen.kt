@@ -27,7 +27,6 @@ import com.sechkarev.hiraganateacherkmp.model.Stroke
 import com.sechkarev.hiraganateacherkmp.model.UiComponent
 import com.sechkarev.hiraganateacherkmp.ui.components.AnimatedHiraganaCharacter
 import com.sechkarev.hiraganateacherkmp.ui.components.TopBarWithBackIcon
-import com.sechkarev.hiraganateacherkmp.ui.game.DrawingAction.OnTextClick
 import com.sechkarev.hiraganateacherkmp.ui.game.challenges.ChallengeUiState
 import com.sechkarev.hiraganateacherkmp.ui.game.challenges.DrawingChallenge
 import com.sechkarev.hiraganateacherkmp.ui.game.challenges.GameCompletedMessage
@@ -137,7 +136,7 @@ private fun Challenge(
                         resourceName = it.animationId,
                         animatedCharacter = challenge.newCharacter?.spelling,
                         onClick = {
-                            onAction(OnTextClick(challenge.newCharacter?.spelling.toString()))
+                            onAction(DrawingAction.OnTextClick(challenge.newCharacter?.spelling.toString()))
                         },
                         modifier = Modifier.align(Alignment.CenterHorizontally),
                     )
@@ -172,9 +171,6 @@ private fun Challenge(
                     Text(
                         text = stringResource(it.textResource), // todo: add html tag support
                     )
-                }
-                is UiComponent.ConditionalText -> {
-                    // todo? I believe this is the wrong place.
                 }
                 is UiComponent.Image -> {
                     ImageWithSubtitle(

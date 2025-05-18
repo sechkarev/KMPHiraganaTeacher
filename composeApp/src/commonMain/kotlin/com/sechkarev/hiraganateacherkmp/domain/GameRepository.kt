@@ -1,6 +1,7 @@
 package com.sechkarev.hiraganateacherkmp.domain
 
 import com.sechkarev.hiraganateacherkmp.data.challenges.AnimationUiComponentDto
+import com.sechkarev.hiraganateacherkmp.data.challenges.ChallengeDto
 import com.sechkarev.hiraganateacherkmp.data.challenges.ChallengesDataSource
 import com.sechkarev.hiraganateacherkmp.data.challenges.ConditionalTextUiComponentDto
 import com.sechkarev.hiraganateacherkmp.data.challenges.DrawingChallengeUiComponentDto
@@ -19,7 +20,6 @@ import com.sechkarev.hiraganateacherkmp.model.GameProgress
 import com.sechkarev.hiraganateacherkmp.model.HiraganaCharacter
 import com.sechkarev.hiraganateacherkmp.model.SolvedChallenge
 import com.sechkarev.hiraganateacherkmp.model.Stroke
-import com.sechkarev.hiraganateacherkmp.model.UiComponent
 import com.sechkarev.hiraganateacherkmp.model.UiComponent.Animation
 import com.sechkarev.hiraganateacherkmp.model.UiComponent.DrawingChallenge
 import com.sechkarev.hiraganateacherkmp.model.UiComponent.Headline
@@ -35,7 +35,7 @@ class GameRepository(
 ) {
     private var initialised = false
 
-    private lateinit var challenges: List<Challenge> // todo: keep the list of DTO, map when needed?
+    private lateinit var challenges: List<ChallengeDto>
     private lateinit var hiraganaCharacters: List<HiraganaCharacter>
     private lateinit var challengeAnswers: List<ChallengeAnswer>
     private lateinit var dictionaryItems: List<DictionaryItem>
@@ -82,90 +82,6 @@ class GameRepository(
         challenges =
             challengesDataSource
                 .parseChallenges()
-                .map { challengeDto ->
-                    Challenge(
-                        name = challengeDto.name,
-                        challengeAnswer = challengeAnswers.first { challengeDto.answer == it.name },
-                        dictionaryItem =
-                            if (challengeDto.dictionaryItem == null) {
-                                null
-                            } else {
-                                dictionaryItems.first { challengeDto.dictionaryItem == it.name }
-                            },
-                        newCharacter =
-                            if (challengeDto.newCharacter == null) {
-                                null
-                            } else {
-                                hiraganaCharacters.first { challengeDto.newCharacter == it.name }
-                            },
-                        secondsToComplete = challengeDto.secondsToComplete,
-                        uiComponents =
-                            challengeDto.uiComponents.map { uiComponent ->
-                                when (uiComponent) {
-                                    is HeadlineUiComponentDto -> {
-                                        Headline(
-                                            textResource = configMapper.mapHeadlineConfigIdToStringResource(uiComponent.properties.textId),
-                                        )
-                                    }
-                                    is AnimationUiComponentDto -> {
-                                        Animation(
-                                            animationId = configMapper.mapAnimationConfigIdToFileName(uiComponent.properties.animationId),
-                                        )
-                                    }
-                                    is DrawingChallengeUiComponentDto -> {
-                                        DrawingChallenge(
-                                            hintResource =
-                                                uiComponent.properties.hint?.let {
-                                                    configMapper.mapHintConfigIdToDrawableResource(it)
-                                                },
-                                            decoration =
-                                                if (uiComponent.properties.canvasDecoration == null) {
-                                                    null
-                                                } else {
-                                                    CanvasDecoration.entries.first {
-                                                        it.configKey == uiComponent.properties.canvasDecoration
-                                                    }
-                                                },
-                                        )
-                                    }
-                                    is NewWordUiComponentDto -> {
-                                        NewWord(
-                                            word = dictionaryItems.first { it.name == uiComponent.properties.word },
-                                        )
-                                    }
-                                    is TextUiComponentDto -> {
-                                        Text(
-                                            textResource = configMapper.mapTextConfigIdToStringResource(uiComponent.properties.textId),
-                                        )
-                                    }
-                                    is ImageUiComponentDto -> {
-                                        Image(
-                                            link = uiComponent.properties.link,
-                                            courtesy = uiComponent.properties.courtesy,
-                                            imageResource = configMapper.mapImageIdToDrawableResource(uiComponent.properties.imageId),
-                                            descriptionResource =
-                                                configMapper.mapImageIdToDescriptionResource(
-                                                    uiComponent.properties.imageId,
-                                                ),
-                                        )
-                                    }
-                                    is ConditionalTextUiComponentDto -> {
-                                        UiComponent.ConditionalText(
-                                            textResource = {
-                                                configMapper.mapConditionalStringIdToResource(
-                                                    if (mapChallengeIdToCondition(challengeDto.name).invoke()) {
-                                                        uiComponent.properties.trueTextId
-                                                    } else {
-                                                        uiComponent.properties.falseTextId
-                                                    },
-                                                )
-                                            },
-                                        )
-                                    }
-                                }
-                            },
-                    )
-                }
 
         initialised = true
     }
@@ -178,20 +94,19 @@ class GameRepository(
             }.sum()
 
     // todo: conditional lambdas must be unwrapped somewhere here. A part of the Challenge model or something.
-    // todo: this method is too heavyweight. it needs to be used only once!
     suspend fun retrieveGameProgress(): GameProgress {
         val solutions = challengeSolutionDao.retrieveAllSolutions()
         return GameProgress(
             solvedChallenges =
                 solutions.map { challengeSolution ->
                     SolvedChallenge(
-                        challenge = challenges.first { it.name == challengeSolution.challengeId },
+                        challenge = mapChallengeDtoToChallenge(challenges.first { it.name == challengeSolution.challengeId }),
                         solution = Json.decodeFromString(challengeSolution.solution),
                     )
                 },
             currentChallenge =
                 if (solutions.size < challenges.size) {
-                    challenges[solutions.size]
+                    mapChallengeDtoToChallenge(challenges[solutions.size])
                 } else {
                     null
                 },
@@ -204,7 +119,9 @@ class GameRepository(
         return challenges
             .filter { challenge ->
                 challengeSolutions.any { it.challengeId == challenge.name }
-            }.mapNotNull { it.dictionaryItem }
+            }.mapNotNull { challenge ->
+                dictionaryItems.firstOrNull { challenge.dictionaryItem == it.name }
+            }
     }
 
     suspend fun getUnlockedCharacters(): List<HiraganaCharacter> {
@@ -212,7 +129,9 @@ class GameRepository(
         return challenges
             .filter { challenge ->
                 challengeSolutions.any { it.challengeId == challenge.name }
-            }.mapNotNull { it.newCharacter }
+            }.mapNotNull { challenge ->
+                hiraganaCharacters.firstOrNull { challenge.newCharacter == it.name }
+            }
     }
 
     suspend fun insertSolution(
@@ -228,12 +147,12 @@ class GameRepository(
     }
 
     // todo: conditional lambdas must be unwrapped somewhere here. A part of the Challenge model or something.
-    fun retrieveNextChallenge(currentChallengeId: String): Challenge? {
+    suspend fun retrieveNextChallenge(currentChallengeId: String): Challenge? {
         val indexOfCurrentChallenge = challenges.indexOfFirst { it.name == currentChallengeId }
         return if (indexOfCurrentChallenge == challenges.lastIndex) {
             null
         } else {
-            challenges[indexOfCurrentChallenge + 1]
+            mapChallengeDtoToChallenge(challenges[indexOfCurrentChallenge + 1])
         }
     }
 
@@ -241,13 +160,96 @@ class GameRepository(
         challengeSolutionDao.deleteAllSolutions()
     }
 
+    private suspend fun mapChallengeDtoToChallenge(challengeDto: ChallengeDto) =
+        Challenge(
+            name = challengeDto.name,
+            challengeAnswer = challengeAnswers.first { challengeDto.answer == it.name },
+            dictionaryItem =
+                if (challengeDto.dictionaryItem == null) {
+                    null
+                } else {
+                    dictionaryItems.first { challengeDto.dictionaryItem == it.name }
+                },
+            newCharacter =
+                if (challengeDto.newCharacter == null) {
+                    null
+                } else {
+                    hiraganaCharacters.first { challengeDto.newCharacter == it.name }
+                },
+            secondsToComplete = challengeDto.secondsToComplete,
+            uiComponents =
+                challengeDto.uiComponents.map { uiComponent ->
+                    when (uiComponent) {
+                        is HeadlineUiComponentDto -> {
+                            Headline(
+                                textResource = configMapper.mapHeadlineConfigIdToStringResource(uiComponent.properties.textId),
+                            )
+                        }
+                        is AnimationUiComponentDto -> {
+                            Animation(
+                                animationId = configMapper.mapAnimationConfigIdToFileName(uiComponent.properties.animationId),
+                            )
+                        }
+                        is DrawingChallengeUiComponentDto -> {
+                            DrawingChallenge(
+                                hintResource =
+                                    uiComponent.properties.hint?.let {
+                                        configMapper.mapHintConfigIdToDrawableResource(it)
+                                    },
+                                decoration =
+                                    if (uiComponent.properties.canvasDecoration == null) {
+                                        null
+                                    } else {
+                                        CanvasDecoration.entries.first {
+                                            it.configKey == uiComponent.properties.canvasDecoration
+                                        }
+                                    },
+                            )
+                        }
+                        is NewWordUiComponentDto -> {
+                            NewWord(
+                                word = dictionaryItems.first { it.name == uiComponent.properties.word },
+                            )
+                        }
+                        is TextUiComponentDto -> {
+                            Text(
+                                textResource = configMapper.mapTextConfigIdToStringResource(uiComponent.properties.textId),
+                            )
+                        }
+                        is ImageUiComponentDto -> {
+                            Image(
+                                link = uiComponent.properties.link,
+                                courtesy = uiComponent.properties.courtesy,
+                                imageResource = configMapper.mapImageIdToDrawableResource(uiComponent.properties.imageId),
+                                descriptionResource =
+                                    configMapper.mapImageIdToDescriptionResource(
+                                        uiComponent.properties.imageId,
+                                    ),
+                            )
+                        }
+                        is ConditionalTextUiComponentDto -> {
+                            Text(
+                                textResource =
+                                    configMapper.mapConditionalStringIdToResource(
+                                        if (mapChallengeIdToCondition(challengeDto.name).invoke()) {
+                                            uiComponent.properties.trueTextId
+                                        } else {
+                                            uiComponent.properties.falseTextId
+                                        },
+                                    ),
+                            )
+                        }
+                    }
+                },
+        )
+
     fun mapChallengeIdToCondition(challengeId: String): suspend () -> Boolean =
         when (challengeId) {
             "aoi_repetition" -> ::didUserVisitDictionaryBeforeCompletingChallenge
             else -> throw IllegalArgumentException("Can't find the lambda corresponding with the challenge id $challengeId")
         }
 
-    suspend fun didUserVisitDictionaryBeforeCompletingChallenge(): Boolean {
-        return true // todo
+    fun didUserVisitDictionaryBeforeCompletingChallenge(): Boolean {
+        return true // todo: real logic
     }
 }
