@@ -40,6 +40,7 @@ fun DictionaryScreen(
         },
     ) { innerPadding ->
 
+        // todo: add a link to each item to lead to actual dictionary (e.g. https://jisho.org/word/%E6%84%9B). These links are localisation-aware.
         val uiState = viewModel.uiState.collectAsStateWithLifecycle()
 
         LazyColumn(modifier = Modifier.padding(innerPadding)) {

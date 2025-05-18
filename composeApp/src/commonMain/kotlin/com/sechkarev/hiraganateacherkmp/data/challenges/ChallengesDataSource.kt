@@ -10,7 +10,6 @@ import kotlinx.serialization.modules.polymorphic
 import kotlinx.serialization.modules.subclass
 
 // todo: compose resources are used, while this class is in the data layer and shouldn't know about compose
-// todo: support conditional texts
 class ChallengesDataSource {
     suspend fun parseDictionaryItems(): List<DictionaryItemDto> =
         Json
@@ -40,6 +39,7 @@ class ChallengesDataSource {
                     subclass(NewWordUiComponentDto::class)
                     subclass(DrawingChallengeUiComponentDto::class)
                     subclass(ImageUiComponentDto::class)
+                    subclass(ConditionalTextUiComponentDto::class)
                 }
             }
         val json =
@@ -124,6 +124,18 @@ data class DrawingChallengeUiComponentDto(
 data class ImageUiComponentDto(
     val properties: ImageUiComponentProperties,
 ) : UiComponentDto()
+
+@Serializable
+@SerialName("conditional_text")
+data class ConditionalTextUiComponentDto(
+    val properties: ConditionalTextUiComponentProperties,
+) : UiComponentDto()
+
+@Serializable
+data class ConditionalTextUiComponentProperties(
+    val trueTextId: String,
+    val falseTextId: String,
+)
 
 @Serializable
 data class HeadlineUiComponentProperties(

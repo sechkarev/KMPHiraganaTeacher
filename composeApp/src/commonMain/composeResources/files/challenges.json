@@ -571,5 +571,18 @@
         "properties": {}
       }
     ]
+  },
+  {
+    "name": "aoi_repetition",
+    "answer": "AOI",
+    "uiComponents": [
+      {
+        "type": "conditional_text",
+        "properties": {
+          "trueTextId": "aoi_repetition_true_text",
+          "falseTextId": "aoi_repetition_false_text"
+        }
+      }
+    ]
   }
 ]

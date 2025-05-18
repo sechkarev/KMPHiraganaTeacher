@@ -27,6 +27,8 @@ import kmphiraganateacher.composeapp.generated.resources.challenge8_congratulati
 import kmphiraganateacher.composeapp.generated.resources.challenge8_task
 import kmphiraganateacher.composeapp.generated.resources.challenge9_congratulations
 import kmphiraganateacher.composeapp.generated.resources.challenge9_task
+import kmphiraganateacher.composeapp.generated.resources.challenge_aoi_repetition_no_dictionary
+import kmphiraganateacher.composeapp.generated.resources.challenge_aoi_repetition_with_dictionary
 import kmphiraganateacher.composeapp.generated.resources.challenge_aoi_task
 import kmphiraganateacher.composeapp.generated.resources.challenge_blue_house_remainder
 import kmphiraganateacher.composeapp.generated.resources.challenge_blue_house_task
@@ -151,5 +153,12 @@ class ConfigMapper {
             "AOI_green" -> Res.string.dictionary_word_aoi_green
             "AOI_blue" -> Res.string.dictionary_word_aoi_blue
             else -> throw IllegalArgumentException("Can't find a dictionary item corresponding with the name $dictionaryItemId")
+        }
+
+    fun mapConditionalStringIdToResource(conditionalStringId: String): StringResource =
+        when (conditionalStringId) {
+            "aoi_repetition_true_text" -> Res.string.challenge_aoi_repetition_no_dictionary
+            "aoi_repetition_false_text" -> Res.string.challenge_aoi_repetition_with_dictionary
+            else -> throw IllegalArgumentException("Can't find a string corresponding with the id $conditionalStringId")
         }
 }

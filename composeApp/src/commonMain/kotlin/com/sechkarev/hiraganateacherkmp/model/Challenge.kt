@@ -61,6 +61,10 @@ sealed interface UiComponent {
         val textResource: StringResource,
     ) : UiComponent
 
+    data class ConditionalText(
+        val textResource: suspend () -> StringResource,
+    ) : UiComponent
+
     data class Animation(
         val animationId: String, // todo: create a wrapper?.. idk
     ) : UiComponent

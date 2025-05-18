@@ -1,8 +1,8 @@
 package com.sechkarev.hiraganateacherkmp.domain
 
-import co.touchlab.kermit.Logger
 import com.sechkarev.hiraganateacherkmp.data.challenges.AnimationUiComponentDto
 import com.sechkarev.hiraganateacherkmp.data.challenges.ChallengesDataSource
+import com.sechkarev.hiraganateacherkmp.data.challenges.ConditionalTextUiComponentDto
 import com.sechkarev.hiraganateacherkmp.data.challenges.DrawingChallengeUiComponentDto
 import com.sechkarev.hiraganateacherkmp.data.challenges.HeadlineUiComponentDto
 import com.sechkarev.hiraganateacherkmp.data.challenges.ImageUiComponentDto
@@ -19,6 +19,7 @@ import com.sechkarev.hiraganateacherkmp.model.GameProgress
 import com.sechkarev.hiraganateacherkmp.model.HiraganaCharacter
 import com.sechkarev.hiraganateacherkmp.model.SolvedChallenge
 import com.sechkarev.hiraganateacherkmp.model.Stroke
+import com.sechkarev.hiraganateacherkmp.model.UiComponent
 import com.sechkarev.hiraganateacherkmp.model.UiComponent.Animation
 import com.sechkarev.hiraganateacherkmp.model.UiComponent.DrawingChallenge
 import com.sechkarev.hiraganateacherkmp.model.UiComponent.Headline
@@ -34,7 +35,7 @@ class GameRepository(
 ) {
     private var initialised = false
 
-    private lateinit var challenges: List<Challenge>
+    private lateinit var challenges: List<Challenge> // todo: keep the list of DTO, map when needed?
     private lateinit var hiraganaCharacters: List<HiraganaCharacter>
     private lateinit var challengeAnswers: List<ChallengeAnswer>
     private lateinit var dictionaryItems: List<DictionaryItem>
@@ -43,6 +44,7 @@ class GameRepository(
         if (initialised) {
             return
         }
+
         hiraganaCharacters =
             challengesDataSource
                 .parseHiraganaCharacters()
@@ -100,15 +102,17 @@ class GameRepository(
                         uiComponents =
                             challengeDto.uiComponents.map { uiComponent ->
                                 when (uiComponent) {
-                                    is HeadlineUiComponentDto ->
+                                    is HeadlineUiComponentDto -> {
                                         Headline(
                                             textResource = configMapper.mapHeadlineConfigIdToStringResource(uiComponent.properties.textId),
                                         )
-                                    is AnimationUiComponentDto ->
+                                    }
+                                    is AnimationUiComponentDto -> {
                                         Animation(
                                             animationId = configMapper.mapAnimationConfigIdToFileName(uiComponent.properties.animationId),
                                         )
-                                    is DrawingChallengeUiComponentDto ->
+                                    }
+                                    is DrawingChallengeUiComponentDto -> {
                                         DrawingChallenge(
                                             hintResource =
                                                 uiComponent.properties.hint?.let {
@@ -123,15 +127,18 @@ class GameRepository(
                                                     }
                                                 },
                                         )
-                                    is NewWordUiComponentDto ->
+                                    }
+                                    is NewWordUiComponentDto -> {
                                         NewWord(
                                             word = dictionaryItems.first { it.name == uiComponent.properties.word },
                                         )
-                                    is TextUiComponentDto ->
+                                    }
+                                    is TextUiComponentDto -> {
                                         Text(
                                             textResource = configMapper.mapTextConfigIdToStringResource(uiComponent.properties.textId),
                                         )
-                                    is ImageUiComponentDto ->
+                                    }
+                                    is ImageUiComponentDto -> {
                                         Image(
                                             link = uiComponent.properties.link,
                                             courtesy = uiComponent.properties.courtesy,
@@ -141,12 +148,25 @@ class GameRepository(
                                                     uiComponent.properties.imageId,
                                                 ),
                                         )
+                                    }
+                                    is ConditionalTextUiComponentDto -> {
+                                        UiComponent.ConditionalText(
+                                            textResource = {
+                                                configMapper.mapConditionalStringIdToResource(
+                                                    if (mapChallengeIdToCondition(challengeDto.name).invoke()) {
+                                                        uiComponent.properties.trueTextId
+                                                    } else {
+                                                        uiComponent.properties.falseTextId
+                                                    },
+                                                )
+                                            },
+                                        )
+                                    }
                                 }
                             },
                     )
                 }
 
-        Logger.i(null, "ChallengesDataSource") { dictionaryItems.joinToString() }
         initialised = true
     }
 
@@ -157,6 +177,8 @@ class GameRepository(
                 hiraganaCharacters.first { it.spelling == answerCharacter }.requiredStrokes
             }.sum()
 
+    // todo: conditional lambdas must be unwrapped somewhere here. A part of the Challenge model or something.
+    // todo: this method is too heavyweight. it needs to be used only once!
     suspend fun retrieveGameProgress(): GameProgress {
         val solutions = challengeSolutionDao.retrieveAllSolutions()
         return GameProgress(
@@ -177,6 +199,22 @@ class GameRepository(
         )
     }
 
+    suspend fun getUnlockedDictionaryItems(): List<DictionaryItem> {
+        val challengeSolutions = challengeSolutionDao.retrieveAllSolutions()
+        return challenges
+            .filter { challenge ->
+                challengeSolutions.any { it.challengeId == challenge.name }
+            }.mapNotNull { it.dictionaryItem }
+    }
+
+    suspend fun getUnlockedCharacters(): List<HiraganaCharacter> {
+        val challengeSolutions = challengeSolutionDao.retrieveAllSolutions()
+        return challenges
+            .filter { challenge ->
+                challengeSolutions.any { it.challengeId == challenge.name }
+            }.mapNotNull { it.newCharacter }
+    }
+
     suspend fun insertSolution(
         challengeId: String,
         solution: List<Stroke>,
@@ -189,6 +227,7 @@ class GameRepository(
         )
     }
 
+    // todo: conditional lambdas must be unwrapped somewhere here. A part of the Challenge model or something.
     fun retrieveNextChallenge(currentChallengeId: String): Challenge? {
         val indexOfCurrentChallenge = challenges.indexOfFirst { it.name == currentChallengeId }
         return if (indexOfCurrentChallenge == challenges.lastIndex) {
@@ -200,5 +239,15 @@ class GameRepository(
 
     suspend fun deleteAllSolutions() {
         challengeSolutionDao.deleteAllSolutions()
+    }
+
+    fun mapChallengeIdToCondition(challengeId: String): suspend () -> Boolean =
+        when (challengeId) {
+            "aoi_repetition" -> ::didUserVisitDictionaryBeforeCompletingChallenge
+            else -> throw IllegalArgumentException("Can't find the lambda corresponding with the challenge id $challengeId")
+        }
+
+    suspend fun didUserVisitDictionaryBeforeCompletingChallenge(): Boolean {
+        return true // todo
     }
 }

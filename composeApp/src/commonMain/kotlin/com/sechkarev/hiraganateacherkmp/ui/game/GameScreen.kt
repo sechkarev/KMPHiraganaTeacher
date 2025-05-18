@@ -173,6 +173,9 @@ private fun Challenge(
                         text = stringResource(it.textResource), // todo: add html tag support
                     )
                 }
+                is UiComponent.ConditionalText -> {
+                    // todo? I believe this is the wrong place.
+                }
                 is UiComponent.Image -> {
                     ImageWithSubtitle(
                         imageResource = it.imageResource,

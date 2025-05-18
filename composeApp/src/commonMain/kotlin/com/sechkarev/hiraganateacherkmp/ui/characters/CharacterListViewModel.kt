@@ -22,17 +22,7 @@ class CharacterListViewModel(
     val uiState: StateFlow<UiState> =
         _uiState
             .onStart {
-                _uiState.update {
-                    UiState(
-                        gridItems =
-                            putCharactersOnGrid(
-                                characters =
-                                    gameRepository.retrieveGameProgress().solvedChallenges.mapNotNull {
-                                        it.challenge.newCharacter
-                                    },
-                            ),
-                    )
-                }
+                _uiState.update { UiState(putCharactersOnGrid(gameRepository.getUnlockedCharacters())) }
             }.stateInWhileSubscribed(viewModelScope, UiState())
 
     private fun putCharactersOnGrid(characters: List<HiraganaCharacter>): List<HiraganaCharacterOnGrid> {

@@ -21,7 +21,6 @@ class DictionaryViewModel(
     val uiState: StateFlow<UiState> =
         _uiState
             .onStart {
-                val solvedChallenges = gameRepository.retrieveGameProgress().solvedChallenges
-                _uiState.update { UiState(solvedChallenges.mapNotNull { it.challenge.dictionaryItem }) }
+                _uiState.update { UiState(gameRepository.getUnlockedDictionaryItems()) }
             }.stateInWhileSubscribed(viewModelScope, UiState())
 }
