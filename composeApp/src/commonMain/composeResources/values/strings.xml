@@ -46,7 +46,7 @@
     <string name="challenge_o_repetition_task">One more.</string>
     <string name="challenge_aoi_task">Thank you. Now let’s combine this vocal with the ones you already know to learn new words. And let me tell you, this time it will get really interesting.\nWrite AOI.</string>
     <string name="challenge_blue_house_text">「あおい」means "blue".</string>
-    <string name="challenge_blue_house_task">Time to level up the game: you know your first word for colour, you know a couple of nouns, so it’s time to write your first phrase! 🎉\nHere’s the question. What is displayed on the picture below? Answer in Japanese, use exactly 10 strokes, and and don’t care about the whitespace. Just like in English, the adjective in Japanese precedes the noun.</string>
+    <string name="challenge_blue_house_task">Time to level up the game: you know your first word for colour, you know a couple of nouns, so it’s time to write your first phrase! 🎉\nHere’s the question. What is displayed on the picture below? Answer in Japanese, use exactly 10 strokes, and don’t care about the whitespace. Just like in English, the adjective in Japanese precedes the noun.</string>
     <string name="challenge_blue_house_remainder">No worries if you have forgotten the noun: you can always return to the main menu, open the dictionary and come back.</string>
     <string name="challenge_aoi_repetition_no_dictionary">You didn’t even need to use the dictionary! I applaud your memory – but if you do end up forgetting something, give it a visit. It’s got cool features!</string>
     <!-- todo: this string -->

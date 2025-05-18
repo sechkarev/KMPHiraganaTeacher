@@ -8,8 +8,10 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import kotlinx.serialization.modules.subclass
+import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 // todo: compose resources are used, while this class is in the data layer and shouldn't know about compose
+@OptIn(ExperimentalResourceApi::class)
 class ChallengesDataSource {
     suspend fun parseDictionaryItems(): List<DictionaryItemDto> =
         Json
