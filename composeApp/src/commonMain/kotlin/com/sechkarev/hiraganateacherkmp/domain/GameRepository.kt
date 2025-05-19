@@ -100,7 +100,6 @@ class GameRepository(
                 hiraganaCharacters.first { it.spelling == answerCharacter }.requiredStrokes
             }.sum()
 
-    // todo: conditional lambdas must be unwrapped somewhere here. A part of the Challenge model or something.
     suspend fun retrieveGameProgress(): GameProgress {
         val solutions = challengeSolutionDao.retrieveAllSolutions()
         return GameProgress(
@@ -153,7 +152,6 @@ class GameRepository(
         )
     }
 
-    // todo: conditional lambdas must be unwrapped somewhere here. A part of the Challenge model or something.
     suspend fun retrieveNextChallenge(currentChallengeId: String): Challenge? {
         val indexOfCurrentChallenge = challenges.indexOfFirst { it.name == currentChallengeId }
         return if (indexOfCurrentChallenge == challenges.lastIndex) {
