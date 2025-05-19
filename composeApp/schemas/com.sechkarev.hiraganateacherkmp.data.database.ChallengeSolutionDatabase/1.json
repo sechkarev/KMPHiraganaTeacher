@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "0814eac99332face8d3a87564d3e5522",
+    "identityHash": "c4835fd942d1f9c6b129faf59c4873e1",
     "entities": [
       {
         "tableName": "ChallengeSolutionEntity",
@@ -27,11 +27,41 @@
             "challengeId"
           ]
         }
+      },
+      {
+        "tableName": "UserEventEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `eventName` TEXT NOT NULL, `timestamp` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "eventName",
+            "columnName": "eventName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timestamp",
+            "columnName": "timestamp",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0814eac99332face8d3a87564d3e5522')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c4835fd942d1f9c6b129faf59c4873e1')"
     ]
   }
 }

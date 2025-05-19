@@ -9,4 +9,5 @@ actual val platformModule: Module =
     module {
         single { getDatabase() }
         factory { get<ChallengeSolutionDatabase>().challengeSolutionDao() }
+        factory { get<ChallengeSolutionDatabase>().userEventDao() }
     }

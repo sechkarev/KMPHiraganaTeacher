@@ -11,6 +11,8 @@ import com.sechkarev.hiraganateacherkmp.data.challenges.NewWordUiComponentDto
 import com.sechkarev.hiraganateacherkmp.data.challenges.TextUiComponentDto
 import com.sechkarev.hiraganateacherkmp.data.database.ChallengeSolutionDao
 import com.sechkarev.hiraganateacherkmp.data.database.ChallengeSolutionEntity
+import com.sechkarev.hiraganateacherkmp.data.database.UserEventDao
+import com.sechkarev.hiraganateacherkmp.data.database.UserEventEntity
 import com.sechkarev.hiraganateacherkmp.data.mapping.ConfigMapper
 import com.sechkarev.hiraganateacherkmp.model.CanvasDecoration
 import com.sechkarev.hiraganateacherkmp.model.Challenge
@@ -26,10 +28,15 @@ import com.sechkarev.hiraganateacherkmp.model.UiComponent.Headline
 import com.sechkarev.hiraganateacherkmp.model.UiComponent.Image
 import com.sechkarev.hiraganateacherkmp.model.UiComponent.NewWord
 import com.sechkarev.hiraganateacherkmp.model.UiComponent.Text
+import com.sechkarev.hiraganateacherkmp.model.UserEvent
 import kotlinx.serialization.json.Json
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
+@OptIn(ExperimentalTime::class)
 class GameRepository(
     private val challengeSolutionDao: ChallengeSolutionDao,
+    private val userEventDao: UserEventDao,
     private val challengesDataSource: ChallengesDataSource,
     private val configMapper: ConfigMapper,
 ) {
@@ -160,6 +167,16 @@ class GameRepository(
         challengeSolutionDao.deleteAllSolutions()
     }
 
+    suspend fun logUserEvent(userEvent: UserEvent) {
+        userEventDao.insertUserEvent(
+            UserEventEntity(
+                eventName = userEvent.name,
+                timestamp = Clock.System.now().epochSeconds,
+            ),
+        )
+    }
+
+    // We're mapping a DTO to the actual model only when it is required to take into account the data for conditionals.
     private suspend fun mapChallengeDtoToChallenge(challengeDto: ChallengeDto) =
         Challenge(
             name = challengeDto.name,
@@ -243,13 +260,21 @@ class GameRepository(
                 },
         )
 
-    fun mapChallengeIdToCondition(challengeId: String): suspend () -> Boolean =
+    private fun mapChallengeIdToCondition(challengeId: String): suspend () -> Boolean =
         when (challengeId) {
-            "aoi_repetition" -> ::didUserVisitDictionaryBeforeCompletingChallenge
+            "aoi_repetition" -> ::didUserVisitDictionaryWhileCompletingBlueHouseChallenge
             else -> throw IllegalArgumentException("Can't find the lambda corresponding with the challenge id $challengeId")
         }
 
-    fun didUserVisitDictionaryBeforeCompletingChallenge(): Boolean {
-        return true // todo: real logic
+    private suspend fun didUserVisitDictionaryWhileCompletingBlueHouseChallenge(): Boolean {
+        val openDictionaryEvent = userEventDao.retrieveLastEventByName("open_dictionary") ?: return false
+        val completeNewWordAoiChallengeEvent =
+            userEventDao.retrieveLastEventByName("beat_challenge_new_word_aoi")
+                ?: throw IllegalStateException("New word: aoi challenge must be completed already")
+        val completeBlueHouseChallengeEvent =
+            userEventDao.retrieveLastEventByName("beat_challenge_blue_house")
+                ?: throw IllegalStateException("Blue house challenge must be completed already")
+        return (openDictionaryEvent.timestamp > completeNewWordAoiChallengeEvent.timestamp)
+            .and(openDictionaryEvent.timestamp < completeBlueHouseChallengeEvent.timestamp)
     }
 }

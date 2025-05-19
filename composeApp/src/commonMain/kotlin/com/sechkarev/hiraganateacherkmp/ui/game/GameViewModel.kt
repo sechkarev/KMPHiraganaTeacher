@@ -8,6 +8,7 @@ import com.sechkarev.hiraganateacherkmp.model.GameProgress
 import com.sechkarev.hiraganateacherkmp.model.Point
 import com.sechkarev.hiraganateacherkmp.model.SolvedChallenge
 import com.sechkarev.hiraganateacherkmp.model.Stroke
+import com.sechkarev.hiraganateacherkmp.model.UserEvent
 import com.sechkarev.hiraganateacherkmp.textrecognition.TextRecognizer2
 import com.sechkarev.hiraganateacherkmp.tts.TextToSpeechEngine
 import com.sechkarev.hiraganateacherkmp.ui.utils.stateInWhileSubscribed
@@ -67,6 +68,7 @@ class GameViewModel(
     val gameUiState =
         _gameUiState
             .onStart {
+                gameRepository.logUserEvent(UserEvent.ContinueGame)
                 val gameProgress = gameRepository.retrieveGameProgress()
                 _gameUiState.update {
                     GameUiState(
@@ -116,6 +118,7 @@ class GameViewModel(
                         challengeId = currentChallenge.name,
                         solution = _gameUiState.value.drawnStrokes,
                     )
+                    gameRepository.logUserEvent(UserEvent.BeatChallenge(currentChallenge.name))
                     val nextChallenge = gameRepository.retrieveNextChallenge(currentChallenge.name)
                     _gameUiState.update {
                         GameUiState(
