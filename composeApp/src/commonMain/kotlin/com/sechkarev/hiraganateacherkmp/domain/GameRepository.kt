@@ -83,6 +83,7 @@ class GameRepository(
                         name = it.name,
                         original = it.original,
                         translation = configMapper.mapDictionaryItemIdToTranslation(it.name),
+                        onlineDictionaryLink = configMapper.mapDictionaryItemIdToOnlineDictionaryLink(it.name),
                     )
                 }
 

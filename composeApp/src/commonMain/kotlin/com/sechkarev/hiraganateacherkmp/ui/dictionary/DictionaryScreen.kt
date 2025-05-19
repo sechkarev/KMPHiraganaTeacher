@@ -1,5 +1,6 @@
 package com.sechkarev.hiraganateacherkmp.ui.dictionary
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,11 +15,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sechkarev.hiraganateacherkmp.ui.components.TopBarWithBackIcon
 import kmphiraganateacher.composeapp.generated.resources.Res
+import kmphiraganateacher.composeapp.generated.resources.dictionary_screen_name
 import kmphiraganateacher.composeapp.generated.resources.dictionary_screen_subtitle
 import kmphiraganateacher.composeapp.generated.resources.dictionary_screen_title
 import org.jetbrains.compose.resources.stringResource
@@ -34,13 +37,11 @@ fun DictionaryScreen(
         modifier = modifier.fillMaxSize(),
         topBar = {
             TopBarWithBackIcon(
-                title = stringResource(Res.string.dictionary_screen_title),
+                title = stringResource(Res.string.dictionary_screen_name),
                 onBackClick = onBackClick,
             )
         },
     ) { innerPadding ->
-
-        // todo: add a link to each item to lead to actual dictionary (e.g. https://jisho.org/word/%E6%84%9B). These links are localisation-aware.
         val uiState = viewModel.uiState.collectAsStateWithLifecycle()
 
         LazyColumn(modifier = Modifier.padding(innerPadding)) {
@@ -49,25 +50,23 @@ fun DictionaryScreen(
             item {
                 Spacer(Modifier.height(24.dp))
                 Text(
-                    text = stringResource(Res.string.dictionary_screen_title),
+                    text = stringResource(Res.string.dictionary_screen_title, dictionaryItems.size),
                     style = MaterialTheme.typography.headlineLarge,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth(),
                 )
                 Text(
-                    text =
-                        stringResource(
-                            Res.string.dictionary_screen_subtitle,
-                            dictionaryItems.size,
-                        ),
-                    style = MaterialTheme.typography.bodyLarge,
+                    text = stringResource(Res.string.dictionary_screen_subtitle),
+                    style = MaterialTheme.typography.bodySmall,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth(),
                 )
                 Spacer(Modifier.height(24.dp))
             }
             items(dictionaryItems) { dictionaryItem ->
-                Row {
+                val uriHandler = LocalUriHandler.current
+                val onlineDictionaryLink = stringResource(dictionaryItem.onlineDictionaryLink)
+                Row(modifier = Modifier.clickable { uriHandler.openUri(onlineDictionaryLink) }) {
                     Spacer(Modifier.width(16.dp))
                     Text(text = dictionaryItem.original, style = MaterialTheme.typography.headlineSmall)
                     Spacer(Modifier.weight(1f))

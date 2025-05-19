@@ -69,8 +69,9 @@
     <string name="credits_app_icon">App icon:</string>
     <string name="credits_app_icon_wikimedia">Wikimedia</string>
     <string name="courtesy_image">Courtesy: %1$s</string>
-    <string name="dictionary_screen_title">Dictionary</string>
-    <string name="dictionary_screen_subtitle">Learned words: %1$d</string>
+    <string name="dictionary_screen_name">Learned words</string>
+    <string name="dictionary_screen_title">Learned words: %1$d</string>
+    <string name="dictionary_screen_subtitle">Tap on words to open them in an online dictionary</string>
     <string name="characters_screen_title">Hiragana</string>
     <string name="characters_screen_subtitle">Learned characters: %1$d out of %2$d</string>
     <string name="dictionary_word_ii">Good 👍</string>
@@ -84,6 +85,14 @@
     <string name="dictionary_word_aoi_green">Green 🟢</string>
     <string name="dictionary_word_aoi_blue">Blue 🔵</string>
     <string name="dictionary_word_new">New word!</string>
+    <string name="dictionary_link_ii">https://jisho.org/word/%E8%89%AF%E3%81%84</string>
+    <string name="dictionary_link_ie">https://jisho.org/word/%E5%AE%B6</string>
+    <string name="dictionary_link_iie">https://jisho.org/word/%E5%90%A6-1</string>
+    <string name="dictionary_link_hai">https://jisho.org/word/%E3%81%AF%E3%81%84</string>
+    <string name="dictionary_link_hae">https://jisho.org/word/%E8%9D%BF</string>
+    <string name="dictionary_link_ai">https://jisho.org/word/%E6%84%9B</string>
+    <string name="dictionary_link_ao">https://jisho.org/word/%E9%9D%92</string>
+    <string name="dictionary_link_aoi">https://jisho.org/word/%E9%9D%92%E3%81%84</string>
     <string name="accessibility_return_to_main_menu_button">Return to main menu</string>
     <string name="timer_idle">Start drawing!</string>
     <string name="timer_recognition_in_progress">Recognising the text…</string>

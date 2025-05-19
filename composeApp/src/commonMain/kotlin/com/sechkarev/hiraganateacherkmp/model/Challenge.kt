@@ -17,6 +17,7 @@ data class DictionaryItem(
     val name: String,
     val original: String,
     val translation: StringResource,
+    val onlineDictionaryLink: StringResource,
 )
 
 sealed interface HiraganaCharacterOnGrid {

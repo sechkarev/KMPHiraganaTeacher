@@ -41,6 +41,14 @@ import kmphiraganateacher.composeapp.generated.resources.challenge_ii_task
 import kmphiraganateacher.composeapp.generated.resources.challenge_o_introduction_task
 import kmphiraganateacher.composeapp.generated.resources.challenge_o_introduction_text
 import kmphiraganateacher.composeapp.generated.resources.challenge_o_repetition_task
+import kmphiraganateacher.composeapp.generated.resources.dictionary_link_ai
+import kmphiraganateacher.composeapp.generated.resources.dictionary_link_ao
+import kmphiraganateacher.composeapp.generated.resources.dictionary_link_aoi
+import kmphiraganateacher.composeapp.generated.resources.dictionary_link_hae
+import kmphiraganateacher.composeapp.generated.resources.dictionary_link_hai
+import kmphiraganateacher.composeapp.generated.resources.dictionary_link_ie
+import kmphiraganateacher.composeapp.generated.resources.dictionary_link_ii
+import kmphiraganateacher.composeapp.generated.resources.dictionary_link_iie
 import kmphiraganateacher.composeapp.generated.resources.dictionary_word_ai
 import kmphiraganateacher.composeapp.generated.resources.dictionary_word_ao_blue
 import kmphiraganateacher.composeapp.generated.resources.dictionary_word_ao_green
@@ -153,6 +161,21 @@ class ConfigMapper {
             "AOI_green" -> Res.string.dictionary_word_aoi_green
             "AOI_blue" -> Res.string.dictionary_word_aoi_blue
             else -> throw IllegalArgumentException("Can't find a dictionary item corresponding with the name $dictionaryItemId")
+        }
+
+    fun mapDictionaryItemIdToOnlineDictionaryLink(dictionaryItemId: String): StringResource =
+        when (dictionaryItemId) {
+            "II" -> Res.string.dictionary_link_ii
+            "IE" -> Res.string.dictionary_link_ie
+            "IIE" -> Res.string.dictionary_link_iie
+            "HAI" -> Res.string.dictionary_link_hai
+            "HAE" -> Res.string.dictionary_link_hae
+            "AI" -> Res.string.dictionary_link_ai
+            "AO_green" -> Res.string.dictionary_link_ao
+            "AO_blue" -> Res.string.dictionary_link_ao
+            "AOI_green" -> Res.string.dictionary_link_aoi
+            "AOI_blue" -> Res.string.dictionary_link_aoi
+            else -> throw IllegalArgumentException("Can't find a dictionary link corresponding with the name $dictionaryItemId")
         }
 
     fun mapConditionalStringIdToResource(conditionalStringId: String): StringResource =
